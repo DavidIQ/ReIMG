@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml-stylesheet type="text/xsl" href="./modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http
+://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.3.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+
+		<title lang="en-gb">ReIMG Image Resizer</title>
+
+		<description lang="en-gb">Update from version 1.0.0 to 1.0.1.</description>
+
+		<author-notes lang="en-gb">Use this MODX file if you want to update to version 1.0.1 when you already have version 1.0.0 up and running.</author-notes>
+
+		<author-group>
+			<author>
+				<realname>David Colon</realname>
+				<username>DavidIQ</username>
+				<email>davidiq@phpbb.com</email>
+				<homepage>http://phpbb.davidiq.com</homepage>
+			</author>
+		</author-group>
+
+		<mod-version>1.0.2</mod-version>
+
+		<installation>
+			<level>easy</level>
+			<time>60</time>
+			<target-version>3.0.5</target-version>
+		</installation>
+		
+		<link-group>
+			<link type="parent" lang="en-gb" href="../install.xml">Main Installer</link>
+		</link-group>
+	</header>
+
+	<action-group>
+		<copy>
+			<file from="root/install_reimg.php" to="install_reimg.php" />
+			<file from="root/reimg/*.*" to="reimg/*.*" />
+			<file from="root/language/en/mods/reimg.php" to="language/en/mods/reimg.php" />
+			<file from="root/styles/prosilver/imageset/icon_reimg_loading.gif" to="styles/prosilver/imageset/icon_reimg_loading.gif" />
+			<file from="root/styles/prosilver/template/reimg_content.html" to="styles/prosilver/template/reimg_content.html" />
+		</copy>
+
+		<open src="includes/functions.php">
+			<edit>
+				<find><![CDATA[		'S_REIMG_ZOOM'			=> ($config['reimg_zoom'] == '_exturl') ? '_blank' : ((substr($config['reimg_zoom'], 0, 8) == '_litebox') ? '_litebox' : $config['reimg_zoom']),]]></find>
+				<action type="replace-with"><![CDATA[		'REIMG_LOADING_IMG_SRC'		=> $user->img('icon_reimg_loading', '', false, '', 'src'),
+		'REIMG_LOADING_IMG_WIDTH'	=> $user->img('icon_reimg_loading', '', false, '', 'width'),
+		'REIMG_LOADING_IMG_HEIGHT'	=> $user->img('icon_reimg_loading', '', false, '', 'height'),
+		'S_REIMG_BUTTON'			=> (substr($config['reimg_link'], 0, 6) == 'button') ? 1 : 0,
+		'S_REIMG_LINK'				=> (substr($config['reimg_link'], -4) == 'link') ? 1 : 0,
+		'S_REIMG_ZOOM'				=> (substr($config['reimg_zoom'], 0, 8) == '_litebox') ? '_litebox' : $config['reimg_zoom'],]]></action>
+			</edit>
+		</open>
+		
+		<open src="includes/functions_content.php">
+			<edit>
+				<comment lang="en-gb">This edit is no longer needed.</comment>
+				<find><![CDATA[			'REIMG_PROPERTIES'	=> reimg_properties(),]]></find>
+				<action type="replace-with"></action>
+			</edit>
+			<edit>
+				<comment lang="en-gb">This edit is no longer needed.</comment>
+				<find><![CDATA[		$template->assign_vars(array('S_REIMG' => ($config['reimg_max_width'] || $config['reimg_max_height'] || $config['reimg_rel_width']) ? 1 : 0));]]></find>
+				<action type="replace-with"></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'attachment_tpl'	=> 'attachment.html')
+		);
+	}]]></find>
+				<action type="after-add"><![CDATA[	$template->assign_vars(array(
+		'S_REIMG'			=> ($config['reimg_max_width'] || $config['reimg_max_height'] || $config['reimg_rel_width']) ? 1 : 0,
+		'REIMG_PROPERTIES'	=> reimg_properties(),
+	));]]></action>
+			</edit>
+		</open>
+		
+		<open src="includes/acp/acp_board.php">
+			<edit>
+				<find><![CDATA[						'legend3'				=> 'REIMG_SETTINGS',]]></find>
+				<action type="replace-with"><![CDATA[						'legend_reimg'			=> 'REIMG_SETTINGS',
+]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[						'reimg_ignore_sig_img'	=> array('lang' => 'REIMG_IGNORE_SIG_IMG',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),]]></find>
+				<action type="after-add"><![CDATA[						'reimg_link'			=> array('lang' => 'REIMG_LINK_METHOD',		'validate' => 'string',	'type' => 'select', 'method' => 'select_reimg_link_method', 'explain' => true),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[	/**
+	* Select resized image zoom method
+	*/]]></find>
+				<action type="before-add"><![CDATA[	/**
+	* Select resized image link method
+	*/
+	function select_reimg_link_method($selected_value, $key)
+	{
+		global $user;
+
+		$link_method_ary = array('button' => 'REIMG_LINK_BUTTON', 'link' => 'REIMG_LINK_IMAGE', 'button_link' => 'REIMG_LINK_BOTH');
+		$link_options = '';
+		foreach ($link_method_ary as $link_mehod => $lang)
+		{
+			$selected = ($selected_value == $link_mehod) ? ' selected="selected"' : '';
+			$link_options .= '<option value="' . $link_mehod . '"' . $selected . '>' . $user->lang[$lang] . '</option>';
+		}
+
+		return $link_options;
+	}
+]]></action>
+			</edit>
+		</open>
+		
+		<open src="includes/acp/acp_styles.php">
+			<edit>
+				<find>				'icon_reimg_zoom_in', 'icon_reimg_zoom_out',</find>
+				<action type="replace-with">				'icon_reimg_loading', 'icon_reimg_zoom_in', 'icon_reimg_zoom_out',</action>
+			</edit>
+		</open>
+		
+		<open src="styles/prosilver/imageset/imageset.cfg">
+			<edit>
+				<find>img_icon_reimg_zoom_in = icon_reimg_zoom_in.gif*20*20
+img_icon_reimg_zoom_out = icon_reimg_zoom_out.gif*20*20</find>
+				<action type="before-add">img_icon_reimg_loading = icon_reimg_loading.gif*16*16</action>
+			</edit>
+		</open>
+		
+		<open src="styles/prosilver/template/attachment.html">
+			<edit>
+				<find><![CDATA[			<dt class="attach-image"<!-- IF S_REIMG --> style="overflow: hidden; max-height: none;"<!-- ENDIF -->><img src="{_file.U_INLINE_LINK}" alt="{_file.DOWNLOAD_NAME}" <!-- IF S_REIMG -->style="border: none;" {_file.REIMG_PROPERTIES}<!-- ELSE -->onclick="viewableArea(this);"<!-- ENDIF --> /></dt>]]></find>
+				<inline-edit>
+					<inline-find>{_file.REIMG_PROPERTIES}</inline-find>
+					<inline-action type="replace-with">{REIMG_PROPERTIES}</inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		
+		<diy-instructions lang="en-gb">Open your browser and navigate to your forum.  Once there put install_reimg.php in the URL and delete once process completes.  Remember to refresh the prosilver template and imageset, and purge the cache.</diy-instructions>
+	</action-group>
+</mod>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml-stylesheet type="text/xsl" href="./modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http
+://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.3.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+
+		<title lang="en-gb">ReIMG Image Resizer</title>
+
+		<description lang="en-gb">subSilver2 update from version 1.0.0 to 1.0.1.</description>
+
+		<author-notes lang="en-gb">Use this MODX file if you want to update subsilver2 to version 1.0.1 when you already have version 1.0.0 up and running.</author-notes>
+
+		<author-group>
+			<author>
+				<realname>David Colon</realname>
+				<username>DavidIQ</username>
+				<email>davidiq@phpbb.com</email>
+				<homepage>http://phpbb.davidiq.com</homepage>
+			</author>
+		</author-group>
+
+		<mod-version>1.0.2</mod-version>
+
+		<installation>
+			<level>easy</level>
+			<time>60</time>
+			<target-version>3.0.5</target-version>
+		</installation>
+		
+		<link-group>
+			<link type="parent" lang="en-gb" href="../install.xml">Main Installer</link>
+		</link-group>
+	</header>
+
+	<action-group>
+		<copy>
+			<file from="root/styles/subsilver2/imageset/icon_reimg_loading.gif" to="styles/subsilver2/imageset/icon_reimg_loading.gif" />
+			<file from="root/styles/subsilver2/template/reimg_content.html" to="styles/subsilver2/template/reimg_content.html" />
+		</copy>
+
+		<open src="styles/subsilver2/imageset/imageset.cfg">
+			<edit>
+				<find><![CDATA[img_icon_reimg_zoom_in = icon_reimg_zoom_in.gif*15*18
+img_icon_reimg_zoom_out = icon_reimg_zoom_out.gif*15*18]]></find>
+				<action type="before-add"><![CDATA[img_icon_reimg_loading = icon_reimg_loading.gif*16*16]]></action>
+			</edit>
+		</open>
+		
+		<open src="styles/subsilver2/template/attachment.html">
+			<edit>
+				<find><![CDATA[			<img src="{_file.U_INLINE_LINK}" alt="{_file.DOWNLOAD_NAME}"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[{_file.REIMG_PROPERTIES}]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[{REIMG_PROPERTIES}]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		
+	</action-group>
+</mod>
