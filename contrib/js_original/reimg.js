@@ -7,7 +7,7 @@
 * http://www.davidiq.com/
 */
 
-var reimg_version = 1.000002; // 1.0.2
+var reimg_version = 1.000003; // 1.0.3
 
 
 /* To use this script you need to define the following javascript variables
@@ -273,7 +273,10 @@ defaults to 0. During the 1st pass (pass level 0) images are resized when
 onload fires, but only if the image dimensions are known at that moment. If
 the dimensions are not known, then the image is pushed unto the to-do list,
 so we can retry to resize the image during the 2nd pass (pass level 1). The
-2nd pass starts after the full HTML document has loaded. */
+2nd pass starts after the full HTML document has loaded.  There is a third
+method in place to make an AJAX call to a PHP file in order to retrieve the
+dimensions as a last resort.  THis usually happens when images are between
+another div or span. */
 
 reimg_toDo = null;
 
@@ -324,6 +327,20 @@ function reimg_resize(img, realWidth, realHeight, passLevel)
 	// Fetch the real (full) image dimensions.
 	var width = img.width;
 	var height = img.height;
+
+	//Still don't know the image dimensions? Let's try using PHP via AJAX as a last resort...
+	if (!(width && height) && passLevel >= 1 && reimg_ajax_url && img.src)
+	{
+		var dimensions = get_dimensions_ajax(img.src);
+		if (dimensions)
+		{
+			if (dimensions.length == 2)
+			{
+				realWidth = width = dimensions[0];
+				realHeight = height = dimensions[1];
+			}
+		}
+	}
 
 	// Skip this image if the dimensions couldn't be determined at this
 	// moment. The image may still be resizes later on during the 2nd pass.
@@ -382,8 +399,18 @@ function reimg_resize(img, realWidth, realHeight, passLevel)
 	if (window.reimg_swapPortrait && height > width)
 	{
 		swap = true;
-		width = img.height;
-		height = img.width;
+		if (!(img.height && img.width))
+		{
+			var width_tmp = width;
+			var height_tmp = height;
+			width = height_tmp;
+			height = width_tmp;
+		}
+		else
+		{
+			width = img.height;
+			height = img.width;
+		}
 	}
 	else
 	{
@@ -697,6 +724,51 @@ function reimg_onLoad(e)
 	}
 
 	return true;
+}
+
+function get_dimensions_ajax(imgsrc)
+{
+	var returnary = false;
+	var dimensions_request = false;
+
+	if (window.XMLHttpRequest)
+	{
+		dimensions_request = new XMLHttpRequest();
+	}
+	else if (window.ActiveXObject)
+	{
+		try
+		{
+			dimensions_request = new ActiveXObject("Msxml2.XMLHTTP");
+		}
+		catch (e)
+		{
+			try
+			{
+				dimensions_request = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch (e)
+			{}
+		}
+	}
+	if (!dimensions_request)
+	{
+		return false;
+	}
+	dimensions_request.onreadystatechange = function () {
+		if (dimensions_request.readyState == 4)
+		{
+			if (dimensions_request.status == 200)
+			{
+				//If we got a response back we split and return it
+				returnary = dimensions_request.responseText.split('||');
+			}
+		}
+	};
+	dimensions_request.open('GET', reimg_ajax_url + '&img=' + escape(imgsrc), false);
+	dimensions_request.send(null);
+
+	return returnary;
 }
 
 

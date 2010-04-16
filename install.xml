@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="./modx.prosilver.en.xsl"?>
 <!--For security purposes, please check: http
 ://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
-<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.3.xsd">
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
 	<header>
 	
 		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
@@ -61,12 +61,12 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 			</author>
 		</author-group>
 		
-		<mod-version>1.0.2</mod-version>
+		<mod-version>1.0.3</mod-version>
 		
 		<installation>
 			<level>intermediate</level>
 			<time>1200</time>
-			<target-version>3.0.6</target-version>
+			<target-version>3.0.67-pl1</target-version>
 		</installation>
 
 		<history>
@@ -212,14 +212,23 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 					<change>Change a find for 3.0.6</change>
 				</changelog>
 			</entry>
+			<entry>
+				<date>2010-04-16</date>
+				<rev-version>1.0.3</rev-version>
+				<changelog lang="en-gb">
+					<change>When all else fails use AJAX to get the image dimensions.</change>
+				</changelog>
+			</entry>
 		</history>
 		
 		<link-group>
 			<link type="template" lang="en-gb" href="subsilver2.xml">subsilver2 Edits</link>
 			<link type="contrib" lang="en-gb" href="./contrib/update_to_1_0_1.xml">Update to 1.0.1</link>
 			<link type="contrib" lang="en-gb" href="./contrib/update_to_1_0_2.xml">Update to 1.0.2</link>
+			<link type="contrib" lang="en-gb" href="./contrib/update_to_1_0_3.xml">Update to 1.0.3</link>
 			<link type="contrib" lang="en-gb" href="./contrib/subsilver2_update_to_1_0_1.xml">Update subsilver2 to 1.0.1</link>
 			<link type="contrib" lang="en-gb" href="./contrib/subsilver2_update_to_1_0_2.xml">Update subsilver2 to 1.0.2</link>
+			<link type="contrib" lang="en-gb" href="./contrib/subsilver2_update_to_1_0_3.xml">Update subsilver2 to 1.0.3</link>
 			<link type="language" lang="en-gb" href="./contrib/es.xml">Install Spanish</link>
 			<link type="language" lang="en-gb" href="./contrib/hr.xml">Install Croatian</link>
 			<link type="language" lang="en-gb" href="./contrib/nl.xml">Install Dutch</link>
@@ -230,7 +239,10 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 
 		<copy>
 			<file from="root/install_reimg.php" to="install_reimg.php" />
-			<file from="root/reimg/*.*" to="reimg/*.*" />
+			<file from="root/reimg/index.htm" to="reimg/index.htm" />
+			<file from="root/reimg/litebox.js" to="reimg/litebox.js" />
+			<file from="root/reimg/reimg.js" to="reimg/reimg.js" />
+			<file from="root/reimg/reimg_ajax.php" to="reimg/reimg_ajax.php" />
 			<file from="root/language/en/mods/reimg.php" to="language/en/mods/reimg.php" />
 			<file from="root/styles/prosilver/imageset/icon_reimg_zoom_in.gif" to="styles/prosilver/imageset/icon_reimg_zoom_in.gif" />
 			<file from="root/styles/prosilver/imageset/icon_reimg_zoom_out.gif" to="styles/prosilver/imageset/icon_reimg_zoom_out.gif" />
@@ -299,6 +311,7 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 		'REIMG_ZOOM_OUT_IMG_WIDTH'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'width'),
 		'REIMG_ZOOM_OUT_IMG_HEIGHT'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'height'),
 		'REIMG_PROPERTIES'			=> reimg_properties(),
+		'REIMG_AJAX_URL'			=> append_sid("{$board_url}reimg/reimg_ajax.$phpEx", "1=1"),
 ]]></action>
 			</edit>
 			<edit>
@@ -518,6 +531,9 @@ img_icon_reimg_zoom_out = icon_reimg_zoom_out.gif*20*20]]></action>
 			</edit>
 		</open>
 
-		<diy-instructions lang="en-gb">Open your browser and navigate to your forum.  Once there put install_reimg.php in the URL and delete once process completes.  Remember to refresh the prosilver template and imageset, and purge the cache.</diy-instructions>
+		<php-installer>install_reimg.php</php-installer>
+
+		<diy-instructions lang="en-gb">Remember to refresh your template and imageset and purge the cache.</diy-instructions>
+
 	</action-group>
 </mod>
