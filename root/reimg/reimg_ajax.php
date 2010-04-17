@@ -10,10 +10,7 @@ $phpbb_root_path = '../';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
 
-// Start session management
-$user->session_begin();
-$auth->acl($user->data);
-$user->setup();
+//Session management not needed.  We're only returning image height and width
 
 $width = 0;
 $height = 0;

@@ -45,7 +45,7 @@
 		<open src="includes/functions.php">
 			<edit>
 				<find><![CDATA[		'REIMG_PROPERTIES'			=> reimg_properties(),]]></find>
-				<action type="after-add"><![CDATA[		'REIMG_AJAX_URL'			=> append_sid("{$board_url}reimg/reimg_ajax.$phpEx", "1=1"),]]></action>
+				<action type="after-add"><![CDATA[		'REIMG_AJAX_URL'			=> "{$board_url}reimg/reimg_ajax.$phpEx",]]></action>
 			</edit>
 		</open>
 

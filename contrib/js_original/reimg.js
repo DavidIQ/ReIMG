@@ -765,7 +765,7 @@ function get_dimensions_ajax(imgsrc)
 			}
 		}
 	};
-	dimensions_request.open('GET', reimg_ajax_url + '&img=' + escape(imgsrc), false);
+	dimensions_request.open('GET', reimg_ajax_url + '?img=' + escape(imgsrc), false);
 	dimensions_request.send(null);
 
 	return returnary;

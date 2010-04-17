@@ -311,7 +311,7 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 		'REIMG_ZOOM_OUT_IMG_WIDTH'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'width'),
 		'REIMG_ZOOM_OUT_IMG_HEIGHT'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'height'),
 		'REIMG_PROPERTIES'			=> reimg_properties(),
-		'REIMG_AJAX_URL'			=> append_sid("{$board_url}reimg/reimg_ajax.$phpEx", "1=1"),
+		'REIMG_AJAX_URL'			=> "{$board_url}reimg/reimg_ajax.$phpEx",
 ]]></action>
 			</edit>
 			<edit>
