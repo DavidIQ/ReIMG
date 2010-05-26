@@ -8,7 +8,7 @@
 define('IN_PHPBB', true);
 $phpbb_root_path = '../';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
-include($phpbb_root_path . 'common.' . $phpEx);
+include($phpbb_root_path . 'includes/functions.' . $phpEx);
 
 //Session management not needed.  We're only returning image height and width
 
