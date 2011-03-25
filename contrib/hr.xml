@@ -24,7 +24,7 @@
 		<installation>
 			<level>easy</level>
 			<time>60</time>
-			<target-version>3.0.7-pl1</target-version>
+			<target-version>3.0.8</target-version>
 		</installation>
 		
 		<link-group>

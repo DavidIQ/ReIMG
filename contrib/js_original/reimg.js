@@ -275,7 +275,7 @@ the dimensions are not known, then the image is pushed unto the to-do list,
 so we can retry to resize the image during the 2nd pass (pass level 1). The
 2nd pass starts after the full HTML document has loaded.  There is a third
 method in place to make an AJAX call to a PHP file in order to retrieve the
-dimensions as a last resort.  THis usually happens when images are between
+dimensions as a last resort.  This usually happens when images are between
 another div or span. */
 
 reimg_toDo = null;

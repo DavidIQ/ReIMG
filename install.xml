@@ -66,7 +66,7 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 		<installation>
 			<level>intermediate</level>
 			<time>1200</time>
-			<target-version>3.0.67-pl1</target-version>
+			<target-version>3.0.8</target-version>
 		</installation>
 
 		<history>
@@ -232,6 +232,8 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 			<link type="language" lang="en-gb" href="./contrib/es.xml">Install Spanish</link>
 			<link type="language" lang="en-gb" href="./contrib/hr.xml">Install Croatian</link>
 			<link type="language" lang="en-gb" href="./contrib/nl.xml">Install Dutch</link>
+			<link type="language" lang="en-gb" href="./contrib/de.xml">Install German</link>
+			<link type="language" lang="en-gb" href="./contrib/it.xml">Install Italian</link>
 		</link-group>
 	</header>
 

@@ -8,7 +8,7 @@
 
 		<title lang="en-gb">ReIMG Image Resizer</title>
 
-		<description lang="en-gb">Install Spanish language for ReIMG Image Resizer MOD</description>
+		<description lang="en-gb">Install German language for ReIMG Image Resizer MOD</description>
 
 		<author-group>
 			<author>
@@ -34,7 +34,7 @@
 
 	<action-group>
 		<copy>
-			<file from="root/language/es/mods/reimg.php" to="language/es/mods/reimg.php" />
+			<file from="root/language/de/mods/reimg.php" to="language/de/mods/reimg.php" />
 		</copy>
 
 	</action-group>
