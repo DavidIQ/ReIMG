@@ -1,67 +1,58 @@
 <?php
 /**
 *
-* @package ReIMG Resizer MOD
-* @version $Id: install_reimg.php 2009-08-18 12:00:00Z DavidIQ $
-* @copyright (c) 2009 DavidIQ
+* @author DavidIQ (David Colon) davidiq@phpbb.com
+* @package umil
+* @copyright (c) 2011 DavidIQ
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */
 
+/**
+* @ignore
+*/
+define('UMIL_AUTO', true);
 define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
-
-// Start session management
 $user->session_begin();
 $auth->acl($user->data);
 $user->setup();
 
-$message = array();
-
-if (!isset($config['reimg_max_width']))
+if (!file_exists($phpbb_root_path . 'umil/umil_auto.' . $phpEx))
 {
-	set_config('reimg_max_width', '640');
-	$message[] = 'Image maximum width setting added';
-}
-if (!isset($config['reimg_max_height']))
-{
-	set_config('reimg_max_height', '480');
-	$message[] = 'Image maximum height setting added';
-}
-if (!isset($config['reimg_rel_width']))
-{
-	set_config('reimg_rel_width', '0');
-	$message[] = 'Image maximum relative width setting added';
-}
-if (!isset($config['reimg_swap_portrait']))
-{
-	set_config('reimg_swap_portrait', '1');
-	$message[] = 'Image portrait setting added';
-}
-if (!isset($config['reimg_zoom']))
-{
-	set_config('reimg_zoom', '_litebox');
-	$message[] = 'Image zoom method added (default is Litebox)';
-}
-if (!isset($config['reimg_ignore_sig_img']))
-{
-	set_config('reimg_ignore_sig_img', '0');
-	$message[] = 'Ignore signature images setting added';
-}
-if (!isset($config['reimg_link']))
-{
-	set_config('reimg_link', 'button_link');
-	$message[] = 'Link type setting added';
+	trigger_error('Please download the latest UMIL (Unified MOD Install Library) from: <a href="http://www.phpbb.com/mods/umil/">phpBB.com/mods/umil</a>', E_USER_ERROR);
 }
 
-$message[] = '<p style="margin:10px">ReIMG Image Resizer MOD installed successfully.  Remember to delete this file via your FTP client/program.  Please note that this installer does <strong>NOT</strong> take care of modifying the files for you.  You must do that manually or use AutoMOD.';
+$mod_name = 'ACP_CAT_REIMG';
+$version_config_name = 'reimg_version';
+$language_file = 'mods/info_acp_reimg';
 
-page_header('ReIMG Image Resizer MOD Installation');
+$versions = array(
+	'2.0.0' => array(
+		'config_add' => array(
+			array('reimg_max_width', 640),
+			array('reimg_max_height', 480),
+			array('reimg_rel_width', 0),
+			array('reimg_swap_portrait', 1),
+			array('reimg_ignore_sig_img', false),
+			array('reimg_link', 'button_link'),
+			array('reimg_zoom', '_litebox'),
+		),
+		'module_add' => array(
+			array('acp', 'ACP_CAT_DOT_MODS', 'ACP_CAT_REIMG'),
+			
+			array('acp', 'ACP_CAT_REIMG', array(
+					'module_basename'		=> 'reimg',
+					'module_langname'		=> 'ACP_REIMG_CONFIG',
+					'modes'					=> 'main',
+					'module_auth'			=> 'acl_a_reimg',
+				),
+			),
+		),
+	),
+);
 
-trigger_error(implode('<br />', $message));
+include($phpbb_root_path . 'umil/umil_auto.' . $phpEx);
 
-page_footer();
-
-?>

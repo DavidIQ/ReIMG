@@ -61,7 +61,7 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 			</author>
 		</author-group>
 		
-		<mod-version>1.0.3</mod-version>
+		<mod-version>2.0.0</mod-version>
 		
 		<installation>
 			<level>intermediate</level>
@@ -71,169 +71,16 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 
 		<history>
 			<entry>
-				<date>2008-04-19</date>
-				<rev-version>0.0.A1</rev-version>
+				<date>2011-03-27</date>
+				<rev-version>2.0.0</rev-version>
 				<changelog lang="en-gb">
-					<change>Converted my original hack to this MOD.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2008-04-20</date>
-				<rev-version>0.0.A2</rev-version>
-				<changelog lang="en-gb">
-					<change>The shadowy background behind the lightbox is now recalculated when you are already viewing an image in the lightbox while more images are still loading.</change>
-					<change>Fixed the height of the shadowy background behind the lightbox in Opera.</change>
-					<change>Added a "safety net" to the javascript code, so large images that were somehow skipped are resized after the document has fully loaded.</change>
-					<change>Added the option to route the link to the original-sized image through my External URLs in New Window MOD. If this new zooming method ("external link") is selected and the user has chosen to open external links in a new window, then the images is  also opened in a new window, else the image is opened in the current window.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2008-04-22</date>
-				<rev-version>0.0.A3</rev-version>
-				<changelog lang="en-gb">
-					<change>Image attachments are now also resized by this MOD (as suggested by bassi).</change>
-					<change>Disabled the zoom button in the posting topic review and PM message history.</change>
-					<change>The img BBCode in the bbcode.html template file is now also patched.</change>
-					<change>Added comments on how to install this MOD if you really need to stay 100% XHTML 1.0 Strict/Transitional compliant.</change>
-					<change>Added contrib/set_config.php to set configuration defaults after the installation (thanks to angelside).</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2008-04-25</date>
-				<rev-version>0.0.A4</rev-version>
-				<changelog lang="en-gb">
-					<change>Tweaked a few things in the reimg.js and litebox.js javascript files.</change>
-					<change>Fixed a bug which might lead to an incorrect edit of includes/acp/acp_board.php.</change>
-					<change>Added support for printing topics.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2008-05-03</date>
-				<rev-version>0.0.A5</rev-version>
-				<changelog lang="en-gb">
-					<change>Added support for printing PMs.</change>
-					<change>Rewritten "swap dimensions for portrait images" as "normalize landscape/portrait" and changed the explanation accordingly, in an effort to clearify the function of this option.</change>
-					<change>Dropped contrib/set_config.php and added an SQL statement instead.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2008-05-10</date>
-				<rev-version>0.0.A6</rev-version>
-				<changelog lang="en-gb">
-					<change>Added support for resizing images relative to the available width (as suggested by "Squid Nunc?").</change>
-					<change>Changed the rather difficult edit on styles/prosilver/template/attachment.html (as experienced by Revalence), so it is cleaner and easier now.</change>
-					<change>Fixed image attachments being cut off when higher than 350 pixels.</change>
-					<change>Removed the border around image attachments.</change>
-					<change>Fixed the attachment box width, which prevented certain non-inline image attachments from being resized.</change>
-					<change>Fixed the lightbox not being centered properly.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2008-06-01</date>
-				<rev-version>0.0.A7</rev-version>
-				<changelog lang="en-gb">
-					<change>Added support for right-to-left languages (although such languages are not included with this MOD). This also means that in "normal" (left-to-right) mode the zoom out button in the lightbox has been relocated from the right to the left corner (which probably is more consistant anyway). Unfortunately Safari and Opera currently do not position all zoom in and out buttons on the right side when in right-to-left mode, but everything still works. I am kind of hoping that these issues will be addressed in future releases of  Safari and Opera...</change>
-					<change>The lightbox now gives users the choice to zoom in all the way, and so view the image 1:1 from within the lightbox (as suggested by "Squid Nunc?"). To control this feature two extra lightbox zooming methods have been added: "Lightbox 1:1" and "Lightbox resized".</change>
-					<change>Removed the border around the zoom button on image attachments.</change>
-					<change>If the zoom in and out button images are not available (e.g. because you have forgotten to refresh the imageset after installing this MOD), then green and red rectangles are displayed instead.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2008-06-12</date>
-				<rev-version>0.0.B8</rev-version>
-				<changelog lang="en-gb">
-					<change>Fixated the lightbox, so it does not scroll with the rest of the page. This does not work in Internet Explorer 6, in which the lightbox does still scroll with the rest of the page.</change>
-					<change>Fixated the zoom out button in the lightbox when zoomed in 1:1, so it will not scroll out of sight. This feature is only supported by really modern browsers (Internet Explorer 7, Firefox 3 and Opera 9.5), in older browsers the zoom out button does still scroll out of sight.</change>
-					<change>The lightbox now remembers what mode it was in (resized or 1:1) after resizing the browser window.</change>
-					<change>Fixed a bug that caused the lightbox to be wrongly repositioned when the page behind it is still loading.</change>
-					<change>The lightbox no longer grows to wide when zoomed in 1:1 in Internet Explorer 6.</change>
-					<change>Added Opera 9.5 and updated Firefox 3 (to RC 3) in the list of tested browsers.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2008-06-21</date>
-				<rev-version>0.0.B9</rev-version>
-				<changelog lang="en-gb">
-					<change>Added Firefox 1.0.8, Firefox 1.5.0.12 and Firefox 2.0.0.14 and updated Firefox 3.0 in the list of tested browsers.</change>
-					<change>Fixed a bug that caused images that were already resized (e.g. with style sheeting rules) to revert to their real size.</change>
-					<change>Images are now hidden while they are being resized. This shouldn't matter as images aren't supposed to be rendered on screen until after they have been resized, but this will possibly (hopefully) resolve an issue with Firefox 2 and slower loading boards and/or images (issue reported by kipin and sam_xp).</change>
-					<change>Disabled the zoom button in the topic view in the Moderator Control Panel.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2009-05-24</date>
-				<rev-version>0.0.10</rev-version>
-				<changelog lang="en-gb">
-					<change>Updated all MODX to 1.2.2 and fixed all MODX errors.</change>
-					<change>Added option for disabling resizing in signatures.</change>
-					<change>Added Highslide JS support.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2009-06-14</date>
-				<rev-version>0.0.11</rev-version>
-				<changelog lang="en-gb">
-					<change>Ignore signature in posting preview.</change>
-					<change>Allow labels from Highslide JS to be translatable.</change>
-					<change>Require user to download Highslide JS due to Creative Commons license of Highslide JS and removed inclusion of Highslide JS files from MOD due to license compatibility issues.</change>
-					<change>Bug fixes to template rendering</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2009-07-11</date>
-				<rev-version>0.0.12</rev-version>
-				<changelog lang="en-gb">
-					<change>Changed explanation on Zooming method drop-down to indicate that you must download Highslide first if you want to select that option.</change>
-					<change>Disable Highslide in Zooming method drop-down if highslide library does not exist.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2009-07-13</date>
-				<rev-version>1.0.0</rev-version>
-				<changelog lang="en-gb">
-					<change>Moved all language variables into the reimg.php language file to make translations easier.</change>
-					<change>Submitted to MODDB.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2009-08-17</date>
-				<rev-version>1.0.1</rev-version>
-				<changelog lang="en-gb">
-					<change>Made javascript updates and changes - TaleTN</change>
-					<change>Loading image now shows as images are loaded on the page - TaleTN</change>
-					<change>Added language contributions.</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2009-11-21</date>
-				<rev-version>1.0.2</rev-version>
-				<changelog lang="en-gb">
-					<change>Pre-load loading image and actually make the js call to the function that uses that image (missed from 1.0.1).</change>
-					<change>Change a find for 3.0.6</change>
-				</changelog>
-			</entry>
-			<entry>
-				<date>2010-04-16</date>
-				<rev-version>1.0.3</rev-version>
-				<changelog lang="en-gb">
-					<change>When all else fails use AJAX to get the image dimensions.</change>
+					<change>New ReIMG version!</change>
 				</changelog>
 			</entry>
 		</history>
 		
 		<link-group>
 			<link type="template" lang="en-gb" href="subsilver2.xml">subsilver2 Edits</link>
-			<link type="contrib" lang="en-gb" href="./contrib/update_to_1_0_1.xml">Update to 1.0.1</link>
-			<link type="contrib" lang="en-gb" href="./contrib/update_to_1_0_2.xml">Update to 1.0.2</link>
-			<link type="contrib" lang="en-gb" href="./contrib/update_to_1_0_3.xml">Update to 1.0.3</link>
-			<link type="contrib" lang="en-gb" href="./contrib/subsilver2_update_to_1_0_1.xml">Update subsilver2 to 1.0.1</link>
-			<link type="contrib" lang="en-gb" href="./contrib/subsilver2_update_to_1_0_2.xml">Update subsilver2 to 1.0.2</link>
-			<link type="contrib" lang="en-gb" href="./contrib/subsilver2_update_to_1_0_3.xml">Update subsilver2 to 1.0.3</link>
-			<link type="language" lang="en-gb" href="./contrib/es.xml">Install Spanish</link>
-			<link type="language" lang="en-gb" href="./contrib/hr.xml">Install Croatian</link>
-			<link type="language" lang="en-gb" href="./contrib/nl.xml">Install Dutch</link>
-			<link type="language" lang="en-gb" href="./contrib/de.xml">Install German</link>
-			<link type="language" lang="en-gb" href="./contrib/it.xml">Install Italian</link>
 		</link-group>
 	</header>
 
@@ -241,15 +88,12 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 
 		<copy>
 			<file from="root/install_reimg.php" to="install_reimg.php" />
-			<file from="root/reimg/index.htm" to="reimg/index.htm" />
-			<file from="root/reimg/litebox.js" to="reimg/litebox.js" />
-			<file from="root/reimg/reimg.js" to="reimg/reimg.js" />
-			<file from="root/reimg/reimg_ajax.php" to="reimg/reimg_ajax.php" />
-			<file from="root/language/en/mods/reimg.php" to="language/en/mods/reimg.php" />
-			<file from="root/styles/prosilver/imageset/icon_reimg_zoom_in.gif" to="styles/prosilver/imageset/icon_reimg_zoom_in.gif" />
-			<file from="root/styles/prosilver/imageset/icon_reimg_zoom_out.gif" to="styles/prosilver/imageset/icon_reimg_zoom_out.gif" />
-			<file from="root/styles/prosilver/imageset/icon_reimg_loading.gif" to="styles/prosilver/imageset/icon_reimg_loading.gif" />
-			<file from="root/styles/prosilver/template/reimg_content.html" to="styles/prosilver/template/reimg_content.html" />
+			<file from="root/adm/*.*" to="adm/*.*" />
+			<file from="root/includes/*.*" to="includes/*.*" />
+			<file from="root/language/en/mods/*.*" to="language/en/mods/*.*" />
+			<file from="root/reimg/*.*" to="reimg/*.*" />
+			<file from="root/styles/prosilver/*.*" to="styles/prosilver/*.*" />
+			<file from="root/umil/*.*" to="umil/*.*" />
 		</copy>
 		
 		<open src="memberlist.php">
@@ -291,49 +135,6 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 			</edit>
 		</open>
 
-		<open src="includes/functions.php">
-			<edit>
-				<find><![CDATA[		'T_THEME_PATH'			=>]]></find>
-				<action type="before-add"><![CDATA[		'S_REIMG'					=> ($config['reimg_max_width'] || $config['reimg_max_height'] || $config['reimg_rel_width']) ? 1 : 0,
-		'REIMG_MAX_WIDTH'			=> $config['reimg_max_width'],
-		'REIMG_MAX_HEIGHT'			=> $config['reimg_max_height'],
-		'REIMG_REL_WIDTH'			=> $config['reimg_rel_width'],
-		'S_REIMG_SWAP_PORTRAIT'		=> ($config['reimg_swap_portrait']) ? 1 : 0,
-		'REIMG_LOADING_IMG_SRC'		=> $user->img('icon_reimg_loading', '', false, '', 'src'),
-		'REIMG_LOADING_IMG_WIDTH'	=> $user->img('icon_reimg_loading', '', false, '', 'width'),
-		'REIMG_LOADING_IMG_HEIGHT'	=> $user->img('icon_reimg_loading', '', false, '', 'height'),
-		'S_REIMG_BUTTON'			=> (substr($config['reimg_link'], 0, 6) == 'button') ? 1 : 0,
-		'S_REIMG_LINK'				=> (substr($config['reimg_link'], -4) == 'link') ? 1 : 0,
-		'S_REIMG_ZOOM'				=> (substr($config['reimg_zoom'], 0, 8) == '_litebox') ? '_litebox' : $config['reimg_zoom'],
-		'REIMG_ZOOM_IN_IMG_SRC'		=> $user->img('icon_reimg_zoom_in', '', false, '', 'src'),
-		'REIMG_ZOOM_IN_IMG_WIDTH'	=> $user->img('icon_reimg_zoom_in', '', false, '', 'width'),
-		'REIMG_ZOOM_IN_IMG_HEIGHT'	=> $user->img('icon_reimg_zoom_in', '', false, '', 'height'),
-		'S_REIMG_LITEBOX'			=> ((substr($config['reimg_zoom'], 0, 8) == '_litebox' || $config['reimg_zoom'] == '_highslide') && ($config['reimg_max_width'] || $config['reimg_max_height'] || $config['reimg_rel_width'])) ? $config['reimg_zoom'] : '',
-		'REIMG_ZOOM_OUT_IMG_SRC'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'src'),
-		'REIMG_ZOOM_OUT_IMG_WIDTH'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'width'),
-		'REIMG_ZOOM_OUT_IMG_HEIGHT'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'height'),
-		'REIMG_PROPERTIES'			=> reimg_properties(),
-		'REIMG_AJAX_URL'			=> "{$board_url}reimg/reimg_ajax.$phpEx",
-]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA[	// application/xhtml+xml not used because of IE
-	header('Content-type: text/html; charset=UTF-8');]]></find>
-				<action type="before-add">	$user->add_lang('mods/reimg');</action>
-			</edit>
-			<edit>
-				<comment lang="en-gb">If you need to stay 100% XHTML 1.0 compliant, then leave out the onload and onerror attributes.</comment>
-				<find><![CDATA[?>]]></find>
-				<action type="before-add"><![CDATA[/**
-* Get the applicable image properties
-*/
-function reimg_properties()
-{
-	return 'class="reimg" onload="reimg(this);" onerror="reimg(this);" ';
-}]]></action>
-			</edit>
-		</open>
-
 		<open src="includes/functions_content.php">
 			<edit>
 				<find><![CDATA[			'attachment_tpl'	=> 'attachment.html')
@@ -343,78 +144,6 @@ function reimg_properties()
 		'S_REIMG'			=> ($config['reimg_max_width'] || $config['reimg_max_height'] || $config['reimg_rel_width']) ? 1 : 0,
 		'REIMG_PROPERTIES'	=> reimg_properties(),
 	));]]></action>
-			</edit>
-		</open>
-
-		<open src="includes/acp/acp_board.php">
-			<edit>
-				<find><![CDATA[		$user->add_lang('acp/board');]]></find>
-				<action type="after-add"><![CDATA[		$user->add_lang('mods/reimg');]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA[						'max_post_img_height'	=> array('lang' => 'MAX_POST_IMG_HEIGHT',	'validate' => 'int:0',		'type' => 'text:5:4', 'explain' => true, 'append' => ' ' . $user->lang['PIXEL']),]]></find>
-				<action type="after-add"><![CDATA[
-
-						'legend_reimg'			=> 'REIMG_SETTINGS',
-						'reimg_max_width'		=> array('lang' => 'REIMG_MAX_SIZE',		'validate' => 'int:0',	'type' => false, 'method' => false, 'explain' => false),
-						'reimg_max_height'		=> array('lang' => 'REIMG_MAX_SIZE',		'validate' => 'int:0',	'type' => false, 'method' => false, 'explain' => false),
-						'reimg_max'				=> array('lang' => 'REIMG_MAX_SIZE',		'validate' => 'int:0',	'type' => 'dimension:3:4', 'explain' => true, 'append' => ' ' . $user->lang['PIXEL']),
-						'reimg_rel_width'		=> array('lang' => 'REIMG_REL_WIDTH',		'validate' => 'int:0',	'type' => 'text:3:4', 'explain' => true, 'append' => ' %'),
-						'reimg_swap_portrait'	=> array('lang' => 'REIMG_SWAP_PORTRAIT',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
-						'reimg_ignore_sig_img'	=> array('lang' => 'REIMG_IGNORE_SIG_IMG',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
-						'reimg_link'			=> array('lang' => 'REIMG_LINK_METHOD',		'validate' => 'string',	'type' => 'select', 'method' => 'select_reimg_link_method', 'explain' => true),
-						'reimg_zoom'			=> array('lang' => 'REIMG_ZOOM_METHOD',		'validate' => 'string',	'type' => 'select', 'method' => 'select_reimg_zoom_method', 'explain' => true),]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA[	/**
-	* Select bump interval
-	*/]]></find>
-				<action type="before-add"><![CDATA[	/**
-	* Select resized image link method
-	*/
-	function select_reimg_link_method($selected_value, $key)
-	{
-		global $user;
-
-		$link_method_ary = array('button' => 'REIMG_LINK_BUTTON', 'link' => 'REIMG_LINK_IMAGE', 'button_link' => 'REIMG_LINK_BOTH');
-		$link_options = '';
-		foreach ($link_method_ary as $link_mehod => $lang)
-		{
-			$selected = ($selected_value == $link_mehod) ? ' selected="selected"' : '';
-			$link_options .= '<option value="' . $link_mehod . '"' . $selected . '>' . $user->lang[$lang] . '</option>';
-		}
-
-		return $link_options;
-	}
-
-	/**
-	* Select resized image zoom method
-	*/
-	function select_reimg_zoom_method($selected_value, $key)
-	{
-		global $user, $phpbb_root_path;
-
-		$zoom_method_ary = array('' => 'DISABLED', '_default' => 'REIMG_ZOOM_DEFAULT', '_exturl' => 'REIMG_ZOOM_EXTURL', '_blank' => 'REIMG_ZOOM_BLANK', '_litebox' => 'REIMG_ZOOM_LITEBOX', '_litebox1' => 'REIMG_ZOOM_LITEBOX_1_1', '_litebox0' => 'REIMG_ZOOM_LITEBOX_RESIZED', '_highslide' => 'REIMG_ZOOM_HIGHSLIDE');
-		$zoom_options = '';
-		foreach ($zoom_method_ary as $zoom_method => $lang)
-		{
-			$disabled = '';
-			//We need to check and see if the Highslide library actually exists before allowing the option to be selectable
-			if ($zoom_method == '_highslide')
-			{
-				//We need one of the highslide js libraries
-				if (!file_exists($phpbb_root_path . 'reimg/highslide/highslide-full.packed.js'))
-				{
-					$disabled = ' disabled';
-				}
-			}
-			$selected = ($selected_value == $zoom_method) ? ' selected="selected"' : '';
-			$zoom_options .= '<option value="' . $zoom_method . '"' . $selected . $disabled . '>' . $user->lang[$lang] . '</option>';
-		}
-
-		return $zoom_options;
-	}
-	]]></action>
 			</edit>
 		</open>
 

@@ -1,7 +1,7 @@
 <?php
 /**
 * @package ReIMG Image Resizer AJAX
-* @copyright (c) 2010 DavidIQ.com
+* @copyright (c) 2011 DavidIQ.com
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 
@@ -24,4 +24,3 @@ if ($imgsrc)
 
 echo (int) $width . '||' . (int) $height;
 
-?>
