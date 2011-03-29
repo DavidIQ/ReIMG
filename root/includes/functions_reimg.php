@@ -86,3 +86,22 @@ function reimg_properties()
 {
 	return 'class="reimg" onload="reimg(this);" onerror="reimg(this);" ';
 }
+
+/**
+* Add the ReIMG properties to image tags in text
+*/
+function insert_reimg_properties($display_text)
+{
+	preg_match("/(<img\/?[^>]*?\/>)/e", $display_text, $images);
+
+	$images = array_unique($images);
+
+	foreach ($images as $image)
+	{
+		$image_reimg = str_replace('/>', reimg_properties() . '/>', $image);
+
+		$display_text = str_replace($image, $image_reimg, $display_text);
+	}
+
+	return $display_text;
+}

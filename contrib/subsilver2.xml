@@ -80,7 +80,7 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 		</history>
 		
 		<link-group>
-			<link type="parent" lang="en-gb" href="./install.xml">Main Installer</link>
+			<link type="parent" lang="en-gb" href="../install.xml">Main Installer</link>
 		</link-group>
 	</header>
 
@@ -109,51 +109,25 @@ img_icon_reimg_zoom_out = icon_reimg_zoom_out.gif*15*18]]></action>
 				</inline-edit>
 			</edit>
 		</open>
-
-		<open src="styles/subsilver2/template/bbcode.html">
-			<edit>
-				<comment lang="en-gb">If you need to stay 100% XHTML 1.0 compliant, then leave out the onload and onerror attributes.</comment>
-				<find><![CDATA[<!-- BEGIN img --><img src="{URL}" alt="{L_IMAGE}" /><!-- END img -->]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[/>]]></inline-find>
-					<inline-action type="before-add"><![CDATA[{REIMG_PROPERTIES} ]]></inline-action>
-				</inline-edit>
-			</edit>
-		</open>
-		
-		<open src="styles/subsilver2/template/overall_footer.html">
-			<edit>
-				<find><![CDATA[</body>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_REIMG -->
-	<script type="text/javascript">
-		if (window.reimg_version)
-		{
-			reimg_loading("{REIMG_LOADING_IMG_SRC}");
-		}
-	</script>
-<!-- ENDIF -->
-]]></action>
-			</edit>
-		</open>
 		
 		<open src="styles/subsilver2/template/overall_header.html">
 			<edit>
-				<find><![CDATA[<link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />]]></find>
-				<action type="before-add"><![CDATA[<!-- INCLUDE reimg_content.html -->]]></action>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- INCLUDE mods/reimg_content.html -->]]></action>
 			</edit>
 		</open>
 
 		<open src="styles/subsilver2/template/ucp_pm_viewmessage_print.html">
 			<edit>
-				<find><![CDATA[<style type="text/css">]]></find>
-				<action type="before-add"><![CDATA[<!-- INCLUDE reimg_content.html -->]]></action>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- INCLUDE mods/reimg_content.html -->]]></action>
 			</edit>
 		</open>
 
 		<open src="styles/subsilver2/template/viewtopic_print.html">
 			<edit>
-				<find><![CDATA[<style type="text/css">]]></find>
-				<action type="before-add"><![CDATA[<!-- INCLUDE reimg_content.html -->]]></action>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- INCLUDE mods/reimg_content.html -->]]></action>
 			</edit>
 		</open>
 

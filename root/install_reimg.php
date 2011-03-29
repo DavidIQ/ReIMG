@@ -32,6 +32,7 @@ $language_file = 'mods/info_acp_reimg';
 $versions = array(
 	'2.0.0' => array(
 		'config_add' => array(
+			array('reimg_enabled', true),
 			array('reimg_max_width', 640),
 			array('reimg_max_height', 480),
 			array('reimg_rel_width', 0),
@@ -40,6 +41,11 @@ $versions = array(
 			array('reimg_link', 'button_link'),
 			array('reimg_zoom', '_litebox'),
 		),
+
+		'permission_add' => array(
+			array('a_reimg', true),
+		),
+
 		'module_add' => array(
 			array('acp', 'ACP_CAT_DOT_MODS', 'ACP_CAT_REIMG'),
 			

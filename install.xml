@@ -80,7 +80,7 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 		</history>
 		
 		<link-group>
-			<link type="template" lang="en-gb" href="subsilver2.xml">subsilver2 Edits</link>
+			<link type="template" lang="en-gb" href="contrib/subsilver2.xml">subsilver2 Edits</link>
 		</link-group>
 	</header>
 
@@ -95,57 +95,6 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 			<file from="root/styles/prosilver/*.*" to="styles/prosilver/*.*" />
 			<file from="root/umil/*.*" to="umil/*.*" />
 		</copy>
-		
-		<open src="memberlist.php">
-			<edit>
-				<find><![CDATA[			'SIGNATURE'		=> $member['user_sig'],]]></find>
-				<action type="replace-with"><![CDATA[			'SIGNATURE'		=> ($config['reimg_ignore_sig_img']) ? str_replace(reimg_properties(), '', $member['user_sig']) : $member['user_sig'],]]></action>
-			</edit>
-		</open>
-		
-		<open src="posting.php">
-			<edit>
-				<find><![CDATA[			'PREVIEW_SIGNATURE'		=> $preview_signature,]]></find>
-				<action type="replace-with"><![CDATA[			'PREVIEW_SIGNATURE'		=> ($config['reimg_ignore_sig_img']) ? str_replace(reimg_properties(), '', $preview_signature) : $preview_signature,]]></action>
-			</edit>
-		</open>
-		
-		<open src="viewtopic.php">
-			<edit>
-				<find><![CDATA[		'SIGNATURE'			=> ($row['enable_sig']) ? $user_cache[$poster_id]['sig'] : '',]]></find>
-				<action type="replace-with"><![CDATA[		'SIGNATURE'			=> ($row['enable_sig']) ? ($config['reimg_ignore_sig_img'] ? str_replace(reimg_properties(), '', $user_cache[$poster_id]['sig']) : $user_cache[$poster_id]['sig']) : '',]]></action>
-			</edit>
-		</open>
-		
-		<open src="includes/bbcode.php">
-			<edit>
-				<find><![CDATA[								'#\[img:$uid\](.*?)\[/img:$uid\]#s'		=> $this->bbcode_tpl('img', $bbcode_id),]]></find>
-				<action type="replace-with"><![CDATA[								'#\[img:$uid\](.*?)\[/img:$uid\]#s'		=> str_replace('$2', reimg_properties(), $this->bbcode_tpl('img', $bbcode_id)),]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA[				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '" />',]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[/>]]></inline-find>
-					<inline-action type="before-add"><![CDATA[' . reimg_properties() . ']]></inline-action>
-				</inline-edit>
-			</edit>
-			<edit>
-				<find>			'img'					=> array('{URL}'		=> '$1'),</find>
-				<action type="replace-with">			'img'					=> array('{URL}'		=> '$1', '{REIMG_PROPERTIES}'	=> '$2'),</action>
-			</edit>
-		</open>
-
-		<open src="includes/functions_content.php">
-			<edit>
-				<find><![CDATA[			'attachment_tpl'	=> 'attachment.html')
-		);
-	}]]></find>
-				<action type="after-add"><![CDATA[	$template->assign_vars(array(
-		'S_REIMG'			=> ($config['reimg_max_width'] || $config['reimg_max_height'] || $config['reimg_rel_width']) ? 1 : 0,
-		'REIMG_PROPERTIES'	=> reimg_properties(),
-	));]]></action>
-			</edit>
-		</open>
 
 		<open src="includes/acp/acp_styles.php">
 			<edit>
@@ -155,20 +104,6 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 			<edit>
 				<find><![CDATA['icon_back_top', ]]></find>
 				<action type="after-add"><![CDATA[				'icon_reimg_loading', 'icon_reimg_zoom_in', 'icon_reimg_zoom_out',]]></action>
-			</edit>
-		</open>
-		
-		<open src="includes/ucp/ucp_pm_viewmessage.php">
-			<edit>
-				<find><![CDATA[		'SIGNATURE'			=> ($message_row['enable_sig']) ? $signature : '',]]></find>
-				<action type="replace-with"><![CDATA[		'SIGNATURE'			=> ($message_row['enable_sig']) ? (($config['reimg_ignore_sig_img']) ? str_replace(reimg_properties(), '', $signature) : $signature) : '',]]></action>
-			</edit>
-		</open>
-		
-		<open src="includes/ucp/ucp_profile.php">
-			<edit>
-				<find><![CDATA[					'SIGNATURE_PREVIEW'	=> $signature_preview,]]></find>
-				<action type="replace-with"><![CDATA[					'SIGNATURE_PREVIEW'	=> ($config['reimg_ignore_sig_img']) ? str_replace(reimg_properties(), '', $signature_preview) : $signature_preview,]]></action>
 			</edit>
 		</open>
 
@@ -195,70 +130,25 @@ img_icon_reimg_zoom_out = icon_reimg_zoom_out.gif*20*20]]></action>
 				</inline-edit>
 			</edit>
 		</open>
-
-		<open src="styles/prosilver/template/bbcode.html">
-			<edit>
-				<find><![CDATA[<!-- BEGIN img --><img src="{URL}" alt="{L_IMAGE}" /><!-- END img -->]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[/>]]></inline-find>
-					<inline-action type="before-add"><![CDATA[{REIMG_PROPERTIES}]]></inline-action>
-				</inline-edit>
-			</edit>
-		</open>
-		
-		<open src="styles/prosilver/template/overall_footer.html">
-			<edit>
-				<find><![CDATA[</body>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_REIMG -->
-	<script type="text/javascript">
-		if (window.reimg_version)
-		{
-			reimg_loading("{REIMG_LOADING_IMG_SRC}");
-		}
-	</script>
-<!-- ENDIF -->
-]]></action>
-			</edit>
-		</open>
-		
+	
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
-				<find><![CDATA[<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />]]></find>
-				<action type="before-add"><![CDATA[<!-- INCLUDE reimg_content.html -->]]></action>
-			</edit>
-		</open>
-
-		<open src="styles/prosilver/template/ucp_pm_viewmessage.html">
-			<edit>
-				<find><![CDATA[		<dl class="attachbox">]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[>]]></inline-find>
-					<inline-action type="before-add"><![CDATA[ style="width: 97%;"]]></inline-action>
-				</inline-edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- INCLUDE mods/reimg_content.html -->]]></action>
 			</edit>
 		</open>
 
 		<open src="styles/prosilver/template/ucp_pm_viewmessage_print.html">
 			<edit>
-				<find><![CDATA[<style type="text/css">]]></find>
-				<action type="before-add"><![CDATA[<!-- INCLUDE reimg_content.html -->]]></action>
-			</edit>
-		</open>
-
-		<open src="styles/prosilver/template/viewtopic_body.html">
-			<edit>
-				<find><![CDATA[				<dl class="attachbox">]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[>]]></inline-find>
-					<inline-action type="before-add"><![CDATA[ style="width: 97%;"]]></inline-action>
-				</inline-edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- INCLUDE mods/reimg_content.html -->]]></action>
 			</edit>
 		</open>
 
 		<open src="styles/prosilver/template/viewtopic_print.html">
 			<edit>
-				<find><![CDATA[<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" />]]></find>
-				<action type="before-add"><![CDATA[<!-- INCLUDE reimg_content.html -->]]></action>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- INCLUDE mods/reimg_content.html -->]]></action>
 			</edit>
 		</open>
 

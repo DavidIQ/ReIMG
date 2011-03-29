@@ -4,21 +4,21 @@
 	/**
 	* Resize too large images
 	*/
-	var reimg_maxWidth = {REIMG_MAX_WIDTH}, reimg_maxHeight = {REIMG_MAX_HEIGHT}, reimg_relWidth = {REIMG_REL_WIDTH};
+	var reimg_maxWidth = {REIMG_MAX_WIDTH}, reimg_maxHeight = {REIMG_MAX_HEIGHT}, reimg_relWidth = <!-- IF REIMG_REL_WIDTH -->{REIMG_REL_WIDTH}<!-- ELSE -->0<!-- ENDIF -->;
 	<!-- IF S_REIMG_SWAP_PORTRAIT -->
 		var reimg_swapPortrait = true;
 	<!-- ENDIF -->
-	var reimg_loadingImg = "<!-- IF REIMG_LOADING_IMG_SRC -->{REIMG_LOADING_IMG_SRC}<!-- ELSE -->{T_IMAGES_PATH}spacer.gif<!-- ENDIF -->";
-	var reimg_loadingStyle = "<!-- IF REIMG_LOADING_IMG_SRC --><!-- IF REIMG_LOADING_IMG_WIDTH -->width: {REIMG_LOADING_IMG_WIDTH}px; <!-- ENDIF --><!-- IF REIMG_LOADING_IMG_HEIGHT -->height: {REIMG_LOADING_IMG_HEIGHT}px; <!-- ENDIF --><!-- ELSE -->width: 18px; height: 15px; background: orange; <!-- ENDIF -->filter: Alpha(Opacity=50); opacity: .50;";
+	var reimg_loadingImg = "{T_IMAGES_PATH}spacer.gif";
+	var reimg_loadingStyle = "<!-- IF REIMG_LOADING_IMG_SRC --><!-- IF REIMG_LOADING_IMG_WIDTH -->width: {REIMG_LOADING_IMG_WIDTH}px; <!-- ENDIF --><!-- IF REIMG_LOADING_IMG_HEIGHT -->height: {REIMG_LOADING_IMG_HEIGHT}px; <!-- ENDIF -->background: url({REIMG_LOADING_IMG_SRC}) top left no-repeat; <!-- ELSE -->width: 20px; height: 20px; background: orange; <!-- ENDIF -->filter: Alpha(Opacity=50); opacity: .50;";
 	var reimg_loadingAlt = "{LA_LOADING_TEXT}";
 	<!-- IF S_REIMG_ZOOM -->
 		<!-- IF S_REIMG_LINK -->
 			var reimg_autoLink = true;
 		<!-- ENDIF -->
 		<!-- IF S_REIMG_BUTTON -->
-			var reimg_zoomImg = "<!-- IF REIMG_ZOOM_IN_IMG_SRC -->{REIMG_ZOOM_IN_IMG_SRC}<!-- ELSE -->{T_IMAGES_PATH}spacer.gif<!-- ENDIF -->";
-			var reimg_zoomStyle = "<!-- IF REIMG_ZOOM_IN_IMG_SRC --><!-- IF REIMG_ZOOM_IN_IMG_WIDTH -->width: {REIMG_ZOOM_IN_IMG_WIDTH}px; <!-- ENDIF --><!-- IF REIMG_ZOOM_IN_IMG_HEIGHT -->height: {REIMG_ZOOM_IN_IMG_HEIGHT}px; <!-- ENDIF --><!-- ELSE -->width: 18px; height: 15px; background: green; <!-- ENDIF -->filter: Alpha(Opacity=45); opacity: .45;";
-			var reimg_zoomHover = "filter: Alpha(Opacity=90); opacity: .90;";
+			var reimg_zoomImg = reimg_loadingImg;
+			var reimg_zoomStyle = "<!-- IF REIMG_ZOOM_IN_IMG_SRC --><!-- IF REIMG_ZOOM_IN_IMG_WIDTH -->width: {REIMG_ZOOM_IN_IMG_WIDTH}px; <!-- ENDIF --><!-- IF REIMG_ZOOM_IN_IMG_HEIGHT -->height: {REIMG_ZOOM_IN_IMG_HEIGHT}px; <!-- ENDIF -->background: url({REIMG_ZOOM_IN_IMG_SRC}) top left no-repeat; <!-- ELSE -->width: 20px; height: 20px; background: green; <!-- ENDIF -->filter: Alpha(Opacity=50); opacity: .50;";
+			var reimg_zoomHover = "background-position: 0 100%; cursor: pointer; filter: Alpha(Opacity=100); opacity: 1.00;";
 		<!-- ENDIF -->
 		var reimg_zoomAlt = "{LA_REIMG_ZOOM_IN}";
 		var reimg_zoomTarget = "{S_REIMG_ZOOM}";
@@ -40,7 +40,7 @@
 <!-- IF S_REIMG_ZOOM -->
 	<style type="text/css" media="screen, projection">
 	<!--
-		.tablebg .tablebg .postbody .reimg-zoom { display: none; }
+		#topicreview .reimg-zoom { display: none; }
 	-->
 	</style>
 <!-- ENDIF -->
@@ -87,14 +87,13 @@
 	<!-- ELSE -->
 		var litebox_alt = "<!-- IF S_REIMG_LINK -->{LA_REIMG_ZOOM_OUT}<!-- ELSE -->{LA_IMAGE}<!-- ENDIF -->";
 		<!-- IF S_REIMG_LITEBOX eq '_litebox' -->
+			var litebox_zoomImg = reimg_loadingImg;
 			<!-- IF S_REIMG_BUTTON -->
-				var litebox_zoomImg = reimg_zoomImg;
 				var litebox_zoomStyle = reimg_zoomStyle;
 				var litebox_zoomHover = reimg_zoomHover;
 			<!-- ELSE -->
-				var litebox_zoomImg = "<!-- IF REIMG_ZOOM_IN_IMG_SRC -->{REIMG_ZOOM_IN_IMG_SRC}<!-- ELSE -->{T_IMAGES_PATH}spacer.gif<!-- ENDIF -->";
-				var litebox_zoomStyle = "<!-- IF REIMG_ZOOM_IN_IMG_SRC --><!-- IF REIMG_ZOOM_IN_IMG_WIDTH -->width: {REIMG_ZOOM_IN_IMG_WIDTH}px; <!-- ENDIF --><!-- IF REIMG_ZOOM_IN_IMG_HEIGHT -->height: {REIMG_ZOOM_IN_IMG_HEIGHT}px; <!-- ENDIF --><!-- ELSE -->width: 18px; height: 15px; background: green; <!-- ENDIF -->filter: Alpha(Opacity=45); opacity: .45;";
-				var litebox_zoomHover = "filter: Alpha(Opacity=90); opacity: .90;";
+				var litebox_zoomStyle = "<!-- IF REIMG_ZOOM_IN_IMG_SRC --><!-- IF REIMG_ZOOM_IN_IMG_WIDTH -->width: {REIMG_ZOOM_IN_IMG_WIDTH}px; <!-- ENDIF --><!-- IF REIMG_ZOOM_IN_IMG_HEIGHT -->height: {REIMG_ZOOM_IN_IMG_HEIGHT}px; <!-- ENDIF -->background: url({REIMG_ZOOM_IN_IMG_SRC}) top left no-repeat; <!-- ELSE -->width: 20px; height: 20px; background: green; <!-- ENDIF -->filter: Alpha(Opacity=50); opacity: .50;";
+				var litebox_zoomHover = "background-position: 0 100%; cursor: pointer; filter: Alpha(Opacity=100); opacity: 1.00;";
 			<!-- ENDIF -->
 			var litebox_zoomAlt = reimg_zoomAlt;
 		<!-- ELSEIF S_REIMG_LITEBOX eq '_litebox1' -->
@@ -104,8 +103,8 @@
 			var litebox_style = "cursor: pointer;"
 		<!-- ENDIF -->
 		<!-- IF S_REIMG_BUTTON -->
-			var litebox_closeImg = "<!-- IF REIMG_ZOOM_OUT_IMG_SRC -->{REIMG_ZOOM_OUT_IMG_SRC}<!-- ELSE -->{T_IMAGES_PATH}spacer.gif<!-- ENDIF -->";
-			var litebox_closeStyle = "<!-- IF REIMG_ZOOM_OUT_IMG_SRC --><!-- IF REIMG_ZOOM_OUT_IMG_WIDTH -->width: {REIMG_ZOOM_OUT_IMG_WIDTH}px; <!-- ENDIF --><!-- IF REIMG_ZOOM_OUT_IMG_HEIGHT -->height: {REIMG_ZOOM_OUT_IMG_HEIGHT}px; <!-- ENDIF --><!-- ELSE -->width: 18px; height: 15px; background: red; <!-- ENDIF -->filter: Alpha(Opacity=45); opacity: .45;";
+			var litebox_closeImg = reimg_loadingImg;
+			var litebox_closeStyle = "<!-- IF REIMG_ZOOM_OUT_IMG_SRC --><!-- IF REIMG_ZOOM_OUT_IMG_WIDTH -->width: {REIMG_ZOOM_OUT_IMG_WIDTH}px; <!-- ENDIF --><!-- IF REIMG_ZOOM_OUT_IMG_HEIGHT -->height: {REIMG_ZOOM_OUT_IMG_HEIGHT}px; <!-- ENDIF -->background: url({REIMG_ZOOM_OUT_IMG_SRC}) top left no-repeat; <!-- ELSE -->width: 20px; height: 20px; background: red; <!-- ENDIF -->filter: Alpha(Opacity=50); opacity: .50;";
 			var litebox_closeHover = reimg_zoomHover;
 			var litebox_closeAlt = <!-- IF S_REIMG_LINK -->litebox_alt<!-- ELSE -->"{LA_REIMG_ZOOM_OUT}"<!-- ENDIF -->;
 		<!-- ENDIF -->
@@ -118,4 +117,14 @@
 		<script type="text/javascript" src="{ROOT_PATH}reimg/litebox.js"></script>
 	<!-- ENDIF -->
 <!-- ENDIF -->
+<style type="text/css" media="screen, projection">
+<!--
+	.attachbox { width: 97%; }
+-->
+</style>
+<script type="text/javascript">
+// <![CDATA[
+	onload_functions[onload_functions.length] = "if (window.reimg_version) { reimg_loading('{REIMG_LOADING_IMG_SRC}'); }";
+// ]]>
+</script>
 <!-- ENDIF -->
