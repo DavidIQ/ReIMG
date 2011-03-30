@@ -31,7 +31,7 @@ function reimg_template_hook(&$hook)
 
 	$page_name = substr($user->page['page_name'], 0, strpos($user->page['page_name'], '.'));
 
-	if (in_array($page_name, array('memberlist', 'posting', 'ucp', 'viewtopic')))
+	if (!defined('LOAD_REIMG') && in_array($page_name, array('memberlist', 'posting', 'ucp', 'viewtopic')))
 	{
 		define('LOAD_REIMG', true);
 	}
@@ -57,20 +57,22 @@ function reimg_template_hook(&$hook)
 		'REIMG_MAX_HEIGHT'			=> reimg_get_config('reimg_max_height'),
 		'REIMG_REL_WIDTH'			=> reimg_get_config('reimg_rel_width'),
 		'S_REIMG_SWAP_PORTRAIT'		=> reimg_get_config('reimg_swap_portrait', 0),
-		'REIMG_LOADING_IMG_SRC'		=> $user->img('icon_reimg_loading', '', false, '', 'src'),
-		'REIMG_LOADING_IMG_WIDTH'	=> $user->img('icon_reimg_loading', '', false, '', 'width'),
-		'REIMG_LOADING_IMG_HEIGHT'	=> $user->img('icon_reimg_loading', '', false, '', 'height'),
 		'S_REIMG_BUTTON'			=> (substr(reimg_get_config('reimg_link'), 0, 6) == 'button') ? 1 : 0,
 		'S_REIMG_LINK'				=> (substr(reimg_get_config('reimg_link'), -4) == 'link') ? 1 : 0,
 		'S_REIMG_ZOOM'				=> (substr(reimg_get_config('reimg_zoom'), 0, 8) == '_litebox') ? '_litebox' : reimg_get_config('reimg_zoom'),
+		'S_REIMG_ATTACHMENTS'		=> (reimg_get_config('img_create_thumbnail', 0) ? false : true),
+		'S_REIMG_LITEBOX'			=> ((substr(reimg_get_config('reimg_zoom'), 0, 8) == '_litebox' || reimg_get_config('reimg_zoom') == '_highslide') && (reimg_get_config('reimg_max_width') || reimg_get_config('reimg_max_height') || reimg_get_config('reimg_rel_width'))) ? reimg_get_config('reimg_zoom') : '',
+
+		'REIMG_LOADING_IMG_SRC'		=> $user->img('icon_reimg_loading', '', false, '', 'src'),
+		'REIMG_LOADING_IMG_WIDTH'	=> $user->img('icon_reimg_loading', '', false, '', 'width'),
+		'REIMG_LOADING_IMG_HEIGHT'	=> $user->img('icon_reimg_loading', '', false, '', 'height'),
 		'REIMG_ZOOM_IN_IMG_SRC'		=> $user->img('icon_reimg_zoom_in', '', false, '', 'src'),
 		'REIMG_ZOOM_IN_IMG_WIDTH'	=> $user->img('icon_reimg_zoom_in', '', false, '', 'width'),
 		'REIMG_ZOOM_IN_IMG_HEIGHT'	=> $user->img('icon_reimg_zoom_in', '', false, '', 'height'),
-		'S_REIMG_LITEBOX'			=> ((substr(reimg_get_config('reimg_zoom'), 0, 8) == '_litebox' || reimg_get_config('reimg_zoom') == '_highslide') && (reimg_get_config('reimg_max_width') || reimg_get_config('reimg_max_height') || reimg_get_config('reimg_rel_width'))) ? reimg_get_config('reimg_zoom') : '',
 		'REIMG_ZOOM_OUT_IMG_SRC'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'src'),
 		'REIMG_ZOOM_OUT_IMG_WIDTH'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'width'),
 		'REIMG_ZOOM_OUT_IMG_HEIGHT'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'height'),
-		'REIMG_PROPERTIES'			=> reimg_properties(),
+
 		'REIMG_AJAX_URL'			=> generate_board_url() . "/reimg/reimg_ajax.$phpEx",
 	));
 
@@ -158,6 +160,19 @@ function reimg_template_hook(&$hook)
 						'MESSAGE' 	=> insert_reimg_properties($data['MESSAGE']),
 						'SIGNATURE'	=> (reimg_get_config('reimg_ignore_sig_img', false) ? $data['SIGNATURE'] : insert_reimg_properties($data['SIGNATURE'])),
 					), $row, 'change');
+
+					//Handle attachments
+					if (isset($data['attachment']) && reimg_get_config('img_create_thumbnail', false) == false)
+					{
+						foreach ($data['attachment'] as $attachrow => $attachment)
+						{
+							$data['attachment'][$attachrow]['DISPLAY_ATTACHMENT'] = insert_reimg_properties($attachment['DISPLAY_ATTACHMENT']);
+						}
+
+						$template->alter_block_array('postrow', array(
+							'attachment'	=> $data['attachment'],
+						), $row, 'change');
+					}
 				}
 			}
 		break;

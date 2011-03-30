@@ -16,7 +16,7 @@
 This MOD has been tested successfully with the following browsers:
 
 * Internet Explorer 6, 7, 8
-* Firefox 1.0, 1.5, 2, 3, 3.5
+* Firefox 1.0, 1.5, 2, 3, 3.5, 4.0
 * Opera 9.27, 9.5, 9.6
 * Safari 3.1, 4
 * Mozilla 1.7
@@ -114,20 +114,6 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 img_icon_reimg_loading = icon_reimg_loading.gif*16*16
 img_icon_reimg_zoom_in = icon_reimg_zoom_in.gif*20*20
 img_icon_reimg_zoom_out = icon_reimg_zoom_out.gif*20*20]]></action>
-			</edit>
-		</open>
-
-		<open src="styles/prosilver/template/attachment.html">
-			<edit>
-				<find><![CDATA[			<dt class="attach-image"><img src="{_file.U_INLINE_LINK}" alt="{_file.DOWNLOAD_NAME}" onclick="viewableArea(this);" /></dt>]]></find>
-				<inline-edit>
-					<inline-find>class="attach-image"</inline-find>
-					<inline-action type="after-add"><![CDATA[<!-- IF S_REIMG --> style="overflow: hidden; max-height: none;"<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
-				<inline-edit>
-					<inline-find>onclick="viewableArea(this);"</inline-find>
-					<inline-action type="replace-with"><![CDATA[<!-- IF S_REIMG -->style="border: none;" {REIMG_PROPERTIES}<!-- ELSE -->onclick="viewableArea(this);"<!-- ENDIF -->]]></inline-action>
-				</inline-edit>
 			</edit>
 		</open>
 	

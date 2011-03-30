@@ -43,6 +43,7 @@ class acp_reimg
 		$reimg_ignore_sig_img = request_var('reimg_ignore_sig_img', reimg_get_config('reimg_ignore_sig_img', false));
 		$reimg_link = request_var('reimg_link', reimg_get_config('reimg_link', ''));
 		$reimg_zoom = request_var('reimg_zoom', reimg_get_config('reimg_zoom', ''));
+		$reimg_attachments = (request_var('reimg_attachments', reimg_get_config('img_create_thumbnail', 0)) ? 0 : 1); //Backwards on purpose
 
 		if ($submit)
 		{
@@ -56,11 +57,11 @@ class acp_reimg
 			set_config('reimg_max_width', $reimg_max_width);
 			set_config('reimg_max_height', $reimg_max_height);
 			set_config('reimg_rel_width', $reimg_rel_width);
-			set_config('reimg_rel_width', $reimg_rel_width);
 			set_config('reimg_swap_portrait', $reimg_swap_portrait);
 			set_config('reimg_ignore_sig_img', $reimg_ignore_sig_img);
 			set_config('reimg_link', $reimg_link);
 			set_config('reimg_zoom', $reimg_zoom);
+			set_config('img_create_thumbnail', $reimg_attachments);
 
 			add_log('admin', 'LOG_REIMG_UPDATED');
 			trigger_error($user->lang['REIMG_UPDATED'] . adm_back_link($this->u_action));
@@ -77,6 +78,7 @@ class acp_reimg
 			'S_REIMG_IGNORE_SIG_IMG'	=> $reimg_ignore_sig_img,
 			'S_REIMG_LINK'				=> select_reimg_link_method($reimg_link),
 			'S_REIMG_ZOOM'				=> select_reimg_zoom_method($reimg_zoom),
+			'S_REIMG_ATTACHMENTS'		=> $reimg_attachments,
 
 			'U_ACTION'					=> $this->u_action,
 		));

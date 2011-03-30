@@ -4,8 +4,7 @@
 * reimg [English]
 *
 * @package language
-* @version $Id: reimg.php 8775 2009-06-05 09:30:12Z DavidIQ $
-* @copyright (c) 2009 DavidIQ.com
+* @copyright (c) 2011 DavidIQ.com
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */

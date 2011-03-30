@@ -117,11 +117,18 @@
 		<script type="text/javascript" src="{ROOT_PATH}reimg/litebox.js"></script>
 	<!-- ENDIF -->
 <!-- ENDIF -->
+<!-- IF S_REIMG_ATTACHMENTS -->
 <style type="text/css" media="screen, projection">
 <!--
 	.attachbox { width: 97%; }
+	.attach-image
+	{
+		overflow: hidden;
+		max-height: none;
+	}
 -->
 </style>
+<!-- ENDIF -->
 <script type="text/javascript">
 // <![CDATA[
 	onload_functions[onload_functions.length] = "if (window.reimg_version) { reimg_loading('{REIMG_LOADING_IMG_SRC}'); }";
