@@ -36,8 +36,8 @@ function reimg_template_hook(&$hook)
 		define('LOAD_REIMG', true);
 	}
 
-	//This will prevent further loading of this hook.  If you need this hook loaded on a page other than the ones above either add to
-	//the array above or add a define('LOAD_REIMG', true) to your page.
+	//This will prevent further loading of this hook.  If you need this hook loaded on a page other than
+	//the ones in the above array then add a define('LOAD_REIMG', true) to the top of your page.
 	if (!defined('LOAD_REIMG'))
 	{
 		return;
@@ -80,6 +80,7 @@ function reimg_template_hook(&$hook)
 	switch ($page_name)
 	{
 		case 'memberlist':
+			//Viewing user profile
 			if (request_var('mode', '') == 'viewprofile' && reimg_get_config('reimg_ignore_sig_img', false) == false)
 			{
 				if (isset($template->_tpldata['.'][0]['SIGNATURE']))
@@ -90,6 +91,7 @@ function reimg_template_hook(&$hook)
 		break;
 
 		case 'posting':
+			//Topic review area shown when posting a reply
 			if (!empty($template->_tpldata['topic_review_row']))
 			{
 				foreach ($template->_tpldata['topic_review_row'] as $row => $data)
@@ -101,18 +103,21 @@ function reimg_template_hook(&$hook)
 				}
 			}
 
+			//Message preview
 			if (isset($template->_tpldata['.'][0]['PREVIEW_MESSAGE']))
 			{
 				$template->assign_var('PREVIEW_MESSAGE', insert_reimg_properties($template->_tpldata['.'][0]['PREVIEW_MESSAGE']));
 			}
 
-			if (isset($template->_tpldata['.'][0]['PREVIEW_SIGNATURE']))
+			//Signature in post preview
+			if (isset($template->_tpldata['.'][0]['PREVIEW_SIGNATURE']) && reimg_get_config('reimg_ignore_sig_img', false) == false)
 			{
 				$template->assign_var('PREVIEW_SIGNATURE', insert_reimg_properties($template->_tpldata['.'][0]['PREVIEW_SIGNATURE']));
 			}
 		break;
 
 		case 'ucp':
+			//Signature editing area
 			if (request_var('mode', '') == 'signature' && reimg_get_config('reimg_ignore_sig_img', false) == false)
 			{
 				if (isset($template->_tpldata['.'][0]['SIGNATURE_PREVIEW']))
@@ -123,21 +128,37 @@ function reimg_template_hook(&$hook)
 
 			$prefix = '';
 
+			//Test to see if we're in preview mode
 			if (isset($template->_tpldata['.'][0]['PREVIEW_MESSAGE']))
 			{
 				$prefix = 'PREVIEW_';
 			}
 
+			//The actual message
 			if (isset($template->_tpldata['.'][0][$prefix . 'MESSAGE']))
 			{
 				$template->assign_var($prefix . 'MESSAGE', insert_reimg_properties($template->_tpldata['.'][0][$prefix . 'MESSAGE']));
 			}
 
-			if (isset($template->_tpldata['.'][0][$prefix . 'SIGNATURE']))
+			//Message's signature
+			if (isset($template->_tpldata['.'][0][$prefix . 'SIGNATURE']) && reimg_get_config('reimg_ignore_sig_img', false) == false)
 			{
 				$template->assign_var($prefix . 'SIGNATURE', insert_reimg_properties($template->_tpldata['.'][0][$prefix . 'SIGNATURE']));
 			}
 
+			//Handle attachments
+			if (isset($template->_tpldata['attachment']) && reimg_get_config('img_create_thumbnail', false) == false)
+			{
+				foreach ($template->_tpldata['attachment'] as $row => $data)
+				{
+					// Alter the array
+					$template->alter_block_array('attachment', array(
+						'DISPLAY_ATTACHMENT' 	=> insert_reimg_properties($data['DISPLAY_ATTACHMENT']),
+					), $row, 'change');
+				}
+			}
+
+			//Message history section
 			if (!empty($template->_tpldata['history_row']))
 			{
 				foreach ($template->_tpldata['history_row'] as $row => $data)
