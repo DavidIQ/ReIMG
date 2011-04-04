@@ -62,3 +62,10 @@ $versions = array(
 
 include($phpbb_root_path . 'umil/umil_auto.' . $phpEx);
 
+//Clear cache
+$umil->cache_purge(array(
+	array(''),
+	array('auth'),
+	array('template'),
+	array('theme'),
+));

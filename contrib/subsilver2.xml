@@ -64,8 +64,8 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 		<mod-version>2.0.0</mod-version>
 		
 		<installation>
-			<level>intermediate</level>
-			<time>1200</time>
+			<level>easy</level>
+			<time>300</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 
@@ -110,6 +110,6 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 			</edit>
 		</open>
 
-		<diy-instructions lang="en-gb">After you have saved all changed files, remember to purge the cache and refresh your imageset.</diy-instructions>
+		<diy-instructions lang="en-gb">Remember to purge the cache.</diy-instructions>
 	</action-group>
 </mod>

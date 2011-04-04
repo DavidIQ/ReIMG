@@ -64,8 +64,8 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 		<mod-version>2.0.0</mod-version>
 		
 		<installation>
-			<level>intermediate</level>
-			<time>1200</time>
+			<level>easy</level>
+			<time>300</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 
@@ -119,7 +119,7 @@ Please note that if you plan on using Highslide JS you must follow the instructi
 
 		<php-installer>install_reimg.php</php-installer>
 
-		<diy-instructions lang="en-gb">Remember to refresh your template and imageset and purge the cache.</diy-instructions>
+		<diy-instructions lang="en-gb">Remember to refresh your template(s).</diy-instructions>
 
 	</action-group>
 </mod>
