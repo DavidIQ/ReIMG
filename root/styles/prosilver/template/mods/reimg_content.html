@@ -1,0 +1,137 @@
+<!-- IF S_REIMG -->
+<script type="text/javascript">
+// <![CDATA[
+	/**
+	* Resize too large images
+	*/
+	var reimg_maxWidth = {REIMG_MAX_WIDTH}, reimg_maxHeight = {REIMG_MAX_HEIGHT}, reimg_relWidth = {REIMG_REL_WIDTH};
+	var reimg_swapPortrait = <!-- IF S_REIMG_SWAP_PORTRAIT -->true<!-- ELSE -->false<!-- ENDIF -->;
+	var reimg_loadingImg = "{T_IMAGES_PATH}spacer.gif";
+	var reimg_loadingStyle = "width: 16px; height: 16px; background: url({T_IMAGESET_PATH}/icon_reimg_loading.gif) top left no-repeat; filter: Alpha(Opacity=50); opacity: .50;";
+	var reimg_loadingAlt = "{LA_LOADING_TEXT}";
+	<!-- IF S_REIMG_LINK -->
+	var reimg_autoLink = true;
+	<!-- ENDIF -->
+	<!-- IF S_REIMG_BUTTON -->
+	var reimg_zoomImg = "{T_IMAGES_PATH}spacer.gif";
+	var reimg_zoomStyle = "width: 20px; height: 20px; background: url({T_IMAGESET_PATH}/icon_reimg_zoom_in.gif) top left no-repeat; filter: Alpha(Opacity=50); opacity: .50;";
+	var reimg_zoomHover = "background-position: 0 100%; cursor: pointer; filter: Alpha(Opacity=100); opacity: 1.00;";
+	var reimg_zoomAlt = "{LA_REIMG_ZOOM_IN}";
+	var reimg_zoomTarget = "{S_REIMG_ZOOM}";
+	<!-- ENDIF -->
+	var reimg_ajax_url = "{REIMG_AJAX_URL}";
+
+	function reimg(img, width, height)
+	{
+		if (window.reimg_version)
+		{
+			reimg_resize(img, width, height);
+		}
+	}
+// ]]>
+</script>
+
+<script type="text/javascript" src="{ROOT_PATH}reimg/reimg.js"></script>
+
+	<!-- IF S_REIMG_ZOOM -->
+<style type="text/css" media="screen, projection">
+<!--
+	#topicreview .reimg-zoom { display: none; }
+-->
+</style>
+	<!-- ENDIF -->
+	<!-- IF S_REIMG_ZOOM_METHOD eq '_highslide' -->
+<script type="text/javascript" src="{ROOT_PATH}reimg/highslide/highslide-full.packed.js"></script>
+<link rel="stylesheet" type="text/css" href="{ROOT_PATH}reimg/highslide/highslide.css" />
+	<!-- ENDIF -->
+	<!-- IF S_REIMG_ZOOM_METHOD eq '_lytebox' -->
+<script type="text/javascript" src="{ROOT_PATH}reimg/lytebox/lytebox.js"></script>
+<link rel="stylesheet" type="text/css" href="{ROOT_PATH}reimg/lytebox/lytebox.css" />
+	<!-- ENDIF -->
+<script type="text/javascript">
+// <![CDATA[
+	/**
+	* Light box for resized images
+	*/
+	<!-- IF S_REIMG_ZOOM_METHOD eq '_highslide' -->
+	if (window.hs)
+	{
+		hs.graphicsDir = "{ROOT_PATH}reimg/highslide/graphics/";
+		// Language settings for Highslide JS
+		hs.lang.cssDirection = "{S_CONTENT_DIRECTION}";
+		hs.lang.loadingText = "{LA_LOADING_TEXT}";
+		hs.lang.loadingTitle = "{LA_LOADING_TITLE}";
+		hs.lang.focusTitle = "{LA_FOCUS_TITLE}";
+		hs.lang.fullExpandTitle = "{LA_FULL_EXPAND_TITLE}";
+		hs.lang.creditsText = "{LA_CREDITS_TEXT}";
+		hs.lang.creditsTitle = "{LA_CREDITS_TITLE}";
+		hs.lang.previousText = "{LA_PREVIOUS_TEXT}";
+		hs.lang.nextText = "{LA_NEXT_TEXT}";
+		hs.lang.moveText = "{LA_MOVE_TEXT}";
+		hs.lang.closeText = "{LA_CLOSE_TEXT}";
+		hs.lang.closeTitle = "{LA_CLOSE_TITLE}";
+		hs.lang.resizeTitle = "{LA_RESIZE_TITLE}";
+		hs.lang.playText = "{LA_PLAY_TEXT}";
+		hs.lang.playTitle = "{LA_PLAY_TITLE}";
+		hs.lang.pauseText = "{LA_PAUSE_TEXT}";
+		hs.lang.pauseTitle = "{LA_PAUSE_TITLE}";
+		hs.lang.previousTitle = "{LA_PREVIOUS_TITLE}";
+		hs.lang.nextTitle = "{LA_NEXT_TITLE}";
+		hs.lang.moveTitle = "{LA_MOVE_TITLE}";
+		hs.lang.number = "{LA_IMAGE_NUMBER}";
+		hs.lang.restoreTitle = "{LA_RESTORE_TITLE}";
+	}
+	<!-- ELSEIF S_REIMG_ZOOM_METHOD eq '_lytebox' -->
+	var reimg_lytebox = true;
+	<!-- ELSE -->
+	var litebox_alt = "<!-- IF S_REIMG_LINK -->{LA_REIMG_ZOOM_OUT}<!-- ELSE -->{LA_IMAGE}<!-- ENDIF -->";
+		<!-- IF S_REIMG_ZOOM_METHOD eq '_litebox' -->
+			<!-- IF S_REIMG_BUTTON -->
+	var litebox_zoomImg = reimg_zoomImg;
+	var litebox_zoomStyle = reimg_zoomStyle;
+	var litebox_zoomHover = reimg_zoomHover;
+	var litebox_zoomAlt = reimg_zoomAlt;
+			<!-- ELSE -->
+	var litebox_zoomImg = "{T_IMAGES_PATH}spacer.gif";
+	var litebox_zoomStyle = "width: 20px; height: 20px; background: url({T_IMAGESET_PATH}/icon_reimg_zoom_in.gif) top left no-repeat; filter: Alpha(Opacity=50); opacity: .50;";
+	var litebox_zoomHover = "background-position: 0 100%; cursor: pointer; filter: Alpha(Opacity=100); opacity: 1.00;";
+	var litebox_zoomAlt = "{LA_REIMG_ZOOM_IN}";
+			<!-- ENDIF -->
+		<!-- ELSEIF S_REIMG_ZOOM_METHOD eq '_litebox1' -->
+	var reimg_zoomLevel = 100;
+		<!-- ENDIF -->
+		<!-- IF S_REIMG_LINK -->
+	var litebox_style = "cursor: pointer;"
+		<!-- ENDIF -->
+		<!-- IF S_REIMG_BUTTON -->
+	var litebox_closeImg = "{T_IMAGES_PATH}spacer.gif";
+	var litebox_closeStyle = "width: 20px; height: 20px; background: url({T_IMAGESET_PATH}/icon_reimg_zoom_out.gif) top left no-repeat; filter: Alpha(Opacity=50); opacity: .50;";
+	var litebox_closeHover = reimg_zoomHover;
+	var litebox_closeAlt = <!-- IF S_REIMG_LINK -->litebox_alt<!-- ELSE -->"{LA_REIMG_ZOOM_OUT}"<!-- ENDIF -->;
+		<!-- ENDIF -->
+	var litebox_rtl = <!-- IF S_CONTENT_DIRECTION eq 'rtl' -->true<!-- ELSE -->false<!-- ENDIF -->;
+	<!-- ENDIF -->
+// ]]>
+</script>
+
+	<!-- IF S_REIMG_ZOOM_METHOD eq '_litebox' or S_REIMG_ZOOM_METHOD eq '_litebox1' -->
+<script type="text/javascript" src="{ROOT_PATH}reimg/litebox.js"></script>
+	<!-- ENDIF -->
+	<!-- IF S_REIMG_ATTACHMENTS -->
+<style type="text/css" media="screen, projection">
+<!--
+	.attachbox { width: 97%; }
+	.attach-image
+	{
+		overflow: hidden;
+		max-height: none;
+	}
+-->
+</style>
+	<!-- ENDIF -->
+<script type="text/javascript">
+// <![CDATA[
+	onload_functions[onload_functions.length] = "if (window.reimg_version) { reimg_loading('{T_IMAGESET_PATH}/icon_reimg_loading.gif'); }";
+// ]]>
+</script>
+<!-- ENDIF -->

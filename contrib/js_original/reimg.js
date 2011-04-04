@@ -1,5 +1,6 @@
 /**
 * Resize too large images
+* (c) DavidIQ 2010-2011
 * (c) Tale 2008-2009
 * http://www.taletn.com/
 * Contributor(s):
@@ -7,8 +8,7 @@
 * http://www.davidiq.com/
 */
 
-var reimg_version = 1.000003; // 1.0.3
-
+var reimg_version = 1.000004; // 1.0.4
 
 /* To use this script you need to define the following javascript variables
 *before* including this javascript file into your HTML file:
@@ -120,17 +120,23 @@ document.write('--></style>');
 var reimg_opera = 0;
 if (window.opera && window.navigator && window.navigator.userAgent)
 {
-	reimg_opera = window.navigator.userAgent.match(/\bOpera\/([\d.]+)/);
+	var reimg_opera_match = window.navigator.userAgent.match(/\bOpera\/([\d.]+)/);
 	if (reimg_opera)
 	{
-		reimg_opera = reimg_opera[1];
-	}
-	else
-	{
-		reimg_opera = 0;
+		reimg_opera = reimg_opera_match[1];
 	}
 }
 
+// Determine MSIE version.  IE9 is way different...
+var reimg_msie = 0;
+if (window.navigator && window.navigator.userAgent)
+{
+	var reimg_msie_match = window.navigator.userAgent.match(/\bMSIE ([\d.]+)/);
+	if (reimg_msie_match)
+	{
+		reimg_msie = reimg_msie_match[1];
+	}
+}
 
 // Show the original sized picture when the zoom image is clicked.
 
@@ -206,7 +212,7 @@ function reimg_zoomIn(e)
 		}
 
 	}
-	// Open the image in a lightbox.
+	// Open the image in a litebox.
 	else if (window.reimg_zoomTarget == "_litebox" && window.litebox_version)
 	{
 		var width, height;
@@ -226,6 +232,12 @@ function reimg_zoomIn(e)
 	else if (window.reimg_zoomTarget == "_highslide" && window.hs)
 	{
 		return hs.expand(reimg_zoomLink);
+	}
+	// Open the image using Lytebox
+	else if (window.reimg_zoomTarget == "_lytebox" && myLytebox)
+	{
+		reimg_zoomLink.setAttribute("rel", "lytebox");
+		return myLytebox.start(reimg_zoomLink, false, false);
 	}
 	// Open the image in a new window via the "External URLs in New Window"
 	// MOD.
@@ -291,8 +303,8 @@ function reimg_resize(img, realWidth, realHeight, passLevel)
 	{
 		return;
 	}
-	// Ignore looping animations in MSIE.
-	if (img.readyState == "complete" && img.complete && !passLevel)
+	// Ignore looping animations in MSIE. Does not apply to MSIE 9.0+
+	if (img.readyState == "complete" && img.complete && !passLevel && reimg_msie < 9.0)
 	{
 		return;
 	}

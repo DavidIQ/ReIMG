@@ -1,13 +1,14 @@
 /**
 * Light box for resized images
-* (c) Tale 2008
+* (c) DavidIQ 2010-2011
+* (c) Tale 2008-2009
 * http://www.taletn.com/
 * Contributor(s):
 * DavidIQ
 * http://www.davidiq.com/
 */
 
-var litebox_version = 1.000001; // 1.0.1
+var litebox_version = 1.000002; // 1.0.2
 
 
 // This script is loosely based on Lightbox 2
@@ -260,7 +261,8 @@ function litebox_zoomIn()
 	div.style.height = litebox_maxHeight+"px";
 	if (span.offsetHeight > litebox_maxHeight)
 	{
-		div.style.height = (litebox_maxHeight-(span.offsetHeight-litebox_maxHeight))+"px";
+		//div.style.height = (litebox_maxHeight-(span.offsetHeight-litebox_maxHeight))+"px";
+		div.style.height = (litebox_maxHeight-litebox_imgHeight)+"px";
 	}
 	if (litebox_opera)
 	{
