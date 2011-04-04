@@ -61,16 +61,25 @@ $lang = array_merge($lang, array(
 	),
 
 	'REIMG_ZOOM_METHOD'				=> 'Zooming method',
-	'REIMG_ZOOM_METHOD_EXPLAIN'		=> 'Select the method that is used to view the original, larger image.<br /><br />NOTE on Highslide: If you wish to use Highslide please note that you must first download the Highslide JS ZIP package from <a href="http://highslide.com/download.php" style="text-decoration: underline;">here</a> and place the downloaded zip file’s <em>highslide</em> directory in your forum’s <em>reimg/highslide</em> directory.',
+	'REIMG_ZOOM_METHOD_EXPLAIN'		=> 'Select the method that is used to view the original, larger image.<br /><br />NOTE: If you wish to use a disabled selection follow the instructions that are shown next to the disabled selection description.',
 
 	'reimg_zooming_methods'			=> array(
 		'_blank' 		=> 'New window',
 		'_default' 		=> 'Normal link',
 		'_exturl' 		=> 'External link',
 		'_litebox' 		=> 'Litebox',
-		'_litebox1'		=> 'Litebox 1:1',
-		'_litebox0'		=> 'Litebox resized',
-		'_highslide'	=> 'Highslide',
+		'_litebox1'		=> array(
+								'Zoom to image full size on initial click.',
+								'Litebox 1:1',
+							),
+		'_highslide'	=> array(
+								'Use link to download Highslide JS ZIP package. Then place zip package’s <em>highslide</em> directory in your forum’s <em>reimg</em> directory.',
+								'<a href="http://highslide.com/download.php" style="text-decoration: underline;">Highslide</a>',
+							),
+		'_lytebox'		=> array(
+								'Use link to download Lytebox ZIP package. Unzip contents to an empty <em>lytebox</em> directory and place folder in your forum’s <em>reimg</em> directory. DOES NOT WORK WELL WITH INTERNET EXPLORER 9 UNLESS X-UA-Compatible TAG IS CHANGED IN overall_header.html.',
+								'<a href="http://www.dolem.com/lytebox/" style="text-decoration: underline;">Lytebox</a>',
+							),
 	),
 
 	'REIMG_IGNORE_SIG_IMG'			=> 'Ignore images in signatures',

@@ -212,7 +212,7 @@ function reimg_zoomIn(e)
 		}
 
 	}
-	// Open the image in a lightbox.
+	// Open the image in a litebox.
 	else if (window.reimg_zoomTarget == "_litebox" && window.litebox_version)
 	{
 		var width, height;
@@ -232,6 +232,12 @@ function reimg_zoomIn(e)
 	else if (window.reimg_zoomTarget == "_highslide" && window.hs)
 	{
 		return hs.expand(reimg_zoomLink);
+	}
+	// Open the image using Lytebox
+	else if (window.reimg_zoomTarget == "_lytebox" && myLytebox)
+	{
+		reimg_zoomLink.setAttribute("rel", "lytebox");
+		return myLytebox.start(reimg_zoomLink, false, false);
 	}
 	// Open the image in a new window via the "External URLs in New Window"
 	// MOD.

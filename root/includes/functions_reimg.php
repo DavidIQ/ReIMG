@@ -66,18 +66,41 @@ function select_reimg_zoom_method($selected_value)
 
 	foreach ($zoom_method_ary as $zoom_method => $lang)
 	{
-		$disabled = '';
-		//We need to check and see if the Highslide library actually exists before allowing the option to be selectable
-		if ($zoom_method == '_highslide')
+		$instructions = '';
+
+		//For instructions
+		if (is_array($lang))
 		{
-			//We need one of the highslide js libraries
-			if (!file_exists($phpbb_root_path . 'reimg/highslide/highslide-full.packed.js'))
-			{
-				$disabled = ' disabled';
-			}
+			$instructions = $lang[0];
+			$lang = $lang[1];
 		}
-		$selected = ($selected_value == $zoom_method) ? ' selected="selected"' : '';
-		$zoom_options .= '<option value="' . $zoom_method . '"' . $selected . $disabled . '>' . $lang . '</option>';
+
+		$disabled = '';
+
+		//Check to see if zoom method is available
+		switch ($zoom_method)
+		{
+			case '_highslide':
+				//We need one of the highslide js libraries
+				if (!file_exists($phpbb_root_path . 'reimg/highslide/highslide-full.packed.js'))
+				{
+					$disabled = ' disabled';
+					$lang = '<em>' . $lang . (($instructions) ? ' - ' . $instructions : '') . '</em>';
+				}
+			break;
+
+			case '_lytebox':
+				//We need the Lytebox library
+				if (!file_exists($phpbb_root_path . 'reimg/lytebox/lytebox.js'))
+				{
+					$disabled = ' disabled';
+					$lang = '<em>' . $lang . $lang . (($instructions) ? ' - ' . $instructions : '') . '</em>';
+				}
+			break;
+		}
+
+		$checked = ($selected_value == $zoom_method) ? ' checked="checked"' : '';
+		$zoom_options .= '<label style="white-space: normal;"><input type="radio" name="reimg_zoom" ' . (!strpos($zoom_options, 'id="reimg_zoom"') ? 'id="reimg_zoom" ' : '') . 'value="' . $zoom_method . '" class="radio"' . $checked . $disabled . ' /> ' . $lang . "</label><br />\n";
 	}
 
 	return $zoom_options;

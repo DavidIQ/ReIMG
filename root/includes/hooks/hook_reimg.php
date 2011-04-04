@@ -52,26 +52,16 @@ function reimg_template_hook(&$hook)
 
 	//Standard template variables
 	$template->assign_vars(array(
-		'S_REIMG'					=> reimg_get_config('reimg_enabled', false),
-		'REIMG_MAX_WIDTH'			=> reimg_get_config('reimg_max_width'),
-		'REIMG_MAX_HEIGHT'			=> reimg_get_config('reimg_max_height'),
-		'REIMG_REL_WIDTH'			=> reimg_get_config('reimg_rel_width'),
+		'S_REIMG'					=> reimg_get_config('reimg_enabled', false) && (reimg_get_config('reimg_zoom') && (reimg_get_config('reimg_max_width') || reimg_get_config('reimg_max_height') || reimg_get_config('reimg_rel_width'))),
+		'REIMG_MAX_WIDTH'			=> reimg_get_config('reimg_max_width', 0),
+		'REIMG_MAX_HEIGHT'			=> reimg_get_config('reimg_max_height', 0),
+		'REIMG_REL_WIDTH'			=> reimg_get_config('reimg_rel_width', 0),
 		'S_REIMG_SWAP_PORTRAIT'		=> reimg_get_config('reimg_swap_portrait', 0),
-		'S_REIMG_BUTTON'			=> (substr(reimg_get_config('reimg_link'), 0, 6) == 'button') ? 1 : 0,
-		'S_REIMG_LINK'				=> (substr(reimg_get_config('reimg_link'), -4) == 'link') ? 1 : 0,
-		'S_REIMG_ZOOM'				=> (substr(reimg_get_config('reimg_zoom'), 0, 8) == '_litebox') ? '_litebox' : reimg_get_config('reimg_zoom'),
+		'S_REIMG_BUTTON'			=> (strpos(reimg_get_config('reimg_link'), 'button') !== false) ? 1 : 0,
+		'S_REIMG_LINK'				=> (strpos(reimg_get_config('reimg_link'), 'link') !== false) ? 1 : 0,
+		'S_REIMG_ZOOM'				=> (strpos(reimg_get_config('reimg_zoom'), '_litebox') !== false) ? '_litebox' : reimg_get_config('reimg_zoom'),
 		'S_REIMG_ATTACHMENTS'		=> (reimg_get_config('img_create_thumbnail', 0) ? false : true),
-		'S_REIMG_LITEBOX'			=> ((substr(reimg_get_config('reimg_zoom'), 0, 8) == '_litebox' || reimg_get_config('reimg_zoom') == '_highslide') && (reimg_get_config('reimg_max_width') || reimg_get_config('reimg_max_height') || reimg_get_config('reimg_rel_width'))) ? reimg_get_config('reimg_zoom') : '',
-
-		'REIMG_LOADING_IMG_SRC'		=> $user->img('icon_reimg_loading', '', false, '', 'src'),
-		'REIMG_LOADING_IMG_WIDTH'	=> $user->img('icon_reimg_loading', '', false, '', 'width'),
-		'REIMG_LOADING_IMG_HEIGHT'	=> $user->img('icon_reimg_loading', '', false, '', 'height'),
-		'REIMG_ZOOM_IN_IMG_SRC'		=> $user->img('icon_reimg_zoom_in', '', false, '', 'src'),
-		'REIMG_ZOOM_IN_IMG_WIDTH'	=> $user->img('icon_reimg_zoom_in', '', false, '', 'width'),
-		'REIMG_ZOOM_IN_IMG_HEIGHT'	=> $user->img('icon_reimg_zoom_in', '', false, '', 'height'),
-		'REIMG_ZOOM_OUT_IMG_SRC'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'src'),
-		'REIMG_ZOOM_OUT_IMG_WIDTH'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'width'),
-		'REIMG_ZOOM_OUT_IMG_HEIGHT'	=> $user->img('icon_reimg_zoom_out', '', false, '', 'height'),
+		'S_REIMG_ZOOM_METHOD'		=> reimg_get_config('reimg_zoom'),
 
 		'REIMG_AJAX_URL'			=> generate_board_url() . "/reimg/reimg_ajax.$phpEx",
 	));
