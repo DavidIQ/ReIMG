@@ -94,7 +94,7 @@ function select_reimg_zoom_method($selected_value)
 				if (!file_exists($phpbb_root_path . 'reimg/lytebox/lytebox.js'))
 				{
 					$disabled = ' disabled';
-					$lang = '<em>' . $lang . $lang . (($instructions) ? ' - ' . $instructions : '') . '</em>';
+					$lang = '<em>' . $lang . (($instructions) ? ' - ' . $instructions : '') . '</em>';
 				}
 			break;
 		}
@@ -119,7 +119,7 @@ function reimg_properties()
 */
 function insert_reimg_properties($display_text)
 {
-	preg_match("/(<img\/?[^>]*?\/>)/e", $display_text, $images);
+	preg_match_all("/(<img\/?[^>]*?\/>)/e", $display_text, $images);
 
 	$images = array_unique($images);
 

@@ -191,4 +191,7 @@ function reimg_template_hook(&$hook)
 }
 
 // Register
-$phpbb_hook->register(array('template', 'display'), 'reimg_template_hook');
+if (isset($config['reimg_enabled']) && $config['reimg_enabled'])
+{
+	$phpbb_hook->register(array('template', 'display'), 'reimg_template_hook');
+}
