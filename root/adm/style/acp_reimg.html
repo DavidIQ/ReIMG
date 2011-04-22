@@ -62,6 +62,11 @@
 			<label><input type="radio" name="reimg_attachments" id="reimg_attachments" value="0"<!-- IF not S_REIMG_ATTACHMENTS --> checked="checked"<!-- ENDIF --> class="radio" /> {L_NO}</label></dd>
 		</dl>
 		<dl>
+			<dt><label for="reimg_xhtml">{L_REIMG_XHTML}:</label><br /><span>{L_REIMG_XHTML_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" name="reimg_xhtml" value="1"<!-- IF S_REIMG_XHTML --> checked="checked"<!-- ENDIF -->  class="radio" /> {L_YES}</label>
+			<label><input type="radio" name="reimg_xhtml" id="reimg_xhtml" value="0"<!-- IF not S_REIMG_XHTML --> checked="checked"<!-- ENDIF --> class="radio" /> {L_NO}</label></dd>
+		</dl>
+		<dl>
 			<dt><label for="reimg_link">{L_REIMG_LINK_METHOD}:</label><br /><span>{L_REIMG_LINK_METHOD_EXPLAIN}</span></dt>
 			<dd><select name="reimg_link" id="reimg_link">{S_REIMG_LINK}</select></dd>
 		</dl>

@@ -8,7 +8,7 @@
 * http://www.davidiq.com/
 */
 
-var reimg_version = 1.000004; // 1.0.4
+var reimg_version = 1.000005; // 1.0.5
 
 /* To use this script you need to define the following javascript variables
 *before* including this javascript file into your HTML file:
@@ -121,7 +121,7 @@ var reimg_opera = 0;
 if (window.opera && window.navigator && window.navigator.userAgent)
 {
 	var reimg_opera_match = window.navigator.userAgent.match(/\bOpera\/([\d.]+)/);
-	if (reimg_opera)
+	if (reimg_opera_match)
 	{
 		reimg_opera = reimg_opera_match[1];
 	}
@@ -139,7 +139,6 @@ if (window.navigator && window.navigator.userAgent)
 }
 
 // Show the original sized picture when the zoom image is clicked.
-
 var reimg_zoomLink = null;
 var reimg_realSize = new Array();
 
@@ -187,7 +186,7 @@ function reimg_zoomIn(e)
 		}
 		document.body.appendChild(reimg_zoomLink);
 	}
-	// Where did the click came from?
+	// Where did the click come from?
 	if (target.className.match(/(^|\s)reimg-zoom(\s|$)/))
 	{
 		// The click came from the zoom button.
@@ -239,20 +238,10 @@ function reimg_zoomIn(e)
 		reimg_zoomLink.setAttribute("rel", "lytebox");
 		return myLytebox.start(reimg_zoomLink, false, false);
 	}
-	// Open the image in a new window via the "External URLs in New Window"
-	// MOD.
-	else if (window.reimg_zoomTarget == "_exturl" && window.exturl_version)
-	{
-		exturl(reimg_zoomLink, "force");
-	}
 	// Open the image as if it were any normal URL, ...
 	else
 	{
-		// ... optionally via the "External URLs in New Window" MOD.
-		if (!window.exturl_version || exturl(reimg_zoomLink))
-		{
-			window.location.href = reimg_zoomLink.href;
-		}
+		window.location.href = reimg_zoomLink.href;
 	}
 
 	return false;
@@ -653,7 +642,7 @@ function reimg_loading(imgOrPassLevel)
 	if (imgOrPassLevel != 1)
 	{
 		// Pre-load the "loading..." image (doesn't work in MSIE 8).
-		if (imgOrPassLevel)
+		if (imgOrPassLevel && !reimg_preLoadLoadingImg)
 		{
 			reimg_preLoadLoadingImg = document.createElement("img");
 			reimg_preLoadLoadingImg.src = imgOrPassLevel;

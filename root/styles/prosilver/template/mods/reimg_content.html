@@ -16,9 +16,9 @@
 	var reimg_zoomImg = "{T_IMAGES_PATH}spacer.gif";
 	var reimg_zoomStyle = "width: 20px; height: 20px; background: url({T_IMAGESET_PATH}/icon_reimg_zoom_in.gif) top left no-repeat; filter: Alpha(Opacity=50); opacity: .50;";
 	var reimg_zoomHover = "background-position: 0 100%; cursor: pointer; filter: Alpha(Opacity=100); opacity: 1.00;";
+	<!-- ENDIF -->
 	var reimg_zoomAlt = "{LA_REIMG_ZOOM_IN}";
 	var reimg_zoomTarget = "{S_REIMG_ZOOM}";
-	<!-- ENDIF -->
 	var reimg_ajax_url = "{REIMG_AJAX_URL}";
 
 	function reimg(img, width, height)
@@ -33,10 +33,15 @@
 
 <script type="text/javascript" src="{ROOT_PATH}reimg/reimg.js"></script>
 
-	<!-- IF S_REIMG_ZOOM -->
+	<!-- IF S_REIMG_ZOOM or S_REIMG_XHTML -->
 <style type="text/css" media="screen, projection">
 <!--
+	<!-- IF S_REIMG_ZOOM -->
 	#topicreview .reimg-zoom { display: none; }
+	<!-- ENDIF -->
+	<!-- IF S_REIMG_XHTML -->
+	.reimg { width: 10%; height: auto; visibility: visible; }
+	<!-- ENDIF -->
 -->
 </style>
 	<!-- ENDIF -->
@@ -107,7 +112,7 @@
 	var litebox_closeImg = "{T_IMAGES_PATH}spacer.gif";
 	var litebox_closeStyle = "width: 20px; height: 20px; background: url({T_IMAGESET_PATH}/icon_reimg_zoom_out.gif) top left no-repeat; filter: Alpha(Opacity=50); opacity: .50;";
 	var litebox_closeHover = reimg_zoomHover;
-	var litebox_closeAlt = <!-- IF S_REIMG_LINK -->litebox_alt<!-- ELSE -->"{LA_REIMG_ZOOM_OUT}"<!-- ENDIF -->;
+	var litebox_closeAlt = "{LA_REIMG_ZOOM_OUT}";
 		<!-- ENDIF -->
 	var litebox_rtl = <!-- IF S_CONTENT_DIRECTION eq 'rtl' -->true<!-- ELSE -->false<!-- ENDIF -->;
 	<!-- ENDIF -->
@@ -131,7 +136,7 @@
 	<!-- ENDIF -->
 <script type="text/javascript">
 // <![CDATA[
-	onload_functions[onload_functions.length] = "if (window.reimg_version) { reimg_loading('{T_IMAGESET_PATH}/icon_reimg_loading.gif'); }";
+	reimg_loading('{T_IMAGESET_PATH}/icon_reimg_loading.gif');
 // ]]>
 </script>
 <!-- ENDIF -->

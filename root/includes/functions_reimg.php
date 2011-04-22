@@ -111,7 +111,7 @@ function select_reimg_zoom_method($selected_value)
 */
 function reimg_properties()
 {
-	return 'class="reimg" onload="reimg(this);" onerror="reimg(this);" ';
+	return 'class="reimg" ' . ((reimg_get_config('reimg_xhtml', false) == false) ? 'onload="reimg(this);" onerror="reimg(this);" ' : '');
 }
 
 /**

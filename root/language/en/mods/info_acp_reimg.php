@@ -66,7 +66,6 @@ $lang = array_merge($lang, array(
 	'reimg_zooming_methods'			=> array(
 		'_blank' 		=> 'New window',
 		'_default' 		=> 'Normal link',
-		'_exturl' 		=> 'External link',
 		'_litebox' 		=> 'Litebox',
 		'_litebox1'		=> array(
 								'Zoom to image full size on initial click.',
@@ -85,7 +84,9 @@ $lang = array_merge($lang, array(
 	'REIMG_IGNORE_SIG_IMG'			=> 'Ignore images in signatures',
 	'REIMG_IGNORE_SIG_IMG_EXPLAIN'	=> 'If set to yes then images in signatures will not be resized.',
 	'REIMG_ATTACHMENTS'				=> 'Apply ReIMG to image attachments',
-	'REIMG_ATTACHMENTS_EXPLAIN'		=> 'Disables thumbnail creation when attaching images. (NOT retro-active, i.e. old attachments will not be affected if you change this setting)',
+	'REIMG_ATTACHMENTS_EXPLAIN'		=> 'Disables thumbnail creation when attaching images. (NOT retro-active, i.e. older attachments will not be affected if you change this setting)',
+	'REIMG_XHTML'					=> 'Stay XHTML compliant',
+	'REIMG_XHTML_EXPLAIN'			=> 'Removes "onload" and "onerror" attributes that would normally be added to resized images.  The side-effect is that images will not resize as seamlessly.',
 
 	'REIMG_UPDATED'					=> 'ReIMG Image Resizer settings have been updated.',
 

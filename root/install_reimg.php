@@ -58,6 +58,11 @@ $versions = array(
 			),
 		),
 	),
+	'2.0.1' => array(
+		'config_add' => array(
+			array('reimg_xhtml', false),
+		),
+	),
 );
 
 include($phpbb_root_path . 'umil/umil_auto.' . $phpEx);
