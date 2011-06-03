@@ -76,7 +76,7 @@ $lang = array_merge($lang, array(
 								'<a href="http://highslide.com/download.php" style="text-decoration: underline;">Highslide</a>',
 							),
 		'_lytebox'		=> array(
-								'Use link to download Lytebox ZIP package. Unzip contents to an empty <em>lytebox</em> directory and place folder in your forum’s <em>reimg</em> directory. DOES NOT WORK WELL WITH INTERNET EXPLORER 9 UNLESS X-UA-Compatible TAG IS CHANGED IN overall_header.html.',
+								'Use link to download Lytebox ZIP package. Unzip contents to an empty <em>lytebox</em> directory and place folder in your forum’s <em>reimg</em> directory. DOES NOT WORK WELL WITH INTERNET EXPLORER 9 UNLESS X-UA-Compatible TAG IS CHANGED IN overall_header.html TO JUST HAVE "EmulateIE7" AS THE VALUE FOR "content".',
 								'<a href="http://www.dolem.com/lytebox/" style="text-decoration: underline;">Lytebox</a>',
 							),
 	),

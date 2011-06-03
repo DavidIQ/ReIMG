@@ -88,13 +88,20 @@ Additional zooming methods are available but the libraries will need downloading
 		<link-group>
 			<link type="template" lang="en-gb" href="contrib/subsilver2.xml">subsilver2 Edits</link>
 			<link type="contrib" lang="en-gb" href="contrib/update_to_2_0_1.xml">Update to 2.0.1</link>
+			<link type="language" lang="en-gb" href="contrib/pl.xml">Polish Translation</link>
+			<link type="language" lang="en-gb" href="contrib/fr.xml">French Translation</link>
 		</link-group>
 	</header>
 
 	<action-group>
 
 		<copy>
-			<file from="root/*.*" to="*.*" />
+			<file from="root/adm/*.*" to="adm/*.*" />
+			<file from="root/includes/*.*" to="includes/*.*" />
+			<file from="root/language/en/*.*" to="language/en/*.*" />
+			<file from="root/reimg/*.*" to="reimg/*.*" />
+			<file from="root/styles/*.*" to="styles/*.*" />
+			<file from="root/umil/*.*" to="umil/*.*" />
 		</copy>
 	
 		<open src="styles/prosilver/template/overall_header.html">
