@@ -71,7 +71,7 @@ class acp_reimg
 
 		$template->assign_vars(array(
 			'S_REIMG_ENABLED'			=> $reimg_enabled,
-			'S_REIMG_VERSION'			=> reimg_get_config('reimg_version', '2.0.0'),
+			'S_REIMG_VERSION'			=> reimg_get_config('reimg_version', '2.0.2'),
 
 			'S_REIMG_MAX_WIDTH'			=> $reimg_max_width,
 			'S_REIMG_MAX_HEIGHT'		=> $reimg_max_height,

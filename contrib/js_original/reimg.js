@@ -628,7 +628,6 @@ function reimg_resize(img, realWidth, realHeight, passLevel)
 
 // Inserts a "loading..." image before each large image that currently is
 // still loading.
-
 var reimg_preLoadLoadingImg;
 
 function reimg_loading(imgOrPassLevel)
@@ -690,9 +689,7 @@ function reimg_loading(imgOrPassLevel)
 	}
 }
 
-
 // The HTML document onload handler that starts the 2nd resizing pass.
-
 function reimg_onLoad(e)
 {
 	// If there's a to-do list, then resize the images (if any) on the list.

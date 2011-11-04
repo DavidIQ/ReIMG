@@ -261,8 +261,14 @@ function litebox_zoomIn()
 	div.style.height = litebox_maxHeight+"px";
 	if (span.offsetHeight > litebox_maxHeight)
 	{
-		//div.style.height = (litebox_maxHeight-(span.offsetHeight-litebox_maxHeight))+"px";
-		div.style.height = (litebox_maxHeight-litebox_imgHeight)+"px";
+		if (litebox_imgHeight > litebox_maxHeight)
+		{
+			div.style.height = (litebox_maxHeight-(span.offsetHeight-litebox_maxHeight))+"px";
+		}
+		else
+		{
+			div.style.height = (litebox_maxHeight-litebox_imgHeight)+"px";
+		}
 	}
 	if (litebox_opera)
 	{

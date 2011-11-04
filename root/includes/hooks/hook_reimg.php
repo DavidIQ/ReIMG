@@ -27,18 +27,18 @@ if (!isset($config['reimg_version']))
  */
 function reimg_template_hook(&$hook)
 {
-	global $template, $config, $phpEx, $phpbb_root_path, $user;
+	global $template, $phpEx, $phpbb_root_path, $user;
 
 	$page_name = substr($user->page['page_name'], 0, strpos($user->page['page_name'], '.'));
 
-	if (!defined('LOAD_REIMG') && in_array($page_name, array('memberlist', 'posting', 'ucp', 'viewtopic')))
+	if (!defined('LOAD_REIMG') && in_array($page_name, array('memberlist', 'posting', 'ucp', 'mcp', 'viewtopic')))
 	{
 		define('LOAD_REIMG', true);
 	}
 
 	//This will prevent further loading of this hook.  If you need this hook loaded on a page other than
 	//the ones in the above array then add a define('LOAD_REIMG', true) to the top of your page.
-	if (!defined('LOAD_REIMG'))
+	if (!defined('LOAD_REIMG') || LOAD_REIMG == false)
 	{
 		return;
 	}
@@ -86,6 +86,12 @@ function reimg_template_hook(&$hook)
 		$template->assign_var('PREVIEW_MESSAGE', insert_reimg_properties($template->_tpldata['.'][0]['PREVIEW_MESSAGE']));
 	}
 
+	//Post preview
+	if (isset($template->_tpldata['.'][0]['POST_PREVIEW']))
+	{
+		$template->assign_var('POST_PREVIEW', insert_reimg_properties($template->_tpldata['.'][0]['POST_PREVIEW']));
+	}
+
 	//The actual message
 	if (isset($template->_tpldata['.'][0]['MESSAGE']))
 	{
@@ -120,11 +126,21 @@ function reimg_template_hook(&$hook)
 	{
 		foreach ($template->_tpldata['postrow'] as $row => $data)
 		{
-			// Alter the array
-			$template->alter_block_array('postrow', array(
-				'MESSAGE' 	=> insert_reimg_properties($data['MESSAGE']),
-				'SIGNATURE'	=> (reimg_get_config('reimg_ignore_sig_img', false) ? $data['SIGNATURE'] : insert_reimg_properties($data['SIGNATURE'])),
-			), $row, 'change');
+			if (isset($data['MESSAGE']))
+			{
+				// Alter the array
+				$template->alter_block_array('postrow', array(
+					'MESSAGE' 	=> insert_reimg_properties($data['MESSAGE']),
+				), $row, 'change');
+			}
+
+			if (isset($data['SIGNATURE']))
+			{
+				// Alter the array
+				$template->alter_block_array('postrow', array(
+					'SIGNATURE'	=> (reimg_get_config('reimg_ignore_sig_img', false) ? $data['SIGNATURE'] : insert_reimg_properties($data['SIGNATURE'])),
+				), $row, 'change');
+			}
 
 			//Handle attachments
 			if (isset($data['attachment']) && reimg_get_config('img_create_thumbnail', false) == false)

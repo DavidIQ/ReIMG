@@ -42,8 +42,14 @@ function select_reimg_link_method($selected_value)
 {
 	global $user;
 
-	$link_method_ary = $user->lang['reimg_linking_methods'];
 	$link_options = '';
+	$link_method_ary = array();
+
+	//Make sure we have the language key
+	if (isset($user->lang['reimg_linking_methods']))
+	{
+		$link_method_ary = $user->lang['reimg_linking_methods'];
+	}
 
 	foreach ($link_method_ary as $link_mehod => $lang)
 	{
@@ -61,8 +67,14 @@ function select_reimg_zoom_method($selected_value)
 {
 	global $user, $phpbb_root_path;
 
-	$zoom_method_ary = $user->lang['reimg_zooming_methods'];
 	$zoom_options = '';
+	$zoom_method_ary = array();
+
+	//Make sure we have the language key
+	if (isset($user->lang['reimg_zooming_methods']))
+	{
+		$zoom_method_ary = $user->lang['reimg_zooming_methods'];
+	}
 
 	foreach ($zoom_method_ary as $zoom_method => $lang)
 	{
