@@ -32,7 +32,7 @@
 		<installation>
 			<level>easy</level>
 			<time>300</time>
-			<target-version>3.0.8</target-version>
+			<target-version>3.0.10</target-version>
 		</installation>
 		
 		<link-group>

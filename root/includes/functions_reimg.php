@@ -150,3 +150,34 @@ function insert_reimg_properties($display_text)
 
 	return $display_text;
 }
+
+/**
+* Process template blocks
+*/
+function process_template_block_reimg($block_name, $block_section)
+{
+	global $template;
+
+	if (!empty($block_name) && !empty($block_section))
+	{
+		if (!empty($template->_tpldata[$block_name]))
+		{
+			foreach ($template->_tpldata[$block_name] as $row => $data)
+			{
+				// Alter the array
+				$template->alter_block_array($block_name, array(
+					$block_section 	=> insert_reimg_properties($data[$block_section]),
+				), $row, 'change');
+			}
+		}
+	}
+
+	if (!empty($block_section))
+	{
+		if (isset($template->_tpldata['.'][0][$block_section]))
+		{
+			$template->assign_var($block_section, insert_reimg_properties($template->_tpldata['.'][0][$block_section]));
+		}
+	}
+}
+

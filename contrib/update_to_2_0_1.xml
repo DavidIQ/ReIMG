@@ -62,7 +62,7 @@ Additional zooming methods are available but the libraries will need downloading
 		<installation>
 			<level>easy</level>
 			<time>300</time>
-			<target-version>3.0.9</target-version>
+			<target-version>3.0.10</target-version>
 		</installation>
 
 		<history>
@@ -74,13 +74,14 @@ Additional zooming methods are available but the libraries will need downloading
 				</changelog>
 			</entry>
 			<entry>
-				<date>2011-11-04</date>
+				<date>2012-01-02</date>
 				<rev-version>2.0.1</rev-version>
 				<changelog lang="en-gb">
 					<change>Added XHTML-compliancy switch.</change>
 					<change>Fixed loading image bug (was not showing).</change>
 					<change>Actually use the correct methods for enlarging images when button is not used.</change>
 					<change>Redo hook so that using define('LOAD_REIMG', true); actually loads ReIMG in other pages.</change>
+					<change>3.0.10 release</change>
 					<change>Bug fix: Resize message details in MCP</change>
 					<change>Bug fix: Resolve undefined index errors</change>
 					<change>Bug fix: Properly show horizontal scrollbar on oversized images</change>

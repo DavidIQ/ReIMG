@@ -68,60 +68,29 @@ function reimg_template_hook(&$hook)
 	));
 
 	//Handle posts
-	//Topic review area shown when posting a reply
-	if (!empty($template->_tpldata['topic_review_row']))
-	{
-		foreach ($template->_tpldata['topic_review_row'] as $row => $data)
-		{
-			// Alter the array
-			$template->alter_block_array('topic_review_row', array(
-				'MESSAGE' 	=> insert_reimg_properties($data['MESSAGE']),
-			), $row, 'change');
-		}
-	}
 
 	//Message preview
-	if (isset($template->_tpldata['.'][0]['PREVIEW_MESSAGE']))
-	{
-		$template->assign_var('PREVIEW_MESSAGE', insert_reimg_properties($template->_tpldata['.'][0]['PREVIEW_MESSAGE']));
-	}
+	process_template_block_reimg('', 'PREVIEW_MESSAGE');
 
 	//Post preview
-	if (isset($template->_tpldata['.'][0]['POST_PREVIEW']))
-	{
-		$template->assign_var('POST_PREVIEW', insert_reimg_properties($template->_tpldata['.'][0]['POST_PREVIEW']));
-	}
+	process_template_block_reimg('', 'POST_PREVIEW');
 
 	//The actual message
-	if (isset($template->_tpldata['.'][0]['MESSAGE']))
-	{
-		$template->assign_var('MESSAGE', insert_reimg_properties($template->_tpldata['.'][0]['MESSAGE']));
-	}
+	process_template_block_reimg('', 'MESSAGE');
+
+	//Topic review area shown when posting a reply
+	process_template_block_reimg('topic_review_row', 'MESSAGE');
 
 	//Message history section
-	if (!empty($template->_tpldata['history_row']))
-	{
-		foreach ($template->_tpldata['history_row'] as $row => $data)
-		{
-			// Alter the array
-			$template->alter_block_array('history_row', array(
-				'MESSAGE' 	=> insert_reimg_properties($data['MESSAGE']),
-			), $row, 'change');
-		}
-	}
+	process_template_block_reimg('history_row', 'MESSAGE');
 
 	//Handle attachments
-	if (isset($template->_tpldata['attachment']) && reimg_get_config('img_create_thumbnail', false) == false)
+	if (reimg_get_config('img_create_thumbnail', false) == false)
 	{
-		foreach ($template->_tpldata['attachment'] as $row => $data)
-		{
-			// Alter the array
-			$template->alter_block_array('attachment', array(
-				'DISPLAY_ATTACHMENT' 	=> insert_reimg_properties($data['DISPLAY_ATTACHMENT']),
-			), $row, 'change');
-		}
+		process_template_block_reimg('attachment', 'DISPLAY_ATTACHMENT');
 	}
 
+	//postrow needs some special handling
 	if (!empty($template->_tpldata['postrow']))
 	{
 		foreach ($template->_tpldata['postrow'] as $row => $data)
@@ -134,11 +103,11 @@ function reimg_template_hook(&$hook)
 				), $row, 'change');
 			}
 
-			if (isset($data['SIGNATURE']))
+			if (isset($data['SIGNATURE']) && reimg_get_config('reimg_ignore_sig_img', false) == true)
 			{
 				// Alter the array
 				$template->alter_block_array('postrow', array(
-					'SIGNATURE'	=> (reimg_get_config('reimg_ignore_sig_img', false) ? $data['SIGNATURE'] : insert_reimg_properties($data['SIGNATURE'])),
+					'SIGNATURE'	=> insert_reimg_properties($data['SIGNATURE']),
 				), $row, 'change');
 			}
 
@@ -157,26 +126,32 @@ function reimg_template_hook(&$hook)
 		}
 	}
 
+	//If there is some REIMG post block definition let's take care of it.
+	//REIMG_POST_ROW must be of the format: postrow.BLOCK_NAME
+	if (defined('REIMG_POST_ROW'))
+	{
+		$reimg_post_row = explode('.', REIMG_POST_ROW);
+		if (sizeof($reimg_post_row) == 2)
+		{
+			process_template_block_reimg($reimg_post_row[0], $reimg_post_row[1]);
+		}
+		else
+		{
+			process_template_block_reimg('', $reimg_post_row[0]);
+		}
+	}
+
 	//Handle signatures
 	if (reimg_get_config('reimg_ignore_sig_img', false) == false)
 	{
 		//Viewing profile
-		if (isset($template->_tpldata['.'][0]['SIGNATURE']))
-		{
-			$template->assign_var('SIGNATURE', insert_reimg_properties($template->_tpldata['.'][0]['SIGNATURE']));
-		}
+		process_template_block_reimg('', 'SIGNATURE');
 
 		//Signature in post preview
-		if (isset($template->_tpldata['.'][0]['PREVIEW_SIGNATURE']))
-		{
-			$template->assign_var('PREVIEW_SIGNATURE', insert_reimg_properties($template->_tpldata['.'][0]['PREVIEW_SIGNATURE']));
-		}
+		process_template_block_reimg('', 'PREVIEW_SIGNATURE');
 
 		//Signature preview area
-		if (isset($template->_tpldata['.'][0]['SIGNATURE_PREVIEW']))
-		{
-			$template->assign_var('SIGNATURE_PREVIEW', insert_reimg_properties($template->_tpldata['.'][0]['SIGNATURE_PREVIEW']));
-		}
+		process_template_block_reimg('', 'SIGNATURE_PREVIEW');
 	}
 }
 
