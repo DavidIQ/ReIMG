@@ -131,21 +131,34 @@ function reimg_properties()
 */
 function insert_reimg_properties($display_text)
 {
+	global $phpbb_root_path;
+
 	preg_match_all("/(<img\/?[^>]*?\/>)/e", $display_text, $images);
 
 	$images = array_unique($images);
+	$smileys_path = 'src="' . ((defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $phpbb_root_path) . reimg_get_config('smilies_path');
 
-	foreach ($images as $image)
+	foreach ($images as $images_list)
 	{
-		$image_reimg = str_replace('/>', reimg_properties() . '/>', $image);
-
-		if (reimg_get_config('img_create_thumbnail', false) == false)
+		$images_list = array_unique($images_list);
+		foreach ($images_list as $image)
 		{
-			//Will be present for attachments
-			$image_reimg = str_replace('onclick="viewableArea(this);"', 'style="border: none;"', $image_reimg);
-		}
+			//If this is a smiley we skip replacements
+			if (strstr($image, $smileys_path) !== false)
+			{
+				continue;
+			}
 
-		$display_text = str_replace($image, $image_reimg, $display_text);
+			$image_reimg = str_replace('/>', reimg_properties() . '/>', $image);
+
+			if (reimg_get_config('img_create_thumbnail', false) == false)
+			{
+				//Will be present for attachments
+				$image_reimg = str_replace('onclick="viewableArea(this);"', 'style="border: none;"', $image_reimg);
+			}
+
+			$display_text = str_replace($image, $image_reimg, $display_text);
+		}
 	}
 
 	return $display_text;
