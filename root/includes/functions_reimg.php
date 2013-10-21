@@ -135,29 +135,32 @@ function insert_reimg_properties($display_text)
 
 	preg_match_all("/(<img\/?[^>]*?\/>)/e", $display_text, $images);
 
-	$images = array_unique($images);
-	$smileys_path = 'src="' . ((defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $phpbb_root_path) . reimg_get_config('smilies_path');
-
-	foreach ($images as $images_list)
+	if (is_array($images))
 	{
-		$images_list = array_unique($images_list);
-		foreach ($images_list as $image)
+		$images = array_unique($images);
+		$images_path = 'src="' . ((defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $phpbb_root_path) . 'images/';
+
+		foreach ($images as $images_list)
 		{
-			//If this is a smiley we skip replacements
-			if (strstr($image, $smileys_path) !== false)
+			$images_list = array_unique($images_list);
+			foreach ($images_list as $image)
 			{
-				continue;
+				//If image is in the images directory or the replacements were already done we skip replacements
+				if (strstr($image, 'src="' . $images_path) !== false || strstr($image, 'src="images/') !== false || strstr($image, reimg_properties()) !== false)
+				{
+					continue;
+				}
+
+				$image_reimg = str_replace('/>', reimg_properties() . '/>', $image);
+
+				if (reimg_get_config('img_create_thumbnail', false) == false)
+				{
+					//Will be present for attachments
+					$image_reimg = str_replace('onclick="viewableArea(this);"', 'style="border: none;"', $image_reimg);
+				}
+
+				$display_text = str_replace($image, $image_reimg, $display_text);
 			}
-
-			$image_reimg = str_replace('/>', reimg_properties() . '/>', $image);
-
-			if (reimg_get_config('img_create_thumbnail', false) == false)
-			{
-				//Will be present for attachments
-				$image_reimg = str_replace('onclick="viewableArea(this);"', 'style="border: none;"', $image_reimg);
-			}
-
-			$display_text = str_replace($image, $image_reimg, $display_text);
 		}
 	}
 
@@ -170,14 +173,29 @@ function insert_reimg_properties($display_text)
 function process_template_block_reimg($block_name, $block_section)
 {
 	global $template;
-
-	if (!empty($block_name) && !empty($block_section))
+	$sub_block = '';
+	if (is_array($block_name))
 	{
-		if (!empty($template->_tpldata[$block_name]))
+		$sub_block = $block_name[1];
+		$block_name = $block_name[0];
+	}
+
+	if (!empty($block_name) && !empty($block_section) && !empty($template->_tpldata[$block_name]))
+	{
+		foreach ($template->_tpldata[$block_name] as $row => $data)
 		{
-			foreach ($template->_tpldata[$block_name] as $row => $data)
+			// Alter the array
+			if (!empty($sub_block) && isset($data[$sub_block]))
 			{
-				// Alter the array
+				for ($i=0; $i < sizeof($data[$sub_block]); $i++)
+				{
+					$data[$sub_block][$i][$block_section] = insert_reimg_properties($data[$sub_block][$i][$block_section]);
+
+					$template->alter_block_array($block_name, $data, $row, 'change');
+				}
+			}
+			else if (isset($data[$block_section]))
+			{
 				$template->alter_block_array($block_name, array(
 					$block_section 	=> insert_reimg_properties($data[$block_section]),
 				), $row, 'change');

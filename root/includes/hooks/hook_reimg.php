@@ -31,7 +31,7 @@ function reimg_template_hook(&$hook)
 
 	$page_name = substr($user->page['page_name'], 0, strpos($user->page['page_name'], '.'));
 
-	if (!defined('LOAD_REIMG') && in_array($page_name, array('memberlist', 'posting', 'ucp', 'mcp', 'viewtopic')))
+	if (!defined('LOAD_REIMG') && in_array($page_name, array('memberlist', 'posting', 'ucp', 'mcp', 'viewtopic', 'search')))
 	{
 		define('LOAD_REIMG', true);
 	}
@@ -84,10 +84,17 @@ function reimg_template_hook(&$hook)
 	//Message history section
 	process_template_block_reimg('history_row', 'MESSAGE');
 
+	//Search results
+	process_template_block_reimg('searchresults', 'MESSAGE');
+
+	//Post review
+	process_template_block_reimg('post_review_row', 'MESSAGE');
+
 	//Handle attachments
 	if (reimg_get_config('img_create_thumbnail', false) == false)
 	{
 		process_template_block_reimg('attachment', 'DISPLAY_ATTACHMENT');
+		process_template_block_reimg(Array('topic_review_row', 'attachment'), 'DISPLAY_ATTACHMENT');
 	}
 
 	//postrow needs some special handling
@@ -103,7 +110,7 @@ function reimg_template_hook(&$hook)
 				), $row, 'change');
 			}
 
-			if (isset($data['SIGNATURE']) && reimg_get_config('reimg_ignore_sig_img', false) == true)
+			if (isset($data['SIGNATURE']) && reimg_get_config('reimg_ignore_sig_img', false) == false)
 			{
 				// Alter the array
 				$template->alter_block_array('postrow', array(

@@ -63,14 +63,10 @@ $versions = array(
 			array('reimg_xhtml', false),
 		),
 	),
+	'2.0.2' => array(),
 );
 
 include($phpbb_root_path . 'umil/umil_auto.' . $phpEx);
 
 //Clear cache
-$umil->cache_purge(array(
-	array(''),
-	array('auth'),
-	array('template'),
-	array('theme'),
-));
+$umil->cache_purge(array('', 'auth', 'template'));
