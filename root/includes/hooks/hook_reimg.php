@@ -31,7 +31,7 @@ function reimg_template_hook(&$hook)
 
 	$page_name = substr($user->page['page_name'], 0, strpos($user->page['page_name'], '.'));
 
-	if (!defined('LOAD_REIMG') && in_array($page_name, array('memberlist', 'posting', 'ucp', 'mcp', 'viewtopic', 'search')))
+	if (!defined('LOAD_REIMG') && in_array($page_name, array('memberlist', 'posting', 'ucp', 'mcp', 'viewtopic', 'search', 'image_page')))
 	{
 		define('LOAD_REIMG', true);
 	}
@@ -77,6 +77,12 @@ function reimg_template_hook(&$hook)
 
 	//The actual message
 	process_template_block_reimg('', 'MESSAGE');
+
+	//phpBB Gallery
+	process_template_block_reimg('', 'UC_IMAGE');
+
+	//phpBB Gllery comments
+	process_template_block_reimg('', 'IMAGE_COMMENTS');
 
 	//Topic review area shown when posting a reply
 	process_template_block_reimg('topic_review_row', 'MESSAGE');
@@ -128,6 +134,29 @@ function reimg_template_hook(&$hook)
 
 				$template->alter_block_array('postrow', array(
 					'attachment'	=> $data['attachment'],
+				), $row, 'change');
+			}
+		}
+	}
+
+	//commentrow gallery needs some special handling modified by DJ
+	if (!empty($template->_tpldata['commentrow']))
+	{
+		foreach ($template->_tpldata['commentrow'] as $row => $data)
+		{
+			if (isset($data['TEXT']))
+			{
+				// Alter the array
+				$template->alter_block_array('commentrow', array(
+					'TEXT' 	=> insert_reimg_properties($data['TEXT']),
+				), $row, 'change');
+			}
+
+			if (isset($data['SIGNATURE']) && reimg_get_config('reimg_ignore_sig_img', false) == false)
+			{
+				// Alter the array
+				$template->alter_block_array('commentrow', array(
+					'SIGNATURE'	=> insert_reimg_properties($data['SIGNATURE']),
 				), $row, 'change');
 			}
 		}
