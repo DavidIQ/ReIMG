@@ -137,7 +137,6 @@ function insert_reimg_properties($display_text)
 
 	if (is_array($images))
 	{
-		$images = array_unique($images);
 		$images_path = 'src="' . ((defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? generate_board_url() . '/' : $phpbb_root_path) . 'images/';
 
 		foreach ($images as $images_list)
