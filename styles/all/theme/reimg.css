@@ -1,0 +1,47 @@
+#topicreview .reimg-zoom {
+	display: none;
+}
+
+.reimg {
+	width: 10%;
+	height: auto;
+	visibility: visible;
+}
+
+.attachbox { width: 97%; }
+.attach-image
+{
+	overflow: hidden;
+	max-height: none;
+}
+
+.ReIMGCloseStyle {
+	width: 20px;
+	height: 20px;
+	background: url(images/icon_reimg_zoom_out.gif) top left no-repeat;
+	filter: Alpha(Opacity=50);
+	opacity: .50;
+}
+
+.ReIMGZoomStyle {
+	width: 20px;
+	height: 20px;
+	background: url(images/icon_reimg_zoom_in.gif) top left no-repeat;
+	filter: Alpha(Opacity=50);
+	opacity: .50;
+}
+
+hover.ReIMGZoomStyle {
+	background-position: 0 100%;
+	cursor: pointer;
+	filter: Alpha(Opacity=100);
+	opacity: 1.00;
+}
+
+.ReIMGLoading {
+	width: 16px;
+	height: 16px;
+	background: url(images/icon_reimg_loading.gif) top left no-repeat;
+	filter: Alpha(Opacity=50);
+	opacity: .50;
+}

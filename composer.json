@@ -1,0 +1,35 @@
+{
+	"name": "davidiq/reimg",
+	"type": "phpbb-extension",
+	"description": "Resizes posted images browser-side based on screen size and allows to expand resized images using a modal box.",
+	"homepage": "http://phpbb.davidiq.com/viewtopic.php?f=19&t=571",
+	"version": "3.0.0-dev",
+	"keywords": ["phpbb", "extension", "image", "resizer", "reimg"],
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "David Colón",
+			"email": "phpbb@davidiq.com",
+			"homepage": "http://www.davidiq.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3",
+		"composer/installers": "~1.0"
+	},
+	"require-dev": {
+		"phpbb/epv": "master"
+	},
+	"extra": {
+		"display-name": "ReIMG Image Resizer",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.1.1,<3.2.*@dev"
+		},
+		"version-check": {
+			"host": "phpbb.davidiq.com",
+			"directory": "/versioncheck",
+			"filename": "reimg.json"
+		}
+	}
+}

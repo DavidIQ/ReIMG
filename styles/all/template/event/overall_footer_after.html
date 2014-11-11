@@ -1,0 +1,72 @@
+<script type="text/javascript">
+// <![CDATA[
+	/**
+	* Resize too large images
+	*/
+	var reimg_maxWidth = {REIMG_MAX_WIDTH}, reimg_maxHeight = {REIMG_MAX_HEIGHT}, reimg_relWidth = {REIMG_REL_WIDTH};
+	var reimg_swapPortrait = <!-- IF S_REIMG_SWAP_PORTRAIT -->true<!-- ELSE -->false<!-- ENDIF -->;
+	var reimg_loadingImg = "{T_IMAGES_PATH}spacer.gif";
+	var reimg_loadingStyle = "ReIMGLoading";
+	var reimg_loadingAlt = "{LA_LOADING_TEXT}";
+	<!-- IF S_REIMG_LINK -->
+	var reimg_autoLink = true;
+	<!-- ENDIF -->
+	<!-- IF S_REIMG_BUTTON -->
+	var reimg_zoomImg = "{T_IMAGES_PATH}spacer.gif";
+	var reimg_zoomStyle = "ReIMGZoomStyle";
+	var reimg_zoomHover = "ReIMGZoomStyle";
+	<!-- ENDIF -->
+	var reimg_zoomAlt = "{LA_REIMG_ZOOM_IN}";
+	var reimg_zoomTarget = "{S_REIMG_ZOOM}";
+	var reimg_ajax_url = "{REIMG_AJAX_URL}";
+
+	/**
+	* Light box for resized images
+	*/
+	var litebox_alt = "<!-- IF S_REIMG_LINK -->{LA_REIMG_ZOOM_OUT}<!-- ELSE -->{LA_IMAGE}<!-- ENDIF -->";
+		<!-- IF S_REIMG_ZOOM_METHOD eq '_litebox' -->
+			<!-- IF S_REIMG_BUTTON -->
+	var litebox_zoomImg = reimg_zoomImg;
+	var litebox_zoomStyle = reimg_zoomStyle;
+	var litebox_zoomHover = reimg_zoomHover;
+	var litebox_zoomAlt = reimg_zoomAlt;
+			<!-- ELSE -->
+	var litebox_zoomImg = "{T_IMAGES_PATH}spacer.gif";
+	var litebox_zoomStyle = "ReIMGZoomStyle";
+	var litebox_zoomHover = "ReIMGZoom";
+	var litebox_zoomAlt = "{LA_REIMG_ZOOM_IN}";
+			<!-- ENDIF -->
+		<!-- ELSEIF S_REIMG_ZOOM_METHOD eq '_litebox1' -->
+	var reimg_zoomLevel = 100;
+		<!-- ENDIF -->
+		<!-- IF S_REIMG_LINK -->
+	var litebox_style = "cursor: pointer;"
+		<!-- ENDIF -->
+		<!-- IF S_REIMG_BUTTON -->
+	var litebox_closeImg = "{T_IMAGES_PATH}spacer.gif";
+	var litebox_closeStyle = "ReIMGCloseStyle";
+	var litebox_closeHover = reimg_zoomHover;
+	var litebox_closeAlt = "{LA_REIMG_ZOOM_OUT}";
+		<!-- ENDIF -->
+	var litebox_rtl = <!-- IF S_CONTENT_DIRECTION eq 'rtl' -->true<!-- ELSE -->false<!-- ENDIF -->;
+
+	function reimg(img, width, height)
+	{
+		if (window.reimg_version)
+		{
+			reimg_resize(img, width, height);
+		}
+	}
+// ]]>
+</script>
+
+<!-- IF S_REIMG_ZOOM_METHOD eq '_litebox' or S_REIMG_ZOOM_METHOD eq '_litebox1' -->
+<!-- INCLUDEJS ../js/litebox.js" -->
+<!-- ENDIF -->
+
+<!-- INCLUDEJS ../js/reimg.js" -->
+<script type="text/javascript">
+// <![CDATA[
+	reimg_loading('{T_IMAGESET_PATH}/icon_reimg_loading.gif');
+// ]]>
+</script>

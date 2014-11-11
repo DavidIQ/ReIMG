@@ -1,0 +1,9 @@
+services:
+    davidiq.reimg.listener:
+        class: davidiq\reimg\event\listener
+        arguments:
+            - @config
+            - @template
+            - @user
+        tags:
+            - { name: event.listener }

@@ -1,0 +1,89 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- IF not S_REIMG_ENABLED -->
+<script type="text/javascript">
+// <![CDATA[
+	onload = function()
+	{
+		dE('reimg_additional_settings', 0);
+	}
+// ]]>
+</script>
+<!-- ENDIF -->
+
+<a name="maincontent"></a>
+
+<h1>{L_ACP_REIMG_CONFIG}</h1>
+
+<p>{L_ACP_REIMG_CONFIG_EXPLAIN}</p>
+
+<!-- IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+<!-- ENDIF -->
+
+<form id="acp_REIMG" method="post" action="{U_ACTION}">
+<fieldset>
+	<legend>{L_REIMG_OPTIONS}</legend>
+	<dl>
+		<dt><label>{L_REIMG_VERSION}:</label></dt>
+		<dd><label>{S_REIMG_VERSION}</label></dd>
+	</dl>
+	<dl>
+		<dt><label for="reimg_enabled">{L_REIMG_ENABLE}:</label></dt>
+		<dd><label><input type="radio" name="reimg_enabled" value="1"<!-- IF S_REIMG_ENABLED --> checked="checked"<!-- ENDIF --> onclick="dE('reimg_additional_settings', 1);" class="radio" /> {L_YES}</label>
+		<label><input type="radio" name="reimg_enabled" id="reimg_enabled" value="0"<!-- IF not S_REIMG_ENABLED --> checked="checked"<!-- ENDIF --> onclick="dE('reimg_additional_settings', 0);" class="radio" /> {L_NO}</label></dd>
+	</dl>
+
+	<div id="reimg_additional_settings">
+		<dl>
+			<dt><label for="reimg_max_width">{L_REIMG_MAX_SIZE}:</label><br /><span>{L_REIMG_MAX_SIZE_EXPLAIN}</span></dt>
+			<dd><input type="text" name="reimg_max_width" id="reimg_max_width" value="{S_REIMG_MAX_WIDTH}" size="3" maxlength="4" /> X <input type="text" name="reimg_max_height" id="reimg_max_height" value="{S_REIMG_MAX_HEIGHT}" size="3" maxlength="4" /> <label>{L_PIXEL}</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="reimg_rel_width">{L_REIMG_REL_WIDTH}:</label><br /><span>{L_REIMG_REL_WIDTH_EXPLAIN}</span></dt>
+			<dd><input type="text" name="reimg_rel_width" id="reimg_rel_width" value="{S_REIMG_REL_WIDTH}" size="3" maxlength="4" /> <label>%</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="reimg_swap_portrait">{L_REIMG_SWAP_PORTRAIT}:</label><br /><span>{L_REIMG_SWAP_PORTRAIT_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" name="reimg_swap_portrait" value="1"<!-- IF S_REIMG_SWAP_PORTRAIT --> checked="checked"<!-- ENDIF -->  class="radio" /> {L_YES}</label>
+			<label><input type="radio" name="reimg_swap_portrait" id="reimg_swap_portrait" value="0"<!-- IF not S_REIMG_SWAP_PORTRAIT --> checked="checked"<!-- ENDIF --> class="radio" /> {L_NO}</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="reimg_ignore_sig_img">{L_REIMG_IGNORE_SIG_IMG}:</label><br /><span>{L_REIMG_IGNORE_SIG_IMG_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" name="reimg_ignore_sig_img" value="1"<!-- IF S_REIMG_IGNORE_SIG_IMG --> checked="checked"<!-- ENDIF -->  class="radio" /> {L_YES}</label>
+			<label><input type="radio" name="reimg_ignore_sig_img" id="reimg_ignore_sig_img" value="0"<!-- IF not S_REIMG_IGNORE_SIG_IMG --> checked="checked"<!-- ENDIF --> class="radio" /> {L_NO}</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="reimg_attachments">{L_REIMG_ATTACHMENTS}:</label><br /><span>{L_REIMG_ATTACHMENTS_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" name="reimg_attachments" value="1"<!-- IF S_REIMG_ATTACHMENTS --> checked="checked"<!-- ENDIF -->  class="radio" /> {L_YES}</label>
+			<label><input type="radio" name="reimg_attachments" id="reimg_attachments" value="0"<!-- IF not S_REIMG_ATTACHMENTS --> checked="checked"<!-- ENDIF --> class="radio" /> {L_NO}</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="reimg_xhtml">{L_REIMG_XHTML}:</label><br /><span>{L_REIMG_XHTML_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" name="reimg_xhtml" value="1"<!-- IF S_REIMG_XHTML --> checked="checked"<!-- ENDIF -->  class="radio" /> {L_YES}</label>
+			<label><input type="radio" name="reimg_xhtml" id="reimg_xhtml" value="0"<!-- IF not S_REIMG_XHTML --> checked="checked"<!-- ENDIF --> class="radio" /> {L_NO}</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="reimg_link">{L_REIMG_LINK_METHOD}:</label><br /><span>{L_REIMG_LINK_METHOD_EXPLAIN}</span></dt>
+			<dd><select name="reimg_link" id="reimg_link">{S_REIMG_LINK}</select></dd>
+		</dl>
+		<dl>
+			<dt><label for="reimg_zoom">{L_REIMG_ZOOM_METHOD}:</label><br /><span>{L_REIMG_ZOOM_METHOD_EXPLAIN}</span></dt>
+			<dd>{S_REIMG_ZOOM}</dd>
+		</dl>
+	</div>
+
+	<!-- IF S_REIMG_LINK -->
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+	</p>
+	<!-- ENDIF -->
+	{S_FORM_TOKEN}
+</fieldset>
+</form>
+
+<!-- INCLUDE overall_footer.html -->
