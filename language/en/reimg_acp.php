@@ -56,32 +56,31 @@ $lang = array_merge($lang, array(
 	),
 
 	'REIMG_ZOOM_METHOD'				=> 'Zooming method',
-	'REIMG_ZOOM_METHOD_EXPLAIN'		=> 'Select the method that is used to view the original, larger image.<br /><br />NOTE: If you wish to use a disabled selection follow the instructions that are shown next to the disabled selection description.',
+	'REIMG_ZOOM_METHOD_EXPLAIN'		=> 'Select the method that is used to view the original, larger image.',
 
 	'reimg_zooming_methods'			=> array(
-		'_blank' 		=> 'New window',
-		'_default' 		=> 'Normal link',
-		'_litebox' 		=> 'Litebox',
+		'_blank' 		=> array (
+								'name'			=>	'New window',
+								'description'	=>	'Opens the fill-size image in a new window.',
+							),
+		'_default' 		=> array (
+								'name'			=> 	'Normal link',
+								'description'	=>	'Opens the full-size image in the same window.',
+							),
+		'_litebox' 		=> array (
+								'name'			=>	'Litebox',
+								'description'	=>	'View a larger version of the image in a litebox modal fitted to space available with a second zoom option shown.',
+							),
 		'_litebox1'		=> array(
-								'Zoom to image full size on initial click.',
-								'Litebox 1:1',
-							),
-		'_highslide'	=> array(
-								'Use link to download Highslide JS ZIP package. Then place zip package’s <em>highslide</em> directory in your forum’s <em>reimg</em> directory.',
-								'<a href="http://highslide.com/download.php" style="text-decoration: underline;">Highslide</a>',
-							),
-		'_lytebox'		=> array(
-								'Use link to download Lytebox ZIP package. Unzip contents to an empty <em>lytebox</em> directory and place folder in your forum’s <em>reimg</em> directory. DOES NOT WORK WELL WITH INTERNET EXPLORER 9 UNLESS X-UA-Compatible TAG IS CHANGED IN overall_header.html TO JUST HAVE "EmulateIE7" AS THE VALUE FOR "content".',
-								'<a href="http://www.lytebox.com/" style="text-decoration: underline;">Lytebox</a>',
+								'name'			=>	'Litebox 1:1',
+								'description'	=>	'View the full-size version of the image in a litebox modal on initial click.',
 							),
 	),
 
-	'REIMG_IGNORE_SIG_IMG'			=> 'Ignore images in signatures',
-	'REIMG_IGNORE_SIG_IMG_EXPLAIN'	=> 'If set to yes then images in signatures will not be resized.',
+	'REIMG_RESIZE_SIG_IMG'			=> 'Resize images in signatures',
+	'REIMG_RESIZE_SIG_IMG_EXPLAIN'	=> 'If set to yes then images in signatures will be resized.',
 	'REIMG_ATTACHMENTS'				=> 'Apply ReIMG to image attachments',
-	'REIMG_ATTACHMENTS_EXPLAIN'		=> 'Disables thumbnail creation when attaching images. (NOT retro-active, i.e. older attachments will not be affected if you change this setting)',
-	'REIMG_XHTML'					=> 'Stay XHTML compliant',
-	'REIMG_XHTML_EXPLAIN'			=> 'Removes "onload" and "onerror" attributes that would normally be added to resized images.  The side-effect is that images will not resize as seamlessly.',
+	'REIMG_ATTACHMENTS_EXPLAIN'		=> 'If set to yes then ReIMG will be used to open image attachments.',
 
 	'REIMG_UPDATED'					=> 'ReIMG Image Resizer settings have been updated.',
 

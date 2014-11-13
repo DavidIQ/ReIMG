@@ -75,10 +75,11 @@ class listener implements EventSubscriberInterface
 			'S_REIMG_BUTTON'			=> strpos($this->config['reimg_link'], 'button') !== false,
 			'S_REIMG_LINK'				=> strpos($this->config['reimg_link'], 'link') !== false,
 			'S_REIMG_ZOOM'				=> (strpos($this->config['reimg_zoom'], '_litebox') !== false) ? '_litebox' : $this->config['reimg_zoom'],
-			'S_REIMG_ATTACHMENTS'		=> $this->config['img_create_thumbnail'],
+			'S_REIMG_ATTACHMENTS'		=> $this->config['reimg_attachments'],
 			'S_REIMG_ZOOM_METHOD'		=> $this->config['reimg_zoom'],
+			'S_REIMG_RESIZE_SIG_IMG'	=> $this->config['reimg_resize_sig_img'],
 
-			'REIMG_AJAX_URL'			=> generate_board_url() . "/reimg/reimg_ajax.$phpEx",
+			'REIMG_AJAX_URL'			=> generate_board_url() . "/reimg/reimg_ajax.$phpEx", //Will we need this?
 		));
 	}
 
