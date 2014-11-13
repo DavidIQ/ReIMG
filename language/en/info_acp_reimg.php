@@ -1,11 +1,9 @@
 <?php
 /**
+* ReIMG extension for the phpBB Forum Software package.
 *
-* Board Announcements extension for the phpBB Forum Software package.
-*
-* @copyright (c) 2014 phpBB Limited <https://www.phpbb.com>
+* @copyright (c) 2014 DavidIQ.com
 * @license GNU General Public License, version 2 (GPL-2.0)
-*
 */
 
 /**
@@ -39,9 +37,9 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	// ACP Module
-	'ACP_BOARD_ANNOUNCEMENTS'				=> 'Board Announcements',
-	'ACP_BOARD_ANNOUNCEMENTS_SETTINGS'		=> 'Announcement settings',
+	'ACP_CAT_REIMG'					=> 'ReIMG Image Resizer',
+	'ACP_REIMG_SETTINGS'			=> 'ReIMG Settings',
 
 	// ACP Logs
-	'BOARD_ANNOUNCEMENTS_UPDATED_LOG'		=> '<strong>Altered board announcement settings</strong>',
+	'LOG_REIMG_UPDATED'				=> '<strong>Updated ReIMG Image Resizer Settings</strong>',
 ));

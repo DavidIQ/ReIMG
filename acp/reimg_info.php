@@ -1,40 +1,28 @@
 <?php
 /**
+* ReIMG extension for the phpBB Forum Software package.
 *
-* @package ReIMG Image Resizer
-* @copyright (c) 2011 DavidIQ.com
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
-*
+* @copyright (c) 2014 DavidIQ.com
+* @license GNU General Public License, version 2 (GPL-2.0)
 */
 
-/**
-* @package module_install
-*/
-class acp_reimg_info
+namespace davidiq\reimg\acp;
+
+class reimg_info
 {
 	function module()
 	{
 		return array(
-			'filename'	=> 'acp_reimg',
-			'title'		=> 'ACP_REIMG_CONFIG',
-			'version'	=> '2.0.0',
+			'filename'	=> '\davidiq\reimg\acp\reimg_module',
+			'title'		=> 'ACP_REIMG_SETTINGS',
+			'version'	=> '3.0.0',
 			'modes'		=> array(
 				'main'		=> array(
-						'title' => 'ACP_REIMG_CONFIG',
-						'auth'	=> 'acl_a_reimg',
+						'title' => 'ACP_REIMG_SETTINGS',
+						'auth' => 'ext_davidiq/reimg && acl_a_board',
 						'cat' 	=> array('ACP_CAT_REIMG'),
 				),
 			),
 		);
 	}
-
-	function install()
-	{
-	}
-
-	function uninstall()
-	{
-	}
 }
-
-?>

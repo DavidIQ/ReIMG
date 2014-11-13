@@ -11,7 +11,7 @@ namespace davidiq\reimg\migrations\v30x;
 /**
 * Migration stage 1: Initial data changes to the database
 */
-class m1_initial_data extends \phpbb\db\migration\migration
+class initial_data extends \phpbb\db\migration\migration
 {
 	/**
 	* Add ReIMG data to the database.

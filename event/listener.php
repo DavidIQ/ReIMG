@@ -63,6 +63,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function load_reimg($event)
 	{
+		$phpEx = substr(strrchr(__FILE__, '.'), 1);
 		$this->user->add_lang_ext('davidiq/reimg', 'reimg');
 
 		//Standard template variables

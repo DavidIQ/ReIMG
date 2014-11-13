@@ -34,9 +34,7 @@ if (empty($lang) || !is_array($lang))
 // NOTE TO TRANSLATORS:  Text in parenthesis refers to keys on the keyboard
 
 $lang = array_merge($lang, array(
-	'ACP_CAT_REIMG'					=> 'ReIMG Image Resizer',
-	'ACP_REIMG_CONFIG'				=> 'ReIMG Image Resizer configuration',
-	'ACP_REIMG_CONFIG_EXPLAIN'		=> 'ReIMG Image Resizer will resize images on the client side using JavaScript and using one of various selectable effects to expand the images when user clicks on a resized image.',
+	'ACP_REIMG_SETTINGS_EXPLAIN'	=> 'ReIMG Image Resizer will resize images on the client side using JavaScript and using one of various selectable effects to expand the images when user clicks on a resized image.',
 
 	'REIMG_VERSION'					=> 'ReIMG version',
 	'REIMG_ENABLE'					=> 'Enable ReIMG Image Resizer',
@@ -87,10 +85,4 @@ $lang = array_merge($lang, array(
 
 	'REIMG_UPDATED'					=> 'ReIMG Image Resizer settings have been updated.',
 
-	'LOG_REIMG_UPDATED'				=> '<strong>Updated ReIMG Image Resizer Settings</strong>',
 ));
-
-$lang = array_merge($lang, array(
-	'acl_a_reimg'	=> array('lang' => 'Can manage ReIMG Image Resizer settings', 'cat' => 'settings')
-));
-
