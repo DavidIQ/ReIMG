@@ -1,3 +1,5 @@
+[![ReIMG](http://phpbb.davidiq.com/download/file.php?id=149)](http://phpbb.davidiq.com/viewtopic.php?f=19&t=571)
+
 # ReIMG Image Resizer Extension
 
 An extension for phpBB 3.1 that resizes inline posted images as well as attached images.
