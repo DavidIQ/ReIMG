@@ -79,7 +79,7 @@ class listener implements EventSubscriberInterface
 			'S_REIMG_ZOOM_METHOD'		=> $this->config['reimg_zoom'],
 			'S_REIMG_RESIZE_SIG_IMG'	=> $this->config['reimg_resize_sig_img'],
 
-			'REIMG_AJAX_URL'			=> generate_board_url() . "/reimg/reimg_ajax.$phpEx", //Will we need this?
+			'REIMG_AJAX_URL'			=> "reimg_ajax.$phpEx", //Will we need this?
 		));
 	}
 

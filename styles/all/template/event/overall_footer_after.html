@@ -1,49 +1,38 @@
 <script type="text/javascript">
 // <![CDATA[
 	var reimgAltLabels = {
-		Loading: "{LA_LOADING_TEXT}",
-		ZoomIn: "{LA_REIMG_ZOOM_IN}",
-		ZoomOut: "<!-- IF S_REIMG_LINK -->{LA_REIMG_ZOOM_OUT}<!-- ELSE -->{LA_IMAGE}<!-- ENDIF -->"
+		Loading: 		"{LA_LOADING_TEXT}",
+		ZoomIn: 		"{LA_REIMG_ZOOM_IN}",
+		ZoomOut: 		"{LA_REIMG_ZOOM_OUT}",
+		FullExpand: 	"{LA_FULL_EXPAND_TITLE}",
+		Previous:		"{LA_PREVIOUS_TEXT}",
+		PreviousTitle:	"{LA_PREVIOUS_TITLE}",
+		Next:			"{LA_NEXT_TEXT}",
+		NextTitle:		"{LA_NEXT_TITLE}",
+		Close:			"{LA_CLOSE_TEXT}",
+		CloseTitle:		"{LA_CLOSE_TITLE}",
+		Play:			"{LA_PLAY_TEXT}",
+		PlayTitle:		"{LA_PLAY_TITLE}",
+		Pause:			"{LA_PAUSE_TEXT}",
+		PauseTitle:		"{LA_PAUSE_TITLE}",
+		ImageNumber:	"{LA_IMAGE_NUMBER}"
 	};
 
 	var reimgSettings = {
-		maxWidth: {REIMG_MAX_WIDTH},
-		maxHeight: {REIMG_MAX_HEIGHT},
-		relWidth: {REIMG_REL_WIDTH},
-		swapPortrait: <!-- IF S_REIMG_SWAP_PORTRAIT -->true<!-- ELSE -->false<!-- ENDIF -->,
-		autoLink: <!-- IF S_REIMG_LINK -->true<!-- ELSE -->false<!-- ENDIF -->,
-		zoomTarget: "{S_REIMG_ZOOM}",
-		ajaxUrl: "{REIMG_AJAX_URL}",
-		rtl: <!-- IF S_CONTENT_DIRECTION eq 'rtl' -->true<!-- ELSE -->false<!-- ENDIF -->,
-		zoomLevel: <!-- IF S_REIMG_ZOOM_METHOD eq '_litebox1' -->100<!-- ELSE -->null<!-- ENDIF -->
+		maxWidth: 		{REIMG_MAX_WIDTH},
+		maxHeight: 		{REIMG_MAX_HEIGHT},
+		relWidth: 		{REIMG_REL_WIDTH},
+		zoomTarget: 	"{S_REIMG_ZOOM}",
+		zoomMethod:		"{S_REIMG_ZOOM_METHOD}",
+		ajaxFile: 		"{REIMG_AJAX_URL}",
+		spacerImage:	"{T_IMAGES_PATH}spacer.gif",
+		rtl: 			<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->true<!-- ELSE -->false<!-- ENDIF -->,
+		swapPortrait: 	<!-- IF S_REIMG_SWAP_PORTRAIT -->true<!-- ELSE -->false<!-- ENDIF -->,
+		autoLink: 		<!-- IF S_REIMG_LINK -->true<!-- ELSE -->false<!-- ENDIF -->,
+		showButton:		<!-- IF S_REIMG_BUTTON -->true<!-- ELSE -->false<!-- ENDIF -->,
+		handleAttached:	<!-- IF S_REIMG_ATTACHMENTS -->true<!-- ELSE -->false<!-- ENDIF -->,
+		resizeSigImg:	<!-- IF S_REIMG_RESIZE_SIG_IMG -->true<!-- ELSE -->false<!-- ENDIF -->
 	};
-
-	var reimg_loadingImg = "{T_IMAGES_PATH}spacer.gif";
-	var reimg_loadingStyle = "ReIMGLoading";
-	<!-- IF S_REIMG_BUTTON -->
-	var reimg_zoomImg = "{T_IMAGES_PATH}spacer.gif";
-	var reimg_zoomStyle = "ReIMGZoomStyle";
-	var reimg_zoomHover = "ReIMGZoomStyle";
-	<!-- ENDIF -->
-		<!-- IF S_REIMG_ZOOM_METHOD eq '_litebox' -->
-			<!-- IF S_REIMG_BUTTON -->
-	var litebox_zoomImg = reimg_zoomImg;
-	var litebox_zoomStyle = reimg_zoomStyle;
-	var litebox_zoomHover = reimg_zoomHover;
-			<!-- ELSE -->
-	var litebox_zoomImg = "{T_IMAGES_PATH}spacer.gif";
-	var litebox_zoomStyle = "ReIMGZoomStyle";
-	var litebox_zoomHover = "ReIMGZoom";
-			<!-- ENDIF -->
-		<!-- ENDIF -->
-		<!-- IF S_REIMG_LINK -->
-	var litebox_style = "cursor: pointer;"
-		<!-- ENDIF -->
-		<!-- IF S_REIMG_BUTTON -->
-	var litebox_closeImg = "{T_IMAGES_PATH}spacer.gif";
-	var litebox_closeStyle = "ReIMGCloseStyle";
-	var litebox_closeHover = reimg_zoomHover;
-		<!-- ENDIF -->
 // ]]>
 </script>
 

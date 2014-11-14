@@ -34,34 +34,21 @@ if (empty($lang) || !is_array($lang))
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 //
-// NOTE TO TRANSLATORS:  Text in parenthesis refers to keys on the keyboard
 
 $lang = array_merge($lang, array(
 	'LOADING_TEXT'					=> 'Loading...',
-	'LOADING_TITLE'					=> 'Click to cancel',
-	'FOCUS_TITLE'					=> 'Click to bring to front',
 	'FULL_EXPAND_TITLE'				=> 'Expand to actual size (f)',
-	'CREDITS_TEXT'					=> 'Powered by <em>Highslide JS</em>',
-	'CREDITS_TITLE'					=> 'Go to the Highslide JS homepage',
 	'PREVIOUS_TEXT'					=> 'Previous',
+	'PREVIOUS_TITLE' 				=> 'Previous (arrow left)',
 	'NEXT_TEXT'						=> 'Next',
-	'MOVE_TEXT'						=> 'Move',
+	'NEXT_TITLE' 					=> 'Next (arrow right)',
 	'CLOSE_TEXT'					=> 'Close',
 	'CLOSE_TITLE'					=> 'Close (esc)',
-	'RESIZE_TITLE' 					=> 'Resize',
 	'PLAY_TEXT' 					=> 'Play',
 	'PLAY_TITLE' 					=> 'Play slideshow (spacebar)',
 	'PAUSE_TEXT' 					=> 'Pause',
 	'PAUSE_TITLE' 					=> 'Pause slideshow (spacebar)',
-	'PREVIOUS_TITLE' 				=> 'Previous (arrow left)',
-	'NEXT_TITLE' 					=> 'Next (arrow right)',
-	'MOVE_TITLE' 					=> 'Move',
 	'IMAGE_NUMBER' 					=> 'Image %1 of %2',
-	'RESTORE_TITLE' 				=> 'Click to close image, click and drag to move. Use arrow keys for next and previous.',
-	
-	'IMG_ICON_REIMG_LOADING'		=> 'Loading',
-	'IMG_ICON_REIMG_ZOOM_IN'		=> 'Zoom in',
-	'IMG_ICON_REIMG_ZOOM_OUT'		=> 'Zoom out',
 	
 	'REIMG_ZOOM_IN'					=> 'Zoom in (real dimensions: %1$d x %2$d)',
 	'REIMG_ZOOM_OUT'				=> 'Zoom out',
