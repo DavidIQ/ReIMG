@@ -28,7 +28,7 @@ class initial_data extends \phpbb\db\migration\migration
 			array('config.add', array('reimg_swap_portrait', 1)),
 			array('config.add', array('reimg_resize_sig_img', false)),
 			array('config.add', array('reimg_link', 'button_link')),
-			array('config.add', array('reimg_zoom', '_litebox')),
+			array('config.add', array('reimg_zoom', '_imglightbox')),
 			array('config.add', array('reimg_attachments', false)),
 		);
 	}

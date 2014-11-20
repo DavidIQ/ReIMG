@@ -1,12 +1,33 @@
-#topicreview .ReIMG-zoom {
+#topicreview .ReIMG-Zoom {
 	display: none;
 }
 
-.ReIMGAttachbox {
+span.ReIMG-Zoom {
+	position: absolute;
+	margin: 1px;
+}
+
+img.ReIMG-Zoom {
+	border: none !important;
+	margin: 1px;
+}
+
+img.ReIMG-Zoom:hover {
+	background-position: 0 100%;
+	cursor: pointer;
+	filter: Alpha(Opacity=100);
+	opacity: 1.00;
+}
+
+.ReIMG-Loading {
+	border: none !important;
+}
+
+.ReIMG-Attachbox {
 	width: 97%;
 }
 
-.ReIMGAttach-image {
+.ReIMG-Attach-Image {
 	overflow: hidden;
 	max-height: none;
 }
@@ -17,7 +38,7 @@
 	visibility: visible;
 }
 
-.ReIMGCloseStyle {
+.ReIMG-CloseStyle {
 	width: 20px;
 	height: 20px;
 	background: url(images/icon_reimg_zoom_out.gif) top left no-repeat;
@@ -25,7 +46,7 @@
 	opacity: .50;
 }
 
-.ReIMGZoomStyle {
+.ReIMG-ZoomStyle {
 	width: 20px;
 	height: 20px;
 	background: url(images/icon_reimg_zoom_in.gif) top left no-repeat;
@@ -33,14 +54,7 @@
 	opacity: .50;
 }
 
-.ReIMGZoomStyle:hover {
-	background-position: 0 100%;
-	cursor: pointer;
-	filter: Alpha(Opacity=100);
-	opacity: 1.00;
-}
-
-.ReIMGLoading {
+.ReIMG-Loading {
 	width: 16px;
 	height: 16px;
 	background: url(images/icon_reimg_loading.gif) top left no-repeat;
@@ -48,6 +62,23 @@
 	opacity: .50;
 }
 
-.ReIMGLitebox {
-	cursor: pointer;
+img.ReIMG-Zoom,
+.ReIMG-Litebox,
+.ReIMG-Link {
+	cursor: pointer !important;
+}
+
+.ReIMG-Width-Portrait,
+.ReIMG-Height {
+	width: auto;
+}
+
+.ReIMG-Height-Portrait,
+.ReIMG-Width,
+.ReIMG-Rel {
+	height: auto;
+}
+
+.ReIMG-Width {
+	vertical-align: top;
 }

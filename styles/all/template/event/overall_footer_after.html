@@ -33,10 +33,19 @@
 		handleAttached:	<!-- IF S_REIMG_ATTACHMENTS -->true<!-- ELSE -->false<!-- ENDIF -->,
 		resizeSigImg:	<!-- IF S_REIMG_RESIZE_SIG_IMG -->true<!-- ELSE -->false<!-- ENDIF -->
 	};
+
+	$(function() {
+		var reimg = new ReIMG(reimgAltLabels, reimgSettings);
+		reimg.ApplyResize();
+	});
 // ]]>
 </script>
 
-<!-- IF S_REIMG_ZOOM_METHOD eq '_litebox' or S_REIMG_ZOOM_METHOD eq '_litebox1' -->
-<!-- INCLUDEJS ../js/litebox.js -->
+<!-- IF S_REIMG_ZOOM_METHOD eq '_imglightbox' -->
+<!-- INCLUDEJS ../js/imagelightbox.min.js -->
+<!-- ELSEIF S_REIMG_ZOOM_METHOD eq '_colorbox' -->
+<!-- INCLUDEJS ../js/jquery.colorbox-min.js -->
+<!-- ELSEIF S_REIMG_ZOOM_METHOD eq '_magnific' -->
+<!-- INCLUDEJS ../js/jquery.magnific-popup.min.js -->
 <!-- ENDIF -->
 <!-- INCLUDEJS ../js/reimg.js -->

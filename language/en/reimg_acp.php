@@ -61,19 +61,23 @@ $lang = array_merge($lang, array(
 	'reimg_zooming_methods'			=> array(
 		'_blank' 		=> array (
 								'name'			=>	'New window',
-								'description'	=>	'Opens the fill-size image in a new window.',
+								'description'	=>	'Opens the full-size image in a new window.',
 							),
 		'_default' 		=> array (
 								'name'			=> 	'Normal link',
 								'description'	=>	'Opens the full-size image in the same window.',
 							),
-		'_litebox' 		=> array (
-								'name'			=>	'Litebox',
-								'description'	=>	'View a larger version of the image in a litebox modal fitted to space available with a second zoom option shown.',
+		'_imglightbox' 		=> array (
+								'name'			=>	'Image Lightbox',
+								'description'	=>	'View a larger version of the image using <a href="http://osvaldas.info/image-lightbox-responsive-touch-friendly">Image Lightbox</a>, a basic responsive lightbox.',
 							),
-		'_litebox1'		=> array(
-								'name'			=>	'Litebox 1:1',
-								'description'	=>	'View the full-size version of the image in a litebox modal on initial click.',
+		'_colorbox'		=> array(
+								'name'			=>	'Colorbox',
+								'description'	=>	'View a larger version of the image using <a href="http://www.jacklmoore.com/colorbox/">Colorbox</a>, a jQuery lightbox.',
+							),
+		'_magnific'		=> array(
+								'name'			=>	'Magnific Popup',
+								'description'	=>	'View a larger version of the image using <a href="http://dimsemenov.com/plugins/magnific-popup/">Magnific Popup</a>, a responsive lightbox.',
 							),
 	),
 
