@@ -68,16 +68,16 @@ $lang = array_merge($lang, array(
 								'description'	=>	'Opens the full-size image in the same window.',
 							),
 		'_imglightbox' 		=> array (
-								'name'			=>	'Image Lightbox',
-								'description'	=>	'View a larger version of the image using <a href="http://osvaldas.info/image-lightbox-responsive-touch-friendly">Image Lightbox</a>, a basic responsive lightbox.',
+								'name'			=>	'<a href="http://osvaldas.info/image-lightbox-responsive-touch-friendly">Image Lightbox</a>',
+								'description'	=>	'View a larger version of the image using Image Lightbox, a basic responsive lightbox.',
 							),
 		'_colorbox'		=> array(
-								'name'			=>	'Colorbox',
-								'description'	=>	'View a larger version of the image using <a href="http://www.jacklmoore.com/colorbox/">Colorbox</a>, a jQuery lightbox.',
+								'name'			=>	'<a href="http://www.jacklmoore.com/colorbox/">Colorbox</a>',
+								'description'	=>	'View a larger version of the image using Colorbox, a jQuery lightbox.',
 							),
 		'_magnific'		=> array(
-								'name'			=>	'Magnific Popup',
-								'description'	=>	'View a larger version of the image using <a href="http://dimsemenov.com/plugins/magnific-popup/">Magnific Popup</a>, a responsive lightbox.',
+								'name'			=>	'<a href="http://dimsemenov.com/plugins/magnific-popup/">Magnific Popup</a>',
+								'description'	=>	'View a larger version of the image using Magnific Popup, a responsive lightbox.',
 							),
 	),
 
