@@ -39,9 +39,16 @@ function ReIMG(altLabels, settings) {
 			break;
 
 			case "_imglightbox":  //Use Image Lightbox plugin
+				var types = "png|jpg|jpeg|gif" + ($attachImages) ? "|" + reimg.Settings.phpExt : "";
 
 				$(".ReIMG-Anchor").imageLightbox({
-					selector: "class='ReIMG-Anchor'"
+					selector: 		"class='ReIMG-Anchor'",
+					allowedTypes:	types,
+					onStart:		function() { reimg.OverlayShow() },
+					onEnd:			function() { reimg.OverlayRemove() },
+					onLoadStart: 	function() { reimg.Loading(); },
+					onLoadEnd:	 	function() { reimg.LoadingDone(); },
+					quitOnImgClick:	true  //Until I figure out why dupliates of all images are being shown
 				});
 
 			break;
@@ -110,5 +117,25 @@ function ReIMG(altLabels, settings) {
 				}
 			}
 		}
+	};
+
+	reimg.Loading = function()
+	{
+		$('<div id="ReIMG-Loading"><div></div></div>').appendTo('body');
+	};
+
+	reimg.LoadingDone = function()
+	{
+		$('#ReIMG-Loading').remove();
+	};
+
+	reimg.OverlayShow = function()
+	{
+		$('<div id="ReIMG-Overlay"></div>').appendTo('body');
+	};
+
+	reimg.OverlayRemove = function()
+	{
+		$('#ReIMG-Overlay').remove();
 	};
 }

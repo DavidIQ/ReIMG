@@ -82,7 +82,7 @@ $lang = array_merge($lang, array(
 	'REIMG_ATTACHMENTS'				=> 'Apply ReIMG to image attachments',
 	'REIMG_ATTACHMENTS_EXPLAIN'		=> 'If set to yes then ReIMG will be used to open image attachments.',
 	'REIMG_FOR_ALL'					=> 'Apply ReIMG zoom method to all posted images',
-	'REIMG_FOR_ALL_EXPLAIN'			=> 'If set to yes then ReIMG zoom method will be applied to all images regardless of if being bigger than displayed or not.',
+	'REIMG_FOR_ALL_EXPLAIN'			=> 'If set to yes then ReIMG zooming method will be applied to all images regardless of if being bigger than displayed or not.',
 
 	'REIMG_UPDATED'					=> 'ReIMG Image Resizer settings have been updated.',
 

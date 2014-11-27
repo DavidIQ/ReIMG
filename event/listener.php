@@ -24,20 +24,25 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\user */
 	protected $user;
 
+	/** @var string phpEx */
+	protected $php_ext;
+
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config        $config             Config object
-	* @param \phpbb\template\template    $template           Template object
-	* @param \phpbb\user                 $user               User object
+	* @param \phpbb\config\config        	$config             Config object
+	* @param \phpbb\template\template    	$template           Template object
+	* @param \phpbb\user                 	$user               User object
+	* @param string							$php_ext			phpEx
 	* @return \davidiq\reimg\event\listener
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user, $php_ext)
 	{
 		$this->config = $config;
 		$this->template = $template;
 		$this->user = $user;
+		$this->php_ext = $php_ext;
 	}
 
 	/**
@@ -63,7 +68,6 @@ class listener implements EventSubscriberInterface
 	*/
 	public function load_reimg($event)
 	{
-		$phpEx = substr(strrchr(__FILE__, '.'), 1);
 		$this->user->add_lang_ext('davidiq/reimg', 'reimg');
 
 		//Standard template variables
@@ -76,6 +80,7 @@ class listener implements EventSubscriberInterface
 			'S_REIMG_ZOOM_METHOD'		=> $this->config['reimg_zoom'],
 			'S_REIMG_RESIZE_SIG_IMG'	=> $this->config['reimg_resize_sig_img'],
 			'S_REIMG_FOR_ALL'			=> $this->config['reimg_for_all'],
+			'S_REIMG_PHP_EXT'			=> strtolower($this->php_ext),
 		));
 	}
 

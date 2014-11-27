@@ -1,3 +1,14 @@
+.ReIMG-Anchor img
+{
+	cursor: pointer !important;
+}
+.ReIMG-Anchor img:hover
+{
+	border-color: #FFFFFF;
+	-webkit-box-shadow: 0 0 0.938em rgba( 0, 0, 0, .25 ); /* 15 */
+	box-shadow: 0 0 0.938em rgba( 0, 0, 0, .25 ); /* 15 */
+}
+
 span.ReIMG-Zoom
 {
 	position: absolute;
@@ -27,13 +38,13 @@ div.ReIMG-UserLink
 	opacity: .80;
 	position: absolute;
 	height: 20px;
-	margin-top: -25px;
+	margin-top: -26px;
 }
 
 div.ReIMG-UserLink:hover
 {
-	filter: Alpha(Opacity=100);
-	opacity: 1.00;
+	filter: Alpha(Opacity=95);
+	opacity: .95;
 }
 
 div.ReIMG-UserLink a
@@ -42,16 +53,80 @@ div.ReIMG-UserLink a
 	font-weight: bold;
 }
 
+#ReIMG-Overlay
+{
+	background-color: #000000;
+	background-color: rgba(000, 000, 000, .8);
+	position: fixed;
+	z-index: 9998;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	-webkit-animation: fade-in .25s linear;
+	animation: fade-in .25s linear;
+}
+
+@-webkit-keyframes fade-in
+{
+	from	{ opacity: 0; }
+	to		{ opacity: 1; }
+}
+
+#ReIMG-Loading,
+#ReIMG-Loading div
+{
+	border-radius: 50%;
+}
+#ReIMG-Loading
+{
+	width: 2.5em;
+	height: 2.5em;
+	background-color: #444;
+	background-color: rgba(0, 0, 0, .5);
+	position: fixed;
+	z-index: 10003;
+	top: 50%;
+	left: 50%;
+	padding: 0.625em;
+	margin: -1.25em 0 0 -1.25em;
+
+	-webkit-box-shadow: 0 0 2.5em rgba(0, 0, 0, .75);
+	box-shadow: 0 0 2.5em rgba(0, 0, 0, .75);
+
+	-webkit-animation: fade-in .25s linear;
+	animation: fade-in .25s linear;
+}
+
+#ReIMG-Loading div
+{
+	width: 2.5em;
+	height: 2.5em;
+	background-color: #fff;
+
+	-webkit-animation: ReIMG-Loading .5s ease infinite;
+	animation: ReIMG-Loading .5s ease infinite;
+}
+
+@-webkit-keyframes ReIMG-Loading
+{
+	from { opacity: .5;	-webkit-transform: scale(.75); }
+	50%	 { opacity: 1;	-webkit-transform: scale(1); }
+	to	 { opacity: .5;	-webkit-transform: scale(.75); }
+}
+@keyframes ReIMG-Loading
+{
+	from { opacity: .5;	transform: scale(.75); }
+	50%	 { opacity: 1;	transform: scale(1); }
+	to	 { opacity: .5;	transform: scale(.75); }
+}
+
 
 
 
 /* THESE ARE NOT CURRENTLY IN USE */
 #topicreview .ReIMG-Zoom {
 	display: none;
-}
-
-.ReIMG-Loading {
-	border: none !important;
 }
 
 .ReIMG-Attachbox {
@@ -73,14 +148,6 @@ div.ReIMG-UserLink a
 	width: 20px;
 	height: 20px;
 	background: url(images/icon_reimg_zoom_out.gif) top left no-repeat;
-	filter: Alpha(Opacity=50);
-	opacity: .50;
-}
-
-.ReIMG-Loading {
-	width: 16px;
-	height: 16px;
-	background: url(images/icon_reimg_loading.gif) top left no-repeat;
 	filter: Alpha(Opacity=50);
 	opacity: .50;
 }
