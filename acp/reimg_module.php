@@ -62,14 +62,12 @@ class reimg_module
 		$form_name = 'acp_reimg';
 		add_form_key($form_name);
 
-		$reimg_max_width = $this->request->variable('reimg_max_width', (int)$this->config['reimg_max_width']);
-		$reimg_max_height = $this->request->variable('reimg_max_height', (int)$this->config['reimg_max_height']);
-		$reimg_rel_width = $this->request->variable('reimg_rel_width', (int)$this->config['reimg_rel_width']);
 		$reimg_swap_portrait = $this->request->variable('reimg_swap_portrait', (bool)$this->config['reimg_swap_portrait']);
 		$reimg_resize_sig_img = $this->request->variable('reimg_resize_sig_img', (bool)$this->config['reimg_resize_sig_img']);
 		$reimg_link = $this->request->variable('reimg_link', $this->config['reimg_link']);
 		$reimg_zoom = $this->request->variable('reimg_zoom', $this->config['reimg_zoom']);
-		$reimg_attachments = $this->request->variable('reimg_attachments', $this->config['reimg_attachments']);
+		$reimg_attachments = $this->request->variable('reimg_attachments', (bool)$this->config['reimg_attachments']);
+		$reimg_for_all = $this->request->variable('reimg_for_all', (bool)$this->config['reimg_for_all']);
 
 		if ($this->request->is_set_post('submit'))
 		{
@@ -79,28 +77,24 @@ class reimg_module
 			}
 
 			//Update configuration now
-			$this->config->set('reimg_max_width', $reimg_max_width);
-			$this->config->set('reimg_max_height', $reimg_max_height);
-			$this->config->set('reimg_rel_width', $reimg_rel_width);
 			$this->config->set('reimg_swap_portrait', $reimg_swap_portrait);
 			$this->config->set('reimg_resize_sig_img', $reimg_resize_sig_img);
 			$this->config->set('reimg_link', $reimg_link);
 			$this->config->set('reimg_zoom', $reimg_zoom);
 			$this->config->set('reimg_attachments', $reimg_attachments);
+			$this->config->set('reimg_for_all', $reimg_for_all);
 
 			$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_REIMG_UPDATED');
 			trigger_error($user->lang['REIMG_UPDATED'] . adm_back_link($this->u_action));
 		}
 
 		$template->assign_vars(array(
-			'S_REIMG_MAX_WIDTH'			=> $reimg_max_width,
-			'S_REIMG_MAX_HEIGHT'		=> $reimg_max_height,
-			'S_REIMG_REL_WIDTH'			=> $reimg_rel_width,
 			'S_REIMG_SWAP_PORTRAIT'		=> $reimg_swap_portrait,
 			'S_REIMG_RESIZE_SIG_IMG'	=> $reimg_resize_sig_img,
 			'S_REIMG_LINK'				=> $this->select_reimg_link_method($reimg_link),
 			'S_REIMG_ZOOM'				=> $this->select_reimg_zoom_method($reimg_zoom),
 			'S_REIMG_ATTACHMENTS'		=> $reimg_attachments,
+			'S_REIMG_FOR_ALL'			=> $reimg_for_all,
 
 			'U_ACTION'					=> $this->u_action,
 		));

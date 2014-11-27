@@ -40,10 +40,6 @@ $lang = array_merge($lang, array(
 	'REIMG_ENABLE'					=> 'Enable ReIMG Image Resizer',
 	'REIMG_OPTIONS'					=> 'ReIMG Image Resizer options',
 	'REIMG_SETTINGS'				=> 'Image resize settings',
-	'REIMG_MAX_SIZE'				=> 'Maximum image dimensions',
-	'REIMG_MAX_SIZE_EXPLAIN'		=> 'When an image is larger than this it will be resized. Set to 0 to disable horizontal and/or vertical resizing.',
-	'REIMG_REL_WIDTH'				=> 'Maximum relative image width',
-	'REIMG_REL_WIDTH_EXPLAIN'		=> 'When an image is wider than this it will be resized. Set to 0 to ignore the relative width.',
 	'REIMG_SWAP_PORTRAIT'			=> 'Normalize landscape/portrait',
 	'REIMG_SWAP_PORTRAIT_EXPLAIN'	=> 'If set to yes the maximum dimensions are loosely applied, so landscape and portrait images are equally resized. If set to no the maximum width and/or height are strictly enforced.',
 	'REIMG_LINK_METHOD'				=> 'Zooming link',
@@ -85,6 +81,8 @@ $lang = array_merge($lang, array(
 	'REIMG_RESIZE_SIG_IMG_EXPLAIN'	=> 'If set to yes then images in signatures will be resized.',
 	'REIMG_ATTACHMENTS'				=> 'Apply ReIMG to image attachments',
 	'REIMG_ATTACHMENTS_EXPLAIN'		=> 'If set to yes then ReIMG will be used to open image attachments.',
+	'REIMG_FOR_ALL'					=> 'Apply ReIMG zoom method to all posted images',
+	'REIMG_FOR_ALL_EXPLAIN'			=> 'If set to yes then ReIMG zoom method will be applied to all images regardless of if being bigger than displayed or not.',
 
 	'REIMG_UPDATED'					=> 'ReIMG Image Resizer settings have been updated.',
 

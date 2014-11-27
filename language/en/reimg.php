@@ -48,9 +48,10 @@ $lang = array_merge($lang, array(
 	'PLAY_TITLE' 					=> 'Play slideshow (spacebar)',
 	'PAUSE_TEXT' 					=> 'Pause',
 	'PAUSE_TITLE' 					=> 'Pause slideshow (spacebar)',
-	'IMAGE_NUMBER' 					=> 'Image %1 of %2',
+	'IMAGE_NUMBER' 					=> 'Image %1$d of %2$d',
 	
 	'REIMG_ZOOM_IN'					=> 'Zoom in (real dimensions: %1$d x %2$d)',
 	'REIMG_ZOOM_OUT'				=> 'Zoom out',
+	'REIMG_USER_LINK'				=> 'User-assigned image link',
 ));
 

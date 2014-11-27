@@ -18,14 +18,6 @@
 	<legend>{L_REIMG_OPTIONS}</legend>
 
 	<dl>
-		<dt><label for="reimg_max_width">{L_REIMG_MAX_SIZE}:</label><br /><span>{L_REIMG_MAX_SIZE_EXPLAIN}</span></dt>
-		<dd><input type="text" name="reimg_max_width" id="reimg_max_width" value="{S_REIMG_MAX_WIDTH}" size="3" maxlength="4" /> X <input type="text" name="reimg_max_height" id="reimg_max_height" value="{S_REIMG_MAX_HEIGHT}" size="3" maxlength="4" /> <label>{L_PIXEL}</label></dd>
-	</dl>
-	<dl>
-		<dt><label for="reimg_rel_width">{L_REIMG_REL_WIDTH}:</label><br /><span>{L_REIMG_REL_WIDTH_EXPLAIN}</span></dt>
-		<dd><input type="text" name="reimg_rel_width" id="reimg_rel_width" value="{S_REIMG_REL_WIDTH}" size="3" maxlength="4" /> <label>%</label></dd>
-	</dl>
-	<dl>
 		<dt><label for="reimg_swap_portrait">{L_REIMG_SWAP_PORTRAIT}:</label><br /><span>{L_REIMG_SWAP_PORTRAIT_EXPLAIN}</span></dt>
 		<dd><label><input type="radio" name="reimg_swap_portrait" value="1"<!-- IF S_REIMG_SWAP_PORTRAIT --> checked="checked"<!-- ENDIF -->  class="radio" /> {L_YES}</label>
 		<label><input type="radio" name="reimg_swap_portrait" id="reimg_swap_portrait" value="0"<!-- IF not S_REIMG_SWAP_PORTRAIT --> checked="checked"<!-- ENDIF --> class="radio" /> {L_NO}</label></dd>
@@ -47,6 +39,11 @@
 	<dl>
 		<dt><label for="reimg_zoom">{L_REIMG_ZOOM_METHOD}:</label><br /><span>{L_REIMG_ZOOM_METHOD_EXPLAIN}</span></dt>
 		<dd>{S_REIMG_ZOOM}</dd>
+	</dl>
+	<dl>
+		<dt><label for="reimg_zoom">{L_REIMG_FOR_ALL}:</label><br /><span>{L_REIMG_FOR_ALL_EXPLAIN}</span></dt>
+		<dd><label><input type="radio" name="reimg_for_all" value="1"<!-- IF S_REIMG_FOR_ALL --> checked="checked"<!-- ENDIF -->  class="radio" /> {L_YES}</label>
+		<label><input type="radio" name="reimg_for_all" id="reimg_for_all" value="0"<!-- IF not S_REIMG_FOR_ALL --> checked="checked"<!-- ENDIF --> class="radio" /> {L_NO}</label></dd>
 	</dl>
 
 	<!-- IF S_REIMG_LINK -->
