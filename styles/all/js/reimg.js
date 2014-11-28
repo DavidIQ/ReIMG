@@ -19,11 +19,12 @@ function ReIMG(altLabels, settings) {
 		var $postImages = $('img.postimage:not(dt.attach-image img.postimage)'),
 			$attachImages =  (reimg.Settings.handleAttached) ? $('dt.attach-image img.postimage') : null;
 
-		//Add the ReIMG zoom button to each image
+		//Add ReIMG zooming to each non-attachment image
 		$postImages.each(function () {
 			reimg.AddZoom(this, false);
 		});
 
+		//Add ReIMG zooming to each image attachment
 		if ($attachImages) {
 			$attachImages.each(function () {
 				reimg.AddZoom(this, true);
@@ -34,11 +35,14 @@ function ReIMG(altLabels, settings) {
 		switch (reimg.Settings.zoomMethod)
 		{
 			case "_blank":  //Full sized image in new window
-			case "_default":  //Full sized image in same window
-
+				$(".ReIMG-Anchor").click(function (event) {
+					event.preventDefault();
+					window.open($(this).attr("href"));
+				});
 			break;
 
 			case "_imglightbox":  //Use Image Lightbox plugin
+				//Attachments are done via a PHP file so let's add that if we have any
 				var types = "png|jpg|jpeg|gif" + ($attachImages) ? "|" + reimg.Settings.phpExt : "";
 
 				$(".ReIMG-Anchor").imageLightbox({
@@ -48,7 +52,6 @@ function ReIMG(altLabels, settings) {
 					onEnd:			function() { reimg.OverlayRemove() },
 					onLoadStart: 	function() { reimg.Loading(); },
 					onLoadEnd:	 	function() { reimg.LoadingDone(); },
-					quitOnImgClick:	true  //Until I figure out why dupliates of all images are being shown
 				});
 
 			break;
@@ -79,8 +82,9 @@ function ReIMG(altLabels, settings) {
 
 		//Check to see if real dimensions differ from current dimensions
 		if (reimg.Settings.reimgForAll || (realWidth != $(image).width() || realHeight != $(image).height())) {
-			var anchorHtml = "<a href='%1$s' data-reimgwidth='%2$d' data-reimgheight='%3$d' title='%4$s' class='ReIMG-Anchor'>",
-				zoomText = reimg.AltLabels.ZoomIn.replace(/%1\$d/, realWidth).replace(/%2\$d/, realHeight);
+			var anchorHtml = "<a href='%1$s' data-reimgwidth='%2$d' data-reimgheight='%3$d' title='%4$s' class='ReIMG-Anchor'></a>",
+				zoomText = reimg.AltLabels.ZoomIn.replace(/%1\$d/, realWidth).replace(/%2\$d/, realHeight),
+				$reimgButton = null;
 			anchorHtml = anchorHtml.replace(/%1\$s/, t.src);
 			anchorHtml = anchorHtml.replace(/%2\$d/, realWidth);
 			anchorHtml = anchorHtml.replace(/%3\$d/, realHeight);
@@ -88,8 +92,11 @@ function ReIMG(altLabels, settings) {
 
 			//Check to see if we need to add the zoom button
 			if (reimg.Settings.showButton) {
-				var $span = $(anchorHtml + "<span class='ReIMG-Zoom'></span></a>");
-				$(image).before($span);
+				$reimgButton = $("<span class='ReIMG-Zoom'></span>");
+				if (!reimg.Settings.autoLink) {
+					$reimgButton.wrap(anchorHtml);
+					$(image).before($reimgButton);
+				}
 			}
 
 			if (reimg.Settings.autoLink) {
@@ -113,7 +120,10 @@ function ReIMG(altLabels, settings) {
 					$(image).parent().addClass("ReIMG-Anchor");
 				}
 				else {
-					$(image).wrap(anchorHtml + "</a>");
+					$(image).wrap(anchorHtml);
+				}
+				if ($reimgButton != null) {
+					$(image).before($reimgButton);
 				}
 			}
 		}
