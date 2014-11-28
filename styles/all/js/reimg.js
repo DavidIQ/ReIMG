@@ -48,10 +48,10 @@ function ReIMG(altLabels, settings) {
 				$(".ReIMG-Anchor").imageLightbox({
 					selector: 		"class='ReIMG-Anchor'",
 					allowedTypes:	types,
-					onStart:		function() { reimg.OverlayShow() },
-					onEnd:			function() { reimg.OverlayRemove() },
-					onLoadStart: 	function() { reimg.Loading(); },
-					onLoadEnd:	 	function() { reimg.LoadingDone(); },
+					onStart:		function() { reimg.OverlayShow(); },
+					onEnd:			function() { reimg.ZoomMoreRemove(); reimg.OverlayRemove(); },
+					onLoadStart: 	function() { reimg.ZoomMoreRemove(); reimg.Loading(); },
+					onLoadEnd:	 	function() { reimg.ZoomMoreAdd("img.ReIMG-Anchor"); reimg.LoadingDone(); }
 				});
 
 			break;
@@ -148,4 +148,34 @@ function ReIMG(altLabels, settings) {
 	{
 		$('#ReIMG-Overlay').remove();
 	};
+
+	reimg.ZoomMoreAdd = function(imageselector)
+	{
+		//Grab the image that was enlarged
+		var $image = $(imageselector),
+			$zoomMoreButton = $("<a id='ReIMG-ZoomMore' class='ReIMG-ZoomMore' href='" + $image.attr("src") + "'><span class='ReIMG-Zoom ReIMG-ZoomMore'></span></a>"),
+			position = $image.position();
+
+		$zoomMoreButton.select("span").css(
+			{
+				'top'	:	position.top + 'px',
+				'left'	:	position.left + 'px'
+			});
+
+		$zoomMoreButton.click(function () {
+			reimg.ZoomMoreClick();
+		});
+
+		$image.before($zoomMoreButton);
+	};
+
+	reimg.ZoomMoreRemove = function()
+	{
+		$('#ReIMG-ZoomMore').remove();
+	};
+
+	reimg.ZoomMoreClick = function ()
+	{
+		//#TODO
+	}
 }

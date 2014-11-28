@@ -29,6 +29,12 @@ span.ReIMG-Zoom:hover
 	opacity: 1.00;
 }
 
+.ReIMG-ZoomMore
+{
+	z-index: 10005;
+	position: fixed;
+}
+
 div.ReIMG-UserLink
 {
 	text-align: center;

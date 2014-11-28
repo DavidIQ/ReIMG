@@ -55,13 +55,13 @@ $lang = array_merge($lang, array(
 	'REIMG_ZOOM_METHOD_EXPLAIN'		=> 'Select the method that is used to view the original, larger image.',
 
 	'reimg_zooming_methods'			=> array(
-		'_blank' 		=> array (
-								'name'			=>	'New window',
-								'description'	=>	'Opens the full-size image in a new window.',
-							),
 		'_default' 		=> array (
 								'name'			=> 	'Normal link',
 								'description'	=>	'Opens the full-size image in the same window.',
+							),
+		'_blank' 		=> array (
+								'name'			=>	'New window',
+								'description'	=>	'Opens the full-size image in a new window.',
 							),
 		'_imglightbox' 		=> array (
 								'name'			=>	'<a href="http://osvaldas.info/image-lightbox-responsive-touch-friendly">Image Lightbox</a>',
