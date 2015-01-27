@@ -51,7 +51,10 @@ function ReIMG(altLabels, settings) {
 					onStart:		function() { reimg.OverlayShow(); },
 					onEnd:			function() { reimg.ZoomMoreRemove(); reimg.OverlayRemove(); },
 					onLoadStart: 	function() { reimg.ZoomMoreRemove(); reimg.Loading(); },
-					onLoadEnd:	 	function() { reimg.ZoomMoreAdd("img.ReIMG-Anchor"); reimg.LoadingDone(); }
+					onLoadEnd:	 	function() {
+										reimg.LoadingDone();
+										setTimeout(reimg.ZoomMoreAdd("img.ReIMG-Anchor"), 400);
+									}
 				});
 
 			break;
@@ -151,22 +154,30 @@ function ReIMG(altLabels, settings) {
 
 	reimg.ZoomMoreAdd = function(imageselector)
 	{
-		//Grab the image that was enlarged
 		var $image = $(imageselector),
-			$zoomMoreButton = $("<a id='ReIMG-ZoomMore' class='ReIMG-ZoomMore' href='" + $image.attr("src") + "'><span class='ReIMG-Zoom ReIMG-ZoomMore'></span></a>"),
+			$imgAnchor = $("a.ReIMG-Anchor[href='" + $image.attr("src") + "']"),
+			reimgheight = parseInt($imgAnchor.attr("data-reimgheight")),
+			reimgwidth = parseInt($imgAnchor.attr("data-reimgwidth")),
 			position = $image.position();
 
-		$zoomMoreButton.select("span").css(
-			{
-				'top'	:	position.top + 'px',
-				'left'	:	position.left + 'px'
+		if ($image.width() < reimgwidth || $image.height() < reimgheight) {
+			//Grab the image that was enlarged
+			var $zoomMoreButton = $("<a id='ReIMG-ZoomMore' class='ReIMG-ZoomMore' href='" + $image.attr("src") + "'><span class='ReIMG-Zoom ReIMG-ZoomMore'></span></a>");
+
+			$zoomMoreButton.select("span").css(
+				{
+					'top'	:	position.top + 'px',
+					'left'	:	position.left + 'px'
+				});
+
+			$zoomMoreButton.click(function (event) {
+				reimg.ZoomMoreClick(event);
+				event.preventDefault();
+				event.stopPropagation();
 			});
 
-		$zoomMoreButton.click(function () {
-			reimg.ZoomMoreClick();
-		});
-
-		$image.before($zoomMoreButton);
+			$image.before($zoomMoreButton);
+		}
 	};
 
 	reimg.ZoomMoreRemove = function()
@@ -174,8 +185,10 @@ function ReIMG(altLabels, settings) {
 		$('#ReIMG-ZoomMore').remove();
 	};
 
-	reimg.ZoomMoreClick = function ()
+	reimg.ZoomMoreClick = function (e)
 	{
+		var $reimgAnchor = $('#ReIMG-Anchor');
 		//#TODO
+		alert($reimgAnchor.attr('href'));
 	}
 }

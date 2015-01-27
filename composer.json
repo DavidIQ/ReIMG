@@ -1,10 +1,10 @@
 {
 	"name": "davidiq/reimg",
 	"type": "phpbb-extension",
-	"description": "Resizes posted images browser-side based on screen size and allows to expand resized images using a modal box.",
-	"homepage": "http://phpbb.davidiq.com/viewtopic.php?f=19&t=571",
+	"description": "Expands resized images using a lightbox-type modal.",
+	"homepage": "https://www.phpbb.com/customise/db/extension/reimg/",
 	"version": "3.0.0-dev",
-	"keywords": ["phpbb", "extension", "image", "resizer", "reimg"],
+	"keywords": ["phpbb", "extension", "image", "resizer", "reimg", "lightbox"],
 	"license": "GPL-2.0",
 	"authors": [
 		{
@@ -27,9 +27,9 @@
 			"phpbb/phpbb": ">=3.1.1,<3.2.*@dev"
 		},
 		"version-check": {
-			"host": "phpbb.davidiq.com",
-			"directory": "/versioncheck",
-			"filename": "reimg.json"
+			"host": "www.phpbb.com",
+			"directory": "/customise/db/extension/reimg",
+			"filename": "version_check"
 		}
 	}
 }
