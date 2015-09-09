@@ -2,7 +2,7 @@
 
 # ReIMG Image Resizer Extension
 
-An extension for phpBB 3.1 that resizes inline posted images as well as attached images.
+Starting with version 3.0 this is an extension for phpBB 3.1 that resizes inline posted images as well as attached images based in principle entirely on the MOD, which was versions 1 and 2.
 
 ## Installation
 1. [Download the latest release](https://github.com/DavidIQ/phpBB-ReIMG-Image-Resizer).
