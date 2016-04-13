@@ -42,14 +42,16 @@ function ReIMG(altLabels, settings) {
 			break;
 
 			case "_imglightbox":  //Use Image Lightbox plugin
+
 				//Attachments are done via a PHP file so let's add that if we have any
 				var types = "png|jpg|jpeg|gif" + ($attachImages) ? "|" + reimg.Settings.phpExt : "";
 
-				$(".ReIMG-Anchor").imageLightbox({
+				var reimgAnchor = $(".ReIMG-Anchor").imageLightbox({
+					quitOnDocClick:	false,
 					selector: 		"class='ReIMG-Anchor'",
 					allowedTypes:	types,
-					onStart:		function() { reimg.OverlayShow(); },
-					onEnd:			function() { reimg.ZoomMoreRemove(); reimg.OverlayRemove(); },
+					onStart:		function() { reimg.OverlayShow(); reimg.NavigationOn(reimgAnchor, 'a.ReIMG-Anchor'); },
+					onEnd:			function() { reimg.NavigationOff(); reimg.ZoomMoreRemove(); reimg.OverlayRemove(); },
 					onLoadStart: 	function() { reimg.ZoomMoreRemove(); reimg.Loading(); },
 					onLoadEnd:	 	function() {
 										reimg.LoadingDone();
@@ -85,7 +87,7 @@ function ReIMG(altLabels, settings) {
 
 		//Check to see if real dimensions differ from current dimensions
 		if (reimg.Settings.reimgForAll || (realWidth != $(image).width() || realHeight != $(image).height())) {
-			var anchorHtml = "<a href='%1$s' data-reimgwidth='%2$d' data-reimgheight='%3$d' title='%4$s' class='ReIMG-Anchor'></a>",
+			var anchorHtml = '<a href="%1$s" data-reimgwidth="%2$d" data-reimgheight="%3$d" title="%4$s" class="ReIMG-Anchor"></a>',
 				zoomText = reimg.AltLabels.ZoomIn.replace(/%1\$d/, realWidth).replace(/%2\$d/, realHeight),
 				$reimgButton = null;
 			anchorHtml = anchorHtml.replace(/%1\$s/, t.src);
@@ -95,7 +97,7 @@ function ReIMG(altLabels, settings) {
 
 			//Check to see if we need to add the zoom button
 			if (reimg.Settings.showButton) {
-				$reimgButton = $("<span class='ReIMG-Zoom'></span>");
+				$reimgButton = $('<span class="ReIMG-ZoomIn"></span>');
 				if (!reimg.Settings.autoLink) {
 					$reimgButton.wrap(anchorHtml);
 					$(image).before($reimgButton);
@@ -106,8 +108,8 @@ function ReIMG(altLabels, settings) {
 				//Check if the parent is an anchor link first
 				if ($(image).parent().is("a")) {
 					var href = $(image).parent().attr("href"),
-						userLinkHtml = "<div class='ReIMG-UserLink'><a href='%1$s'>%2$s</a></div>";
-					userLinkHtml = userLinkHtml.replace(/%1\$s/, href);
+						userLinkHtml = '<div class="ReIMG-UserLink"><a href="%1$s" title="%2$s">%1$s</a></div>';
+					userLinkHtml = userLinkHtml.replace(/%1\$s/g, href);
 					userLinkHtml = userLinkHtml.replace(/%2\$s/, reimg.AltLabels.UserLink);
 					var $userlink = $(userLinkHtml);
 					$userlink.width($(image).width() - 2);
@@ -116,8 +118,8 @@ function ReIMG(altLabels, settings) {
 					$(image).parent().after($userlink);
 					//Update the parent's properties
 					$(image).parent().attr("href", t.src);
-					$(image).parent().attr("data-reimgwidth", realWidth);
-					$(image).parent().attr("data-reimgheight", realHeight);
+					$(image).parent().data("reimgwidth", realWidth);
+					$(image).parent().data("reimgheight", realHeight);
 					$(image).parent().attr("title", zoomText);
 					$(image).parent().removeClass();
 					$(image).parent().addClass("ReIMG-Anchor");
@@ -140,6 +142,47 @@ function ReIMG(altLabels, settings) {
 	reimg.LoadingDone = function()
 	{
 		$('#ReIMG-Loading').remove();
+		$('.imagelightbox-arrow').css('display', 'block');
+	};
+
+	reimg.NavigationOn = function(instance, selector)
+	{
+		$('<button type="button" id="imagelightbox-close" title="Close"></button>').appendTo('body').on('click touchend', function(){ $(this).remove(); instance.quitImageLightbox(); return false; });
+
+		var $arrows = $('<button type="button" class="imagelightbox-arrow imagelightbox-arrow-left"></button><button type="button" class="imagelightbox-arrow imagelightbox-arrow-right"></button>');
+
+		$arrows.appendTo('body');
+
+		$arrows.on('click touchend', function(e)
+		{
+			e.preventDefault();
+
+			var $this	= $(this),
+				$target = $(selector + "[href='" + $('img.ReIMG-Anchor').attr("src") + "']")
+				index	= $target.index(selector);
+
+			if($this.hasClass('imagelightbox-arrow-left'))
+			{
+				index = index - 1;
+				if(!$(selector).eq(index).length )
+					index = $(selector).length;
+			}
+			else
+			{
+				index = index + 1;
+				if(!$(selector).eq(index).length)
+					index = 0;
+			}
+
+			instance.switchImageLightbox(index);
+			return false;
+		});
+	};
+
+	reimg.NavigationOff = function()
+	{
+		$('#imagelightbox-close').remove();
+		$('.imagelightbox-arrow').remove();
 	};
 
 	reimg.OverlayShow = function()
@@ -156,39 +199,84 @@ function ReIMG(altLabels, settings) {
 	{
 		var $image = $(imageselector),
 			$imgAnchor = $("a.ReIMG-Anchor[href='" + $image.attr("src") + "']"),
-			reimgheight = parseInt($imgAnchor.attr("data-reimgheight")),
-			reimgwidth = parseInt($imgAnchor.attr("data-reimgwidth")),
-			position = $image.position();
+			reimgheight = parseInt($imgAnchor.data("reimgheight")),
+			reimgwidth = parseInt($imgAnchor.data("reimgwidth")),
+			positionleft = $image.css('left'),
+			positiontop = $image.css('top'),
+			$reimgClicked = $('<div/>', { id: 'ReIMG-Clicked' });
+
+		$reimgClicked.css({
+			'width': 	$image.css('width'),
+			'height': 	$image.css('height'),
+			'top'	:	positiontop,
+			'left'	:	positionleft
+		});
+		$image.appendTo($reimgClicked);
 
 		if ($image.width() < reimgwidth || $image.height() < reimgheight) {
 			//Grab the image that was enlarged
-			var $zoomMoreButton = $("<a id='ReIMG-ZoomMore' class='ReIMG-ZoomMore' href='" + $image.attr("src") + "'><span class='ReIMG-Zoom ReIMG-ZoomMore'></span></a>");
+			var $zoomMoreButton = $('<a id="ReIMG-ZoomMore" class="ReIMG-ZoomMore" href="' + $image.attr("src") + '"><span class="ReIMG-ZoomIn ReIMG-ZoomMore"></span></a>');
+
+			$zoomMoreButton.data('reimgheight', $image.css('height'));
+			$zoomMoreButton.data('reimgwidth', $image.css('width'));
+			$zoomMoreButton.data('reimgtop', positiontop);
+			$zoomMoreButton.data('reimgleft', positionleft);
 
 			$zoomMoreButton.select("span").css(
 				{
-					'top'	:	position.top + 'px',
-					'left'	:	position.left + 'px'
+					'top'	:	positiontop,
+					'left'	:	positionleft
 				});
 
 			$zoomMoreButton.click(function (event) {
-				reimg.ZoomMoreClick(event);
+				reimg.ZoomMoreClick(event, this);
 				event.preventDefault();
 				event.stopPropagation();
 			});
 
 			$image.before($zoomMoreButton);
 		}
+
+		$('#ReIMG-Overlay').after($reimgClicked);
 	};
 
 	reimg.ZoomMoreRemove = function()
 	{
 		$('#ReIMG-ZoomMore').remove();
+		$('#ReIMG-Clicked').remove();
 	};
 
-	reimg.ZoomMoreClick = function (e)
+	reimg.ZoomMoreClick = function (e, zoomButton)
 	{
-		var $reimgAnchor = $('#ReIMG-Anchor');
-		//#TODO
-		alert($reimgAnchor.attr('href'));
+		var $zoomBtn = $(zoomButton),
+			$zoomImg = $zoomBtn.find('span'),
+			$image = $('#ReIMG-Clicked img.ReIMG-Anchor'),
+			reimgheight = '',
+			reimgwidth = '',
+			imgposition = 'fixed',
+			reimgleft = '0px',
+			reimgtop = '0px';
+
+		if ($zoomImg.hasClass('ReIMG-ZoomOut'))
+		{
+			$zoomImg.removeClass('ReIMG-ZoomOut');
+			reimgheight = parseInt($zoomBtn.data("reimgheight"));
+			reimgwidth = parseInt($zoomBtn.data("reimgwidth"));
+			reimgleft = $zoomBtn.data('reimgleft');
+			reimgtop = $zoomBtn.data('reimgtop');
+		}
+		else
+		{
+			$zoomImg.addClass('ReIMG-ZoomOut');
+			imgposition = 'absolute';
+		}
+
+		$image.css({
+			'width': reimgwidth,
+			'height': reimgheight,
+			'left': reimgleft,
+			'top': reimgtop,
+			'position': imgposition
+		});
 	}
 }

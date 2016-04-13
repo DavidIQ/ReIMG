@@ -13,7 +13,7 @@
 	</div>
 <!-- ENDIF -->
 
-<form id="acp_REIMG" method="post" action="{U_ACTION}">
+<form id="acp_reimg" method="post" action="{U_ACTION}">
 <fieldset>
 	<legend>{L_REIMG_OPTIONS}</legend>
 
@@ -46,12 +46,10 @@
 		<label><input type="radio" name="reimg_for_all" id="reimg_for_all" value="0"<!-- IF not S_REIMG_FOR_ALL --> checked="checked"<!-- ENDIF --> class="radio" /> {L_NO}</label></dd>
 	</dl>
 
-	<!-- IF S_REIMG_LINK -->
 	<p class="submit-buttons">
 		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
 		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
 	</p>
-	<!-- ENDIF -->
 	{S_FORM_TOKEN}
 </fieldset>
 </form>
