@@ -1,11 +1,8 @@
 /**
 * Resize too large images
-* (c) DavidIQ 2010-2014
+* (c) DavidIQ 2010-2016
 * http://www.davidiq.com/
-* Past Contributor(s):
-* Tale 2008-2009
-* http://www.taletn.com/
-*/
+**/
 
 function ReIMG(altLabels, settings) {
 	var version = "3.0.0",
@@ -17,7 +14,8 @@ function ReIMG(altLabels, settings) {
 	reimg.ApplyResize = function() {
 		//Get the various images types within posts
 		var $postImages = $('img.postimage:not(dt.attach-image img.postimage)'),
-			$attachImages =  (reimg.Settings.handleAttached) ? $('dt.attach-image img.postimage') : null;
+			$attachImages =  (reimg.Settings.handleAttached) ? $('dt.attach-image img.postimage') : null,
+			imageSelector = ".ReIMG-Anchor";
 
 		//Add ReIMG zooming to each non-attachment image
 		$postImages.each(function () {
@@ -35,7 +33,8 @@ function ReIMG(altLabels, settings) {
 		switch (reimg.Settings.zoomMethod)
 		{
 			case "_blank":  //Full sized image in new window
-				$(".ReIMG-Anchor").click(function (event) {
+
+				$(imageSelector).click(function (event) {
 					event.preventDefault();
 					window.open($(this).attr("href"));
 				});
@@ -46,7 +45,7 @@ function ReIMG(altLabels, settings) {
 				//Attachments are done via a PHP file so let's add that if we have any
 				var types = "png|jpg|jpeg|gif" + ($attachImages) ? "|" + reimg.Settings.phpExt : "";
 
-				var reimgAnchor = $(".ReIMG-Anchor").imageLightbox({
+				var reimgAnchor = $(imageSelector).imageLightbox({
 					quitOnDocClick:	false,
 					selector: 		"class='ReIMG-Anchor'",
 					allowedTypes:	types,
@@ -63,9 +62,22 @@ function ReIMG(altLabels, settings) {
 
 			case "_colorbox":  //Use Colorbox plugin
 
+				//TODO: Configure properly for relative sizing
+				// PHP files are being treated as binary data. - Need to fix
+				$(imageSelector).colorbox({
+					rel:			'gal' //Show as gallery
+				});
+
 			break;
 
 			case "_magnific":  //Use Magnific Popup plugin
+
+				//TODO: Configure properly
+				$(imageSelector).magnificPopup({
+					type:			'image',
+					verticalFit:	true,
+					cursor:			null
+				});
 
 			break;
 		}

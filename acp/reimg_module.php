@@ -101,7 +101,7 @@ class reimg_module
 	}
 	
 	/**
-	* Select resized image link method
+	* Select re-sized image link method
 	*/
 	function select_reimg_link_method($selected_value)
 	{
@@ -114,17 +114,17 @@ class reimg_module
 			$link_method_ary = $this->user->lang['reimg_linking_methods'];
 		}
 
-		foreach ($link_method_ary as $link_mehod => $method)
+		foreach ($link_method_ary as $link_method => $method)
 		{
-			$selected = ($selected_value == $link_mehod) ? ' selected="selected"' : '';
-			$link_options .= '<option value="' . $link_mehod . '"' . $selected . '>' . $method . '</option>';
+			$selected = ($selected_value == $link_method) ? ' selected="selected"' : '';
+			$link_options .= '<option value="' . $link_method . '"' . $selected . '>' . $method . '</option>';
 		}
 
 		return $link_options;
 	}
 
 	/**
-	* Select resized image zoom method
+	* Select re-sized image zoom method
 	*/
 	function select_reimg_zoom_method($selected_value)
 	{
