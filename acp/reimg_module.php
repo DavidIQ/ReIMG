@@ -8,13 +8,12 @@
 
 namespace davidiq\reimg\acp;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
 class reimg_module
 {
 	/** @var \phpbb\config\config */
 	protected $config;
-
-	/** @var \phpbb\config\db_text */
-	protected $config_text;
 
 	/** @var \phpbb\log\log */
 	protected $log;
@@ -32,27 +31,18 @@ class reimg_module
 	protected $phpbb_container;
 
 	/** @var string */
-	protected $phpbb_root_path;
-
-	/** @var string */
-	protected $php_ext;
-
-	/** @var string */
 	public $u_action;
 
 	function main($id, $mode)
 	{
-		global $user, $template, $cache, $config, $phpbb_root_path, $phpEx, $phpbb_container, $request;
+		global $user, $template, $config, $phpbb_container, $request;
 
 		$this->config = $config;
 		$this->phpbb_container = $phpbb_container;
-		$this->config_text = $this->phpbb_container->get('config_text');
 		$this->log = $this->phpbb_container->get('log');
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
-		$this->phpbb_root_path = $phpbb_root_path;
-		$this->php_ext = $phpEx;
 
 		$this->user->add_lang_ext('davidiq/reimg', 'reimg_acp');
 
