@@ -58,17 +58,22 @@ function ReIMG(altLabels, settings) {
 			break;
 
 			case "_colorbox":  //Use Colorbox plugin
-
-				//TODO: Configure properly for relative sizing
-				// PHP files are being treated as binary data. - Need to fix
+				var $window = $(window);
 				$(imageSelector).colorbox({
-					rel:			'gal' //Show as gallery
-				});
+					rel:			'gal', //Show as gallery
+					photo:			true,
+                    scalePhotos:	true,
+					returnFocus:	false,
+					maxWidth:		$window.width(),
+					maxHeight: 		$window.height(),
+					onComplete:		function () {
+						//reimg.ZoomMoreAdd("img.cboxPhoto");
+					}
+                });
 
 			break;
 
 			case "_magnific":  //Use Magnific Popup plugin
-
 				//TODO: Configure properly
 				$(imageSelector).magnificPopup({
 					type:			'image',
@@ -91,8 +96,8 @@ function ReIMG(altLabels, settings) {
 		else {
 			t.src = $(image).attr("src");
 		}
-		realWidth = (t.width) ? t.width : $(image).width();
-		realHeight = (t.height) ? t.height : $(image).height();
+		realWidth = (t.width) ? t.width : $(image).prop('naturalWidth');
+		realHeight = (t.height) ? t.height : $(image).prop('naturalHeight');
 
 		//Check to see if real dimensions differ from current dimensions
 		if (reimg.Settings.reimgForAll || (realWidth != $(image).width() || realHeight != $(image).height())) {
@@ -104,41 +109,36 @@ function ReIMG(altLabels, settings) {
 			anchorHtml = anchorHtml.replace(/%3\$d/, realHeight);
 			anchorHtml = anchorHtml.replace(/%4\$s/, zoomText);
 
-			//Check to see if we need to add the zoom button
-			if (reimg.Settings.showButton) {
-				$reimgButton = $('<span class="ReIMG-ZoomIn"></span>');
-				if (!reimg.Settings.autoLink) {
-					$reimgButton.wrap(anchorHtml);
-					$(image).before($reimgButton);
-				}
+			$reimgButton = $('<span class="ReIMG-ZoomIn"></span>');
+			$reimgButton.wrap(anchorHtml);
+			$reimgButton.data('realWidth', realWidth);
+			$reimgButton.data('realHeight', realHeight);
+			$(image).before($reimgButton);
+
+			//Check if the parent is an anchor link first
+			if ($(image).parent().is("a")) {
+				var href = $(image).parent().attr("href"),
+					userLinkHtml = '<div class="ReIMG-UserLink"><a href="%1$s" title="%2$s">%1$s</a></div>';
+				userLinkHtml = userLinkHtml.replace(/%1\$s/g, href);
+				userLinkHtml = userLinkHtml.replace(/%2\$s/, reimg.AltLabels.UserLink);
+				var $userlink = $(userLinkHtml);
+				$userlink.width($(image).width() - 2);
+
+				//Add original link to after the image
+				$(image).parent().after($userlink);
+				//Update the parent's properties
+				$(image).parent().attr("href", t.src);
+				$(image).parent().data("reimgwidth", realWidth);
+				$(image).parent().data("reimgheight", realHeight);
+				$(image).parent().attr("title", zoomText);
+				$(image).parent().removeClass();
+				$(image).parent().addClass("ReIMG-Anchor");
 			}
-
-			if (reimg.Settings.autoLink) {
-				//Check if the parent is an anchor link first
-				if ($(image).parent().is("a")) {
-					var href = $(image).parent().attr("href"),
-						userLinkHtml = '<div class="ReIMG-UserLink"><a href="%1$s" title="%2$s">%1$s</a></div>';
-					userLinkHtml = userLinkHtml.replace(/%1\$s/g, href);
-					userLinkHtml = userLinkHtml.replace(/%2\$s/, reimg.AltLabels.UserLink);
-					var $userlink = $(userLinkHtml);
-					$userlink.width($(image).width() - 2);
-
-					//Add original link to after the image
-					$(image).parent().after($userlink);
-					//Update the parent's properties
-					$(image).parent().attr("href", t.src);
-					$(image).parent().data("reimgwidth", realWidth);
-					$(image).parent().data("reimgheight", realHeight);
-					$(image).parent().attr("title", zoomText);
-					$(image).parent().removeClass();
-					$(image).parent().addClass("ReIMG-Anchor");
-				}
-				else {
-					$(image).wrap(anchorHtml);
-				}
-				if ($reimgButton != null) {
-					$(image).before($reimgButton);
-				}
+			else {
+				$(image).wrap(anchorHtml);
+			}
+			if ($reimgButton != null) {
+				$(image).before($reimgButton);
 			}
 		}
 	};
@@ -202,25 +202,26 @@ function ReIMG(altLabels, settings) {
 		$('#ReIMG-Overlay').remove();
 	};
 
-	reimg.ZoomMoreAdd = function(imageselector)
-	{
-		var $image = $(imageselector),
-			$imgAnchor = $("a.ReIMG-Anchor[href='" + $image.attr("src") + "']"),
-			reimgheight = parseInt($imgAnchor.data("reimgheight")),
-			reimgwidth = parseInt($imgAnchor.data("reimgwidth")),
-			positionleft = $image.css('left'),
-			positiontop = $image.css('top'),
-			$reimgClicked = $('<div/>', { id: 'ReIMG-Clicked' });
+	reimg.ZoomMoreAdd = function(imageselector) {
+        var $image = $(imageselector),
+            $imgAnchor = $("a.ReIMG-Anchor[href='" + $image.attr("src") + "']"),
+            reimgheight = parseInt($imgAnchor.data("reimgheight")),
+            reimgwidth = parseInt($imgAnchor.data("reimgwidth")),
+            positionleft = $image.css('left'),
+            positiontop = $image.css('top'),
+            $reimgClicked = $('<div/>', {id: 'ReIMG-Clicked'});
 
-		$reimgClicked.css({
-			'width': 	$image.css('width'),
-			'height': 	$image.css('height'),
-			'top'	:	positiontop,
-			'left'	:	positionleft
-		});
-        $reimgClicked.data('origwidth', $image.css('width'));
-        $reimgClicked.data('origleft', positionleft);
-		$image.appendTo($reimgClicked);
+        if (reimg.Settings.zoomMethod != '_colorbox') {
+            $reimgClicked.css({
+                'width': $image.css('width'),
+                'height': $image.css('height'),
+                'top': positiontop,
+                'left': positionleft
+            });
+
+            $reimgClicked.data('origwidth', $image.css('width'));
+        	$image.appendTo($reimgClicked);
+    	}
 
 		if ($image.width() < reimgwidth || $image.height() < reimgheight) {
 			//Grab the image that was enlarged
@@ -231,11 +232,10 @@ function ReIMG(altLabels, settings) {
 			$zoomMoreButton.data('reimgtop', positiontop);
 			$zoomMoreButton.data('reimgleft', positionleft);
 
-			$zoomMoreButton.select("span").css(
-				{
-					'top'	:	positiontop,
-					'left'	:	positionleft
-				});
+			$zoomMoreButton.select("span").css({
+				'top'	:	positiontop,
+				'left'	:	positionleft
+			});
 
 			$zoomMoreButton.click(function (event) {
 				reimg.ZoomMoreClick(event, this);
@@ -259,7 +259,7 @@ function ReIMG(altLabels, settings) {
 	{
 		var $zoomBtn = $(zoomButton),
 			$zoomImg = $zoomBtn.find('span'),
-			$image = $('#ReIMG-Clicked img.ReIMG-Anchor'),
+			$image = $(reimg.Settings.zoomMethod != '_colorbox' ? '#ReIMG-Clicked img.ReIMG-Anchor' : 'img.cboxPhoto'),
 			reimgheight = '',
 			reimgwidth = '',
 			imgposition = 'fixed',
@@ -275,18 +275,19 @@ function ReIMG(altLabels, settings) {
 			reimgtop = $zoomBtn.data('reimgtop');
             $reimgClicked.css({
                 'width': 	$reimgClicked.data('origwidth'),
-                'left'	:	$reimgClicked.data('origleft')
+                'left'	:	$zoomBtn.data('reimgleft')
             });
             $zoomBtn.css({
-                'left'	:	$reimgClicked.data('origleft')
+                'left'	:	$zoomBtn.data('reimgleft')
 			});
 		}
 		else {
 			//Let's make the image panel a little wider
-            var naturalWidth = $image.prop('naturalWidth'),
+            var naturalWidth = $image[0].naturalWidth,
 				screenWidth = $(window).width(),
 				newWidth = 0,
 				screenOffset = 400;
+
             if (naturalWidth - screenOffset >= screenWidth) {
 				newWidth = screenWidth - screenOffset;
 			}
