@@ -33,7 +33,6 @@ function ReIMG(altLabels, settings) {
 		switch (reimg.Settings.zoomMethod)
 		{
 			case "_blank":  //Full sized image in new window
-
 				$(imageSelector).click(function (event) {
 					event.preventDefault();
 					window.open($(this).attr("href"));
@@ -41,11 +40,9 @@ function ReIMG(altLabels, settings) {
 			break;
 
 			case "_imglightbox":  //Use Image Lightbox plugin
-
 				//Attachments are done via a PHP file so let's add that if we have any
-				var types = "png|jpg|jpeg|gif" + ($attachImages) ? "|" + reimg.Settings.phpExt : "";
-
-				var reimgAnchor = $(imageSelector).imageLightbox({
+				var types = "png|jpg|jpeg|gif" + ($attachImages) ? "|" + reimg.Settings.phpExt : "",
+					reimgAnchor = $(imageSelector).imageLightbox({
 					quitOnDocClick:	false,
 					selector: 		"class='ReIMG-Anchor'",
 					allowedTypes:	types,
@@ -173,16 +170,14 @@ function ReIMG(altLabels, settings) {
 				$target = $(selector + "[href='" + $('img.ReIMG-Anchor').attr("src") + "']")
 				index	= $target.index(selector);
 
-			if($this.hasClass('imagelightbox-arrow-left'))
-			{
+			if ($this.hasClass('imagelightbox-arrow-left')) {
 				index = index - 1;
-				if(!$(selector).eq(index).length )
+				if (!$(selector).eq(index).length )
 					index = $(selector).length;
 			}
-			else
-			{
+			else {
 				index = index + 1;
-				if(!$(selector).eq(index).length)
+				if (!$(selector).eq(index).length)
 					index = 0;
 			}
 
@@ -223,6 +218,8 @@ function ReIMG(altLabels, settings) {
 			'top'	:	positiontop,
 			'left'	:	positionleft
 		});
+        $reimgClicked.data('origwidth', $image.css('width'));
+        $reimgClicked.data('origleft', positionleft);
 		$image.appendTo($reimgClicked);
 
 		if ($image.width() < reimgwidth || $image.height() < reimgheight) {
@@ -267,18 +264,47 @@ function ReIMG(altLabels, settings) {
 			reimgwidth = '',
 			imgposition = 'fixed',
 			reimgleft = '0px',
-			reimgtop = '0px';
+			reimgtop = '0px',
+            $reimgClicked = $('#ReIMG-Clicked');
 
-		if ($zoomImg.hasClass('ReIMG-ZoomOut'))
-		{
+		if ($zoomImg.hasClass('ReIMG-ZoomOut')) {
 			$zoomImg.removeClass('ReIMG-ZoomOut');
 			reimgheight = parseInt($zoomBtn.data("reimgheight"));
 			reimgwidth = parseInt($zoomBtn.data("reimgwidth"));
 			reimgleft = $zoomBtn.data('reimgleft');
 			reimgtop = $zoomBtn.data('reimgtop');
+            $reimgClicked.css({
+                'width': 	$reimgClicked.data('origwidth'),
+                'left'	:	$reimgClicked.data('origleft')
+            });
+            $zoomBtn.css({
+                'left'	:	$reimgClicked.data('origleft')
+			});
 		}
-		else
-		{
+		else {
+			//Let's make the image panel a little wider
+            var naturalWidth = $image.prop('naturalWidth'),
+				screenWidth = $(window).width(),
+				newWidth = 0,
+				screenOffset = 400;
+            if (naturalWidth - screenOffset >= screenWidth) {
+				newWidth = screenWidth - screenOffset;
+			}
+			else if (naturalWidth - screenOffset < screenWidth - screenOffset) {
+                newWidth = naturalWidth;
+			}
+			else {
+                newWidth = naturalWidth - screenOffset;
+			}
+            $reimgClicked.width(newWidth);
+            //Figure out left position
+			var newLeft = (screenWidth - newWidth) / 2;
+			$reimgClicked.css({
+				'left':	newLeft
+			});
+            $zoomBtn.css({
+				'left': newLeft
+			});
 			$zoomImg.addClass('ReIMG-ZoomOut');
 			imgposition = 'absolute';
 		}
