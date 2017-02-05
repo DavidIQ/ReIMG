@@ -1,6 +1,6 @@
 /**
 * Resize too large images
-* (c) DavidIQ 2010-2016
+* (c) DavidIQ 2010-2017
 * http://www.davidiq.com/
 **/
 
@@ -66,7 +66,7 @@ function ReIMG(altLabels, settings) {
 					returnFocus:	false,
 					maxWidth:		$window.width(),
 					maxHeight: 		$window.height(),
-					onComplete:		function () {
+					onComplete:		function() {
 						//reimg.ZoomMoreAdd("img.cboxPhoto");
 					}
                 });
@@ -74,11 +74,19 @@ function ReIMG(altLabels, settings) {
 			break;
 
 			case "_magnific":  //Use Magnific Popup plugin
-				//TODO: Configure properly
 				$(imageSelector).magnificPopup({
 					type:			'image',
 					verticalFit:	true,
-					cursor:			null
+					cursor:			null,
+					gallery:		{
+						enabled: 			true,
+                        navigateByImgClick: true
+					},
+					callbacks: {
+						open:			function() {
+							//reimg.ZoomMoreAdd('img.mfp-img');
+						}
+                    }
 				});
 
 			break;
@@ -211,7 +219,7 @@ function ReIMG(altLabels, settings) {
             positiontop = $image.css('top'),
             $reimgClicked = $('<div/>', {id: 'ReIMG-Clicked'});
 
-        if (reimg.Settings.zoomMethod != '_colorbox') {
+        if (reimg.Settings.zoomMethod != '_colorbox' && reimg.Settings.zoomMethod != '_magnific') {
             $reimgClicked.css({
                 'width': $image.css('width'),
                 'height': $image.css('height'),
@@ -257,9 +265,22 @@ function ReIMG(altLabels, settings) {
 
 	reimg.ZoomMoreClick = function (e, zoomButton)
 	{
+		var imageIdentifier = '#ReIMG-Clicked img.ReIMG-Anchor';
+
+		switch (reimg.Settings.zoomMethod)
+		{
+			case '_colorbox':
+				imageIdentifier = 'img.cboxPhoto';
+				break;
+
+			case '_magnific':
+                imageIdentifier = 'img.mfp-img';
+				break;
+		}
+
 		var $zoomBtn = $(zoomButton),
 			$zoomImg = $zoomBtn.find('span'),
-			$image = $(reimg.Settings.zoomMethod != '_colorbox' ? '#ReIMG-Clicked img.ReIMG-Anchor' : 'img.cboxPhoto'),
+			$image = $(imageIdentifier),
 			reimgheight = '',
 			reimgwidth = '',
 			imgposition = 'fixed',
