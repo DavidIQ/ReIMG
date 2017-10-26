@@ -1,10 +1,8 @@
-.ReIMG-Anchor img
-{
+.ReIMG-Anchor img {
 	cursor: pointer !important;
 }
 
-.ReIMG-Anchor img:hover
-{
+.ReIMG-Anchor img:hover {
 	border-color: #FFFFFF;
 	-webkit-box-shadow: 0 0 0.938em rgba( 0, 0, 0, .25 ); /* 15 */
 	box-shadow: 0 0 0.938em rgba( 0, 0, 0, .25 ); /* 15 */
@@ -17,8 +15,7 @@
 }
 
 span.ReIMG-ZoomIn,
-span.ReIMG-ZoomOut
-{
+span.ReIMG-ZoomOut {
 	position: absolute;
 	border: none !important;
 	margin: 2px;
@@ -28,8 +25,7 @@ span.ReIMG-ZoomOut
 	opacity: .50;
 }
 
-span.ReIMG-ZoomIn
-{
+span.ReIMG-ZoomIn {
 	background: url(images/icon_reimg_zoom_in.gif) top left no-repeat;
 }
 
@@ -38,46 +34,40 @@ span.ReIMG-ZoomOut {
 }
 
 span.ReIMG-ZoomIn:hover,
-span.ReIMG-ZoomOut:hover
-{
+span.ReIMG-ZoomOut:hover {
 	background-position: 0 100%;
 	cursor: pointer;
 	filter: Alpha(Opacity=100);
 	opacity: 1.00;
 }
 
-.ReIMG-ZoomMore
-{
+.ReIMG-ZoomMore {
 	z-index: 10005;
 	position: fixed;
 }
 
-div.ReIMG-UserLink
-{
+div.ReIMG-UserLink {
 	text-align: center;
-	border: 1px solid #FF33CC;
-	background-color: #FFCC33;
-	filter: Alpha(Opacity=80);
-	opacity: .80;
+	border: 0.1em solid #FFFFFF;
+	background-color: #000000;
+	filter: Alpha(Opacity=40);
+	opacity: .40;
 	position: absolute;
 	height: 20px;
 	margin-top: -20px;
 }
 
-div.ReIMG-UserLink:hover
-{
-	filter: Alpha(Opacity=95);
-	opacity: .95;
+div.ReIMG-UserLink:hover {
+	filter: Alpha(Opacity=80);
+	opacity: .80;
 }
 
-div.ReIMG-UserLink a
-{
-	color: #000000 !important;
+div.ReIMG-UserLink a {
+	color: #FFFFFF !important;
 	font-weight: bold;
 }
 
-#ReIMG-Overlay
-{
+#ReIMG-Overlay {
 	background-color: #000000;
 	background-color: rgba(000, 000, 000, .8);
 	position: fixed;
@@ -90,19 +80,17 @@ div.ReIMG-UserLink a
 	animation: fade-in .25s linear;
 }
 
-@-webkit-keyframes fade-in
-{
+@-webkit-keyframes fade-in {
 	from	{ opacity: 0; }
 	to		{ opacity: 1; }
 }
 
 #ReIMG-Loading,
-#ReIMG-Loading div
-{
+#ReIMG-Loading div {
 	border-radius: 50%;
 }
-#ReIMG-Loading
-{
+
+#ReIMG-Loading {
 	width: 2.5em;
 	height: 2.5em;
 	background-color: #444;
@@ -121,8 +109,7 @@ div.ReIMG-UserLink a
 	animation: fade-in .25s linear;
 }
 
-#ReIMG-Loading div
-{
+#ReIMG-Loading div {
 	width: 2.5em;
 	height: 2.5em;
 	background-color: #fff;
@@ -131,20 +118,17 @@ div.ReIMG-UserLink a
 	animation: ReIMG-Loading .5s ease infinite;
 }
 
-@-webkit-keyframes ReIMG-Loading
-{
+@-webkit-keyframes ReIMG-Loading {
 	from { opacity: .5;	-webkit-transform: scale(.75); }
 	50%	 { opacity: 1;	-webkit-transform: scale(1); }
 	to	 { opacity: .5;	-webkit-transform: scale(.75); }
 }
-@keyframes ReIMG-Loading
-{
+
+@keyframes ReIMG-Loading {
 	from { opacity: .5;	transform: scale(.75); }
 	50%	 { opacity: 1;	transform: scale(1); }
 	to	 { opacity: .5;	transform: scale(.75); }
 }
-
-
 
 
 /* THESE ARE NOT CURRENTLY IN USE */
