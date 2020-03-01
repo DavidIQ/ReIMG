@@ -2,9 +2,9 @@ services:
     davidiq.reimg.listener:
         class: davidiq\reimg\event\listener
         arguments:
-            - @config
-            - @template
-            - @user
-            - %core.php_ext%
+            - '@config'
+            - '@template'
+            - '@language'
+            - '%core.php_ext%'
         tags:
             - { name: event.listener }

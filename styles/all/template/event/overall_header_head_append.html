@@ -1,8 +1,8 @@
-<!-- INCLUDECSS @davidiq_reimg/reimg.css -->
-<!-- IF S_REIMG_ZOOM_METHOD eq '_imglightbox' -->
-<!-- INCLUDECSS @davidiq_reimg/imglightbox.css -->
-<!-- ELSEIF S_REIMG_ZOOM_METHOD eq '_magnific' -->
-<!-- INCLUDECSS @davidiq_reimg/magnific-popup.css -->
-<!-- ELSEIF S_REIMG_ZOOM_METHOD eq '_colorbox' -->
-<!-- INCLUDECSS @davidiq_reimg/colorbox.css -->
-<!-- ENDIF -->
+{% INCLUDECSS '@davidiq_reimg/reimg.css' %}
+{% if S_REIMG_ZOOM_METHOD eq '_imglightbox' %}
+{% INCLUDECSS '@davidiq_reimg/imglightbox.css' %}
+{% elseif S_REIMG_ZOOM_METHOD eq '_magnific' %}
+{% INCLUDECSS '@davidiq_reimg/magnific-popup.css' %}
+{% elseif S_REIMG_ZOOM_METHOD eq '_colorbox' %}
+{% INCLUDECSS '@davidiq_reimg/colorbox.css' %}
+{% endif %}

@@ -1,47 +1,45 @@
-<script type="text/javascript">
-// <![CDATA[
-	var reimgAltLabels = {
-		Loading: 		"{LA_LOADING_TEXT}",
-		ZoomIn: 		"{LA_REIMG_ZOOM_IN}",
-		ZoomOut: 		"{LA_REIMG_ZOOM_OUT}",
-		FullExpand: 	"{LA_FULL_EXPAND_TITLE}",
-		Previous:		"{LA_PREVIOUS_TEXT}",
-		PreviousTitle:	"{LA_PREVIOUS_TITLE}",
-		Next:			"{LA_NEXT_TEXT}",
-		NextTitle:		"{LA_NEXT_TITLE}",
-		Close:			"{LA_CLOSE_TEXT}",
-		CloseTitle:		"{LA_CLOSE_TITLE}",
-		Play:			"{LA_PLAY_TEXT}",
-		PlayTitle:		"{LA_PLAY_TITLE}",
-		Pause:			"{LA_PAUSE_TEXT}",
-		PauseTitle:		"{LA_PAUSE_TITLE}",
-		ImageNumber:	"{LA_IMAGE_NUMBER}",
-		UserLink:		"{LA_REIMG_USER_LINK}"
+<script>
+	const reimgAltLabels = {
+		Loading: 		"{{ lang('LOADING_TEXT')|escape('js') }}",
+		ZoomIn: 		"{{ lang('REIMG_ZOOM_IN')|escape('js') }}",
+		ZoomOut: 		"{{ lang('REIMG_ZOOM_OUT')|escape('js') }}",
+		FullExpand: 	"{{ lang('FULL_EXPAND_TITLE')|escape('js') }}",
+		Previous:		"{{ lang('PREVIOUS_TEXT')|escape('js') }}",
+		PreviousTitle:	"{{ lang('PREVIOUS_TITLE')|escape('js') }}",
+		Next:			"{{ lang('NEXT_TEXT')|escape('js') }}",
+		NextTitle:		"{{ lang('NEXT_TITLE')|escape('js') }}",
+		Close:			"{{ lang('CLOSE_TEXT')|escape('js') }}",
+		CloseTitle:		"{{ lang('CLOSE_TITLE')|escape('js') }}",
+		Play:			"{{ lang('PLAY_TEXT')|escape('js') }}",
+		PlayTitle:		"{{ lang('PLAY_TITLE')|escape('js') }}",
+		Pause:			"{{ lang('PAUSE_TEXT')|escape('js') }}",
+		PauseTitle:		"{{ lang('PAUSE_TITLE')|escape('js') }}",
+		ImageNumber:	"{{ lang('IMAGE_NUMBER')|escape('js') }}",
+		UserLink:		"{{ lang('REIMG_USER_LINK')|escape('js') }}"
 	};
 
-	var reimgSettings = {
-		phpExt:			"{S_REIMG_PHP_EXT}",
-		zoomTarget: 	"{S_REIMG_ZOOM}",
-		zoomMethod:		"{S_REIMG_ZOOM_METHOD}",
-		rtl: 			<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->true<!-- ELSE -->false<!-- ENDIF -->,
-		swapPortrait: 	<!-- IF S_REIMG_SWAP_PORTRAIT -->true<!-- ELSE -->false<!-- ENDIF -->,
-		handleAttached:	<!-- IF S_REIMG_ATTACHMENTS -->true<!-- ELSE -->false<!-- ENDIF -->,
-		resizeSigImg:	<!-- IF S_REIMG_RESIZE_SIG_IMG -->true<!-- ELSE -->false<!-- ENDIF -->,
-		reimgForAll:	<!-- IF S_REIMG_FOR_ALL -->true<!-- ELSE -->false<!-- ENDIF -->
+	const reimgSettings = {
+		phpExt:			"{{ S_REIMG_PHP_EXT }}",
+		zoomTarget: 	"{{ S_REIMG_ZOOM }}",
+		zoomMethod:		"{{ S_REIMG_ZOOM_METHOD }}",
+		rtl: 			{% if S_CONTENT_DIRECTION eq 'rtl' %}true{% else %}false{% endif %},
+		swapPortrait: 	{% if S_REIMG_SWAP_PORTRAIT %}true{% else %}false{% endif %},
+		handleAttached:	{% if S_REIMG_ATTACHMENTS %}true{% else %}false{% endif %},
+		resizeSigImg:	{% if S_REIMG_RESIZE_SIG_IMG %}true{% else %}false{% endif %},
+		reimgForAll:	{% if S_REIMG_FOR_ALL %}true{% else %}false{% endif %}
 	};
 
 	$(function() {
-		var reimg = new ReIMG(reimgAltLabels, reimgSettings);
+		const reimg = new ReIMG(reimgAltLabels, reimgSettings);
 		reimg.ApplyResize();
 	});
-// ]]>
 </script>
 
-<!-- IF S_REIMG_ZOOM_METHOD eq '_imglightbox' -->
-<!-- INCLUDEJS ../js/imagelightbox.min.js -->
-<!-- ELSEIF S_REIMG_ZOOM_METHOD eq '_colorbox' -->
-<!-- INCLUDEJS ../js/jquery.colorbox-min.js -->
-<!-- ELSEIF S_REIMG_ZOOM_METHOD eq '_magnific' -->
-<!-- INCLUDEJS ../js/jquery.magnific-popup.min.js -->
-<!-- ENDIF -->
-<!-- INCLUDEJS ../js/reimg.js -->
+{% if S_REIMG_ZOOM_METHOD eq '_imglightbox' %}
+{% INCLUDEJS '@davidiq_reimg/js/imagelightbox.min.js' %}
+{% elseif S_REIMG_ZOOM_METHOD eq '_colorbox' %}
+{% INCLUDEJS '@davidiq_reimg/js/jquery.colorbox-min.js' %}
+{% elseif S_REIMG_ZOOM_METHOD eq '_magnific' %}
+{% INCLUDEJS '@davidiq_reimg/js/jquery.magnific-popup.min.js' %}
+{% endif %}
+{% INCLUDEJS '@davidiq_reimg/js/reimg.js' %}
