@@ -35,7 +35,7 @@ class listener implements EventSubscriberInterface
      * @param \phpbb\language\language $lang Language object
      * @param string $php_ext phpEx
      */
-    public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\lang\lang $lang, $php_ext)
+    public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\language\language $lang, $php_ext)
     {
         $this->config = $config;
         $this->template = $template;
