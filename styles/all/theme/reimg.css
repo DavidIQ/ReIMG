@@ -43,7 +43,7 @@ span.ReIMG-ZoomOut:hover {
 
 .ReIMG-ZoomMore {
 	z-index: 10005;
-	position: fixed;
+	position: fixed !important;
 }
 
 div.ReIMG-UserLink {

@@ -32,37 +32,36 @@ function ReIMG(altLabels, settings) {
         //The plugin setup depending on which one is in use
         switch (reimg.Settings.zoomMethod) {
             case "_blank":  //Full sized image in new window
-                $(imageSelector).click(function (event) {
+                $(imageSelector).on('click', function (event) {
                     event.preventDefault();
                     window.open($(this).attr("href"));
                 });
                 break;
 
             case "_imglightbox":  //Use Image Lightbox plugin
-                //Attachments are done via a PHP file so let's add that if we have any
-                const types = "png|jpg|jpeg|gif" + ($attachImages) ? "|" + reimg.Settings.phpExt : "",
-                    reimgAnchor = $(imageSelector).imageLightbox({
-                        quitOnDocClick: false,
-                        selector: "class='ReIMG-Anchor'",
-                        allowedTypes: types,
-                        onStart: function () {
-                            reimg.OverlayShow();
-                            reimg.NavigationOn(reimgAnchor, 'a.ReIMG-Anchor');
-                        },
-                        onEnd: function () {
-                            reimg.NavigationOff();
-                            reimg.ZoomMoreRemove();
-                            reimg.OverlayRemove();
-                        },
-                        onLoadStart: function () {
-                            reimg.ZoomMoreRemove();
-                            reimg.Loading();
-                        },
-                        onLoadEnd: function () {
-                            reimg.LoadingDone();
-                            setTimeout(() => reimg.ZoomMoreAdd("img.ReIMG-Anchor"), 400);
-                        }
-                    });
+                const reimgAnchor = $(imageSelector).imageLightbox({
+                    quitOnDocClick: false,
+                    selector: "class='ReIMG-Anchor'",
+                    //Attachments are done via a PHP file so let's add that if we have any
+                    allowedTypes: "png|jpg|jpeg|gif" + ($attachImages) ? "|" + reimg.Settings.phpExt : "",
+                    onStart: function () {
+                        reimg.OverlayShow();
+                        reimg.NavigationOn(reimgAnchor, 'a.ReIMG-Anchor');
+                    },
+                    onEnd: function () {
+                        reimg.NavigationOff();
+                        reimg.ZoomMoreRemove();
+                        reimg.OverlayRemove();
+                    },
+                    onLoadStart: function () {
+                        reimg.ZoomMoreRemove();
+                        reimg.Loading();
+                    },
+                    onLoadEnd: function () {
+                        reimg.LoadingDone();
+                        setTimeout(() => reimg.ZoomMoreAdd("img.ReIMG-Anchor"), 400);
+                    }
+                });
 
                 break;
 
@@ -151,7 +150,7 @@ function ReIMG(altLabels, settings) {
             } else {
                 $(image).wrap(anchorHtml);
             }
-            if ($reimgButton != null) {
+            if (!!$reimgButton) {
                 $(image).before($reimgButton);
             }
         }
@@ -221,7 +220,7 @@ function ReIMG(altLabels, settings) {
             positiontop = $image.css('top'),
             $reimgClicked = $('<div/>', {id: 'ReIMG-Clicked'});
 
-        if (reimg.Settings.zoomMethod != '_colorbox' && reimg.Settings.zoomMethod != '_magnific') {
+        if (reimg.Settings.zoomMethod !== '_colorbox' && reimg.Settings.zoomMethod !== '_magnific') {
             $reimgClicked.css({
                 'width': $image.css('width'),
                 'height': $image.css('height'),
@@ -235,25 +234,28 @@ function ReIMG(altLabels, settings) {
 
         if ($image.width() < reimgwidth || $image.height() < reimgheight) {
             //Grab the image that was enlarged
-            const $zoomMoreButton = $('<a id="ReIMG-ZoomMore" class="ReIMG-ZoomMore" href="' + $image.attr("src") + '"><span class="ReIMG-ZoomIn ReIMG-ZoomMore"></span></a>');
+            const $zoomMoreButton = $(`<a id="ReIMG-ZoomMore" class="ReIMG-ZoomMore" href="${$image.attr("src")}"><span class="ReIMG-ZoomIn ReIMG-ZoomMore"></span></a>`);
 
             $zoomMoreButton.data('reimgheight', $image.css('height'));
             $zoomMoreButton.data('reimgwidth', $image.css('width'));
             $zoomMoreButton.data('reimgtop', positiontop);
             $zoomMoreButton.data('reimgleft', positionleft);
 
-            $zoomMoreButton.select("span").css({
-                'top': positiontop,
-                'left': positionleft
-            });
-
-            $zoomMoreButton.click(function (event) {
+            $zoomMoreButton.on('click', function (event) {
                 reimg.ZoomMoreClick(event, this);
                 event.preventDefault();
                 event.stopPropagation();
             });
 
-            $image.before($zoomMoreButton);
+            $(window).on('resize', function () {
+                const $img = $('img.ReIMG-Anchor');
+                console.log($img.css('left'), $img.css('top'));
+                $('a.ReIMG-ZoomMore').css({
+                    'left': $img.css('left'),
+                    'top': $img.css('top')
+                });
+            });
+            $zoomMoreButton.appendTo($reimgClicked);
         }
 
         $('#ReIMG-Overlay').after($reimgClicked);
