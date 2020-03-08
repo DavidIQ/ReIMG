@@ -48,13 +48,15 @@ span.ReIMG-ZoomOut:hover {
 
 div.ReIMG-UserLink {
 	text-align: center;
-	border: 0.1em solid #FFFFFF;
+	border-top: 0.1em solid #FFFFFF;
+	border-bottom: 0.1em solid #FFFFFF;
 	background-color: #000000;
 	filter: Alpha(Opacity=40);
 	opacity: .40;
 	position: absolute;
 	height: 20px;
-	margin-top: -20px;
+	margin-top: -23px;
+	width: 100%;
 }
 
 div.ReIMG-UserLink:hover {
