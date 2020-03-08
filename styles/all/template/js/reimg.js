@@ -5,8 +5,7 @@
  **/
 
 function ReIMG(altLabels, settings) {
-    const version = "3.0.0",
-        reimg = this;
+    const reimg = this;
 
     reimg.AltLabels = altLabels;
     reimg.Settings = settings;
@@ -31,14 +30,14 @@ function ReIMG(altLabels, settings) {
 
         //The plugin setup depending on which one is in use
         switch (reimg.Settings.zoomMethod) {
-            case "_blank":  //Full sized image in new window
+            case ZoomMethods.NewWindow:  //Full sized image in new window
                 $(imageSelector).on('click', function (event) {
                     event.preventDefault();
                     window.open($(this).attr("href"));
                 });
                 break;
 
-            case "_imglightbox":  //Use Image Lightbox plugin
+            case ZoomMethods.Lightbox:  //Use Image Lightbox plugin
                 const reimgAnchor = $(imageSelector).imageLightbox({
                     quitOnDocClick: false,
                     selector: "class='ReIMG-Anchor'",
@@ -65,7 +64,7 @@ function ReIMG(altLabels, settings) {
 
                 break;
 
-            case "_colorbox":  //Use Colorbox plugin
+            case ZoomMethods.ColorBox:  //Use Colorbox plugin
                 const $window = $(window);
                 $(imageSelector).colorbox({
                     current: reimgAltLabels.Current,
@@ -91,7 +90,7 @@ function ReIMG(altLabels, settings) {
 
                 break;
 
-            case "_magnific":  //Use Magnific Popup plugin
+            case ZoomMethods.Magnific:  //Use Magnific Popup plugin
                 $(imageSelector).magnificPopup({
                     type: 'image',
                     verticalFit: true,
@@ -102,7 +101,7 @@ function ReIMG(altLabels, settings) {
                     },
                     callbacks: {
                         open: function () {
-                            //reimg.ZoomMoreAdd('img.mfp-img');
+                            reimg.ZoomMoreAdd('img.mfp-img');
                         }
                     }
                 });
@@ -225,11 +224,11 @@ function ReIMG(altLabels, settings) {
         let $addContainer = (element) => $('#ReIMG-Overlay').after(element);
 
         switch (reimg.Settings.zoomMethod) {
-            case '_colorbox':
+            case ZoomMethods.ColorBox:
                 $addContainer = (element) => $('#cboxLoadedContent').before(element);
                 break;
 
-            case '_magnific':
+            case ZoomMethods.Magnific:
                 $addContainer = null;
                 break;
         }
@@ -247,14 +246,6 @@ function ReIMG(altLabels, settings) {
                 reimg.ZoomMoreClick(event, this);
                 event.preventDefault();
                 event.stopPropagation();
-            });
-
-            $(window).on('resize', function () {
-                const $img = $('img.ReIMG-Anchor');
-                $('a.ReIMG-ZoomMore').css({
-                    'left': $img.css('left'),
-                    'top': $img.css('top')
-                });
             });
 
             $zoomMoreButton.appendTo($reimgClicked);
@@ -294,13 +285,13 @@ function ReIMG(altLabels, settings) {
               $reimgClicked = $('#ReIMG-Clicked');
 
         switch (reimg.Settings.zoomMethod) {
-            case '_colorbox':
+            case ZoomMethods.ColorBox:
                 imageIdentifier = 'img.cboxPhoto';
                 reimgheight = parseInt($zoomBtn.data("reimgheight"));
                 reimgwidth = parseInt($zoomBtn.data("reimgwidth"));
                 break;
 
-            case '_magnific':
+            case ZoomMethods.Magnific:
                 imageIdentifier = 'img.mfp-img';
                 break;
         }
@@ -321,7 +312,7 @@ function ReIMG(altLabels, settings) {
                 'left': $zoomBtn.data('reimgleft')
             });
         } else {
-            if (reimg.Settings.zoomMethod !== '_colorbox') {
+            if (reimg.Settings.zoomMethod !== ZoomMethods.ColorBox) {
                 //Let's make the image panel a little wider
                 const naturalWidth = $image[0].naturalWidth,
                     screenWidth = $(window).width();
@@ -357,7 +348,7 @@ function ReIMG(altLabels, settings) {
             'top': reimgtop,
             'position': imgposition
         });
-    }
+    };
 
     $(window).on('resize', () => {
         const $img = $('img.ReIMG-Anchor');
@@ -368,4 +359,11 @@ function ReIMG(altLabels, settings) {
             });
         }
     });
+
+    const ZoomMethods = {
+        NewWindow: '_blank',
+        Lightbox: '_imglightbox',
+        ColorBox: '_colorbox',
+        Magnific: '_magnific'
+    }
 }
