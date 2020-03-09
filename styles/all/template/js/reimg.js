@@ -288,7 +288,7 @@ function ReIMG(altLabels, settings) {
         let imageIdentifier = '#ReIMG-Clicked img.ReIMG-Anchor',
             reimgheight = '',
             reimgwidth = '',
-            imgposition = 'fixed',
+            imgposition = reimg.Settings.zoomMethod === ZoomMethods.Magnific ? 'inherit' : 'fixed',
             reimgleft = '0px',
             reimgtop = '0px';
 
@@ -324,7 +324,10 @@ function ReIMG(altLabels, settings) {
                 'left': $zoomBtn.data('reimgleft')
             });
         } else {
-            if ([ZoomMethods.ColorBox, ZoomMethods.Magnific].indexOf(reimg.Settings.zoomMethod) < 0) {
+            if (reimg.Settings.zoomMethod === ZoomMethods.Magnific) {
+                reimgtop = $zoomBtn.data('reimgtop');
+                reimgleft = $zoomBtn.data('reimgleft');
+            } else if ([ZoomMethods.ColorBox, ZoomMethods.Magnific].indexOf(reimg.Settings.zoomMethod) < 0) {
                 //Let's make the image panel a little wider
                 const naturalWidth = $image[0].naturalWidth,
                       screenWidth = $(window).width();
@@ -348,9 +351,9 @@ function ReIMG(altLabels, settings) {
                 $zoomBtn.css({
                     'left': newLeft
                 });
+                imgposition = 'absolute';
             }
             $zoomImg.addClass('ReIMG-ZoomOut');
-            imgposition = 'absolute';
         }
 
         $image.css({
