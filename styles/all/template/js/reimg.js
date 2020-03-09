@@ -67,12 +67,12 @@ function ReIMG(altLabels, settings) {
             case ZoomMethods.ColorBox:  //Use Colorbox plugin
                 const $window = $(window);
                 $(imageSelector).colorbox({
-                    current: reimgAltLabels.Current,
-                    previous: reimgAltLabels.Previous,
-                    next: reimgAltLabels.Next,
-                    close: reimgAltLabels.Close,
-                    xhrError: reimgAltLabels.XhrError,
-                    imgError: reimgAltLabels.ImgError,
+                    current: reimg.AltLabels.Current,
+                    previous: reimg.AltLabels.Previous,
+                    next: reimg.AltLabels.Next,
+                    close: reimg.AltLabels.Close,
+                    xhrError: reimg.AltLabels.XhrError,
+                    imgError: reimg.AltLabels.ImgError,
                     rel: 'gal', //Show as gallery
                     photo: true,
                     scalePhotos: true,
@@ -97,11 +97,19 @@ function ReIMG(altLabels, settings) {
                     cursor: null,
                     gallery: {
                         enabled: true,
-                        navigateByImgClick: true
+                        navigateByImgClick: true,
+                        tPrev: reimg.AltLabels.PreviousTitle,
+                        tNext: reimg.AltLabels.NextTitle,
+                        tCounter: reimg.AltLabels.Counter,
+                        tClose: reimg.AltLabels.CloseTitle
                     },
                     callbacks: {
                         open: function () {
+                            reimg.ZoomMoreRemove();
                             reimg.ZoomMoreAdd('img.mfp-img');
+                        },
+                        close: function () {
+                            reimg.ZoomMoreRemove();
                         }
                     }
                 });
@@ -125,10 +133,10 @@ function ReIMG(altLabels, settings) {
 
         //Check to see if real dimensions differ from current dimensions
         if (reimg.Settings.reimgForAll || (realWidth !== $(image).width() || realHeight !== $(image).height())) {
-            const zoomText = reimg.AltLabels.ZoomIn.replace(/%1\$d/, realWidth).replace(/%2\$d/, realHeight);
-            const anchorHtml = `<a href="${t.src}" data-reimgwidth="${realWidth}" data-reimgheight="${realHeight}" title="${zoomText}" class="ReIMG-Anchor"></a>`;
+            const zoomText = reimg.AltLabels.ZoomIn.replace(/%1\$d/, realWidth).replace(/%2\$d/, realHeight),
+                  anchorHtml = `<a href="${t.src}" data-reimgwidth="${realWidth}" data-reimgheight="${realHeight}" title="${zoomText}" class="ReIMG-Anchor"></a>`,
+                  $reimgButton = $('<span class="ReIMG-ZoomIn"></span>');
 
-            const $reimgButton = $('<span class="ReIMG-ZoomIn"></span>');
             $reimgButton.wrap(anchorHtml);
             $reimgButton.data('realWidth', realWidth);
             $reimgButton.data('realHeight', realHeight);
@@ -167,7 +175,7 @@ function ReIMG(altLabels, settings) {
     };
 
     reimg.NavigationOn = function (instance, selector) {
-        $(`<button type="button" id="imagelightbox-close" title="${reimgAltLabels.Close}"></button>`).appendTo('body').on('click touchend', function () {
+        $(`<button type="button" id="imagelightbox-close" title="${reimg.AltLabels.Close}"></button>`).appendTo('body').on('click touchend', function () {
             $(this).remove();
             instance.quitImageLightbox();
             return false;
@@ -214,14 +222,14 @@ function ReIMG(altLabels, settings) {
 
     reimg.ZoomMoreAdd = function (imageselector) {
         const $image = $(imageselector),
-            $imgAnchor = $("a.ReIMG-Anchor[href='" + $image.attr("src") + "']"),
-            reimgheight = parseInt($imgAnchor.data("reimgheight")),
-            reimgwidth = parseInt($imgAnchor.data("reimgwidth")),
-            positionleft = $image.css('left'),
-            positiontop = $image.css('top'),
-            $reimgClicked = $('<div/>', {id: 'ReIMG-Clicked'});
+              $imgAnchor = $("a.ReIMG-Anchor[href='" + $image.attr("src") + "']"),
+              reimgheight = parseInt($imgAnchor.data("reimgheight")),
+              reimgwidth = parseInt($imgAnchor.data("reimgwidth")),
+              positionleft = $image.css('left'),
+              $reimgClicked = $('<div/>', {id: 'ReIMG-Clicked'});
 
-        let $addContainer = (element) => $('#ReIMG-Overlay').after(element);
+        let $addContainer = (element) => $('#ReIMG-Overlay').after(element),
+            positiontop = $image.css('top');
 
         switch (reimg.Settings.zoomMethod) {
             case ZoomMethods.ColorBox:
@@ -229,7 +237,8 @@ function ReIMG(altLabels, settings) {
                 break;
 
             case ZoomMethods.Magnific:
-                $addContainer = null;
+                positiontop = $('.mfp-close').height();
+                $addContainer = (element) => $('img.mfp-img').before(element);
                 break;
         }
 
@@ -261,7 +270,10 @@ function ReIMG(altLabels, settings) {
 
             $reimgClicked.data('origwidth', $image.css('width'));
             $reimgClicked.data('origheight', $image.css('height'));
-            $image.appendTo($reimgClicked);
+
+            if (reimg.Settings.zoomMethod !== ZoomMethods.Magnific) {
+                $image.appendTo($reimgClicked);
+            }
 
             $addContainer($reimgClicked);
         }
@@ -312,10 +324,10 @@ function ReIMG(altLabels, settings) {
                 'left': $zoomBtn.data('reimgleft')
             });
         } else {
-            if (reimg.Settings.zoomMethod !== ZoomMethods.ColorBox) {
+            if ([ZoomMethods.ColorBox, ZoomMethods.Magnific].indexOf(reimg.Settings.zoomMethod) < 0) {
                 //Let's make the image panel a little wider
                 const naturalWidth = $image[0].naturalWidth,
-                    screenWidth = $(window).width();
+                      screenWidth = $(window).width();
 
                 let newWidth = 0,
                     screenOffset = 400;
