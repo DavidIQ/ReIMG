@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "Expands resized images using a lightbox-type modal.",
 	"homepage": "https://www.phpbb.com/customise/db/extension/reimg/",
-	"version": "3.0.0",
+	"version": "3.0.0-b2",
 	"keywords": ["phpbb", "extension", "image", "resizer", "reimg", "lightbox"],
 	"license": "GPL-2.0-only",
 	"authors": [
