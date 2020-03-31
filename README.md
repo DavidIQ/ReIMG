@@ -1,4 +1,4 @@
-[![ReIMG](http://phpbb.davidiq.com/download/file.php?id=149)](http://phpbb.davidiq.com/viewtopic.php?f=19&t=571)
+[![ReIMG](https://www.davidiq.com/support/download/file.php?id=149)](https://www.davidiq.com/support/viewtopic.php?f=19&t=571)
 
 # ReIMG Image Resizer Extension
 
